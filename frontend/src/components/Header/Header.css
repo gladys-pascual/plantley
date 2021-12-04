@@ -1,0 +1,40 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 36px 40px 16px 40px;
+  background-color: rgb(50, 48, 48);
+}
+
+.shop-heading,
+.header-links {
+  color: white;
+  text-decoration: none;
+}
+
+.shop-heading {
+  font-family: "Fuzzy Bubbles", cursive;
+  text-align: center;
+}
+
+.shop-heading h1 {
+  margin-top: 0;
+  margin-bottom: 10px;
+}
+
+.header-links span {
+  letter-spacing: 2px;
+  font-size: 14px;
+}
+
+.contact-us {
+  margin-left: 32px;
+}
+
+.basket-icon {
+  margin-left: 32px;
+}
+
+.header-icons {
+  color: white;
+}
