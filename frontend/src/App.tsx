@@ -1,9 +1,10 @@
-import "./App.scss";
+import React from "react";
+import "./App.css";
 
 function App() {
   return (
     <div>
-    <h1>plantey</h1>
+      <h1>plantley</h1>
     </div>
   );
 }
