@@ -16,7 +16,6 @@ ecommerce site to buy house plants
 
 ### User stories
 
-
 ### Design
 
 - #### Typography and Colour Scheme
@@ -24,10 +23,10 @@ ecommerce site to buy house plants
   - In this project, [Materialize V1.0.0](https://materializecss.com/) was used to create a responsive front-end. The default typography was used, while [colour palette](https://materializecss.com/color.html) teal, with different shades, were used for the colour scheme.
 
 - #### Logo
-  - 
-  
+  -
 - #### Favicon
-  - 
+
+  -
 
 - #### Animations
   -
@@ -40,6 +39,7 @@ ecommerce site to buy house plants
 <br>
 
 ## Database architecture
+
 <hr>
 
 <br>
@@ -51,16 +51,13 @@ ecommerce site to buy house plants
 
 ### xxxxxx
 
-
 <br>
 
 ### xxxxxxx
 
--
-<br>
+- <br>
 
 ### xxxxxx
-
 
 <br>
 
@@ -70,13 +67,9 @@ ecommerce site to buy house plants
 
 ### xxxxxxx
 
-
-
 ### xxxxxxxxx
 
-
 <br>
-
 
 ### Accessibility
 
@@ -219,58 +212,51 @@ The following technologies have been used in this project:
   npm install react-router-dom
   ```
 
-
 ## Testing
 
 <hr>
-
-
 
 The W3C Markup Validator and W3C CSS Validator Services were used to validate every page of the project to ensure there were no syntax errors in the project.
 
 - [W3C Markup Validator](https://validator.w3.org/#validate_by_uri) <br>
 
- added on `<section>` tags, with a class name of `sr-only` so it does not appear on the page and not change the current UI, but avoid the warning. 
+added on `<section>` tags, with a class name of `sr-only` so it does not appear on the page and not change the current UI, but avoid the warning.
 
 - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_uri) <br>
-1. The following errror appeared: 
 
+1. The following errror appeared:
 
 <br>
 <br>
-
 
 <br>
 
 ### During the development, the following issues were encountered:
 
-
 ### Manual testing were also performed to ensure that the application works as intended. During this, the following errors were found and were rectified:
 
 1. xxxxxxxxx
 
-    <br>
-
-2. xxxxxxxx
-   
 <br>
 
+2. xxxxxxxx
+
+<br>
 
 3. xxxxxxxx
 
 <br>
 
 4. xxxxxxxxxxx
-   
+
 <br>
 
-
-   
 ## Deployment
 
 <hr>
 
 ### Heroku
+
 1. Create a heroku account. Create a new app and select your region.
 2. Prepare the local workspace for Heroku. Create a `requirements.txt` file by:
    ```
@@ -281,15 +267,15 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
    echo web: python app.py > Procfile
    ```
 4. Setup the configuration variables in heroku, by: <br>
-   IP            = 0.0.0.0 <br>
-   PORT          = 5000 <br>
-   MONGO_URI     = mongo_db_uri <br>
-   SECRET_KEY    = your_secret_key <br>
-   MONGO_DBNAME  = your_database_name <br>
+   IP = 0.0.0.0 <br>
+   PORT = 5000 <br>
+   MONGO_URI = mongo_db_uri <br>
+   SECRET_KEY = your_secret_key <br>
+   MONGO_DBNAME = your_database_name <br>
 
-5. Connect the GitHub repository to the project and allow for automatic deployment. 
-<br>
-<br>
+5. Connect the GitHub repository to the project and allow for automatic deployment.
+   <br>
+   <br>
 
 ### Forking the GitHub Repository
 
@@ -297,7 +283,7 @@ By forking the GitHub Repository we make a copy of the original repository on ou
 
 1. At the top of the Repository, above the "Settings" Button on the menu, locate the "Fork" Button.
 2. You should now have a copy of the original repository in your GitHub account.
-   
+
 <br>
 <br>
 
@@ -318,13 +304,13 @@ git clone https://github.com/USERNAME/REPOSITORY
 <hr>
 
 ### Code
+
 - xxx
 - xxx
 
 ### Content
 
+- Background image from unsplash https://unsplash.com/photos/yb3hsmz4utg
 - All content was written by the developer.
 
 ### Acknowledgements
-
-

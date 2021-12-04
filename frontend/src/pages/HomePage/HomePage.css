@@ -27,3 +27,34 @@
   animation-duration: 5s;
   animation-fill-mode: forwards;
 }
+
+.banner-text {
+  position: absolute;
+  top: 40vh;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+/* 
+.banner-text h2 {
+  font-size: 4em;
+  font-family: "Caveat", cursive;
+  letter-spacing: 8px;
+  color: lightgray;
+  margin: 20px;
+} */
+
+.shop-now-link {
+  font-size: 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: #fdd6c6;
+  padding: 16px;
+  border-radius: 12px;
+  letter-spacing: 2px;
+  color: black;
+}
+
+.shop-now-link:hover {
+  background-color: rgb(198, 160, 166);
+}

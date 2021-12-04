@@ -1,6 +1,7 @@
 import * as React from "react";
 import HomePageBackground from "../../lib/homepage-background.jpg";
 import "./HomePage.css";
+import { Link } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -12,6 +13,11 @@ const HomePage = () => {
             alt="homepage background image, monstera plant"
             className="homepage-background-image"
           />
+        </div>
+        <div className="banner-text">
+          <Link to="/shop" className="shop-now-link">
+            Shop now
+          </Link>
         </div>
       </div>
     </section>

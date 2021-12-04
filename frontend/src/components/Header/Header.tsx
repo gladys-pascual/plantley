@@ -2,7 +2,7 @@ import * as React from "react";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
 import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
-import { NavLink, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import "./Header.css";
 
@@ -15,16 +15,16 @@ const Header = () => {
         </Link>
       </div>
       <div>
-        <Link to="" className="shop-heading">
+        <Link to="/" className="shop-heading">
           <h1>PLANTLEY</h1>
         </Link>
         <div>
-          <NavLink to="" className="header-links shop">
+          <Link to="/shop" className="header-links shop">
             <span>SHOP</span>
-          </NavLink>
-          <NavLink to="" className="header-links contact-us">
+          </Link>
+          <Link to="/contact-us" className="header-links contact-us">
             <span>CONTACT US</span>
-          </NavLink>
+          </Link>
         </div>
       </div>
       <div>
