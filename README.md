@@ -112,6 +112,7 @@ The following technologies have been used in this project:
 ### Frameworks, Libraries & Programs Used
 
 - Django
+- [Django REST framework](https://www.django-rest-framework.org/)
 - [React](https://reactjs.org/)
 
   - Using React for my project was pre-approved by my mentor, Narender Singh, with the permission from Code Institute.
