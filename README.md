@@ -113,6 +113,7 @@ The following technologies have been used in this project:
 
 - Django
 - [Django REST framework](https://www.django-rest-framework.org/)
+- Pillow - image processing library
 - [React](https://reactjs.org/)
 
   - Using React for my project was pre-approved by my mentor, Narender Singh, with the permission from Code Institute.
