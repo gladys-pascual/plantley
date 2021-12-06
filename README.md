@@ -111,10 +111,18 @@ The following technologies have been used in this project:
 
 ### Frameworks, Libraries & Programs Used
 
+BE
+
 - Django
 - [Django REST framework](https://www.django-rest-framework.org/)
 - Pillow - image processing library
+- Django cors headers https://pypi.org/project/django-cors-headers/
+
+FE
+
 - [React](https://reactjs.org/)
+- axios
+- react-query
 
   - Using React for my project was pre-approved by my mentor, Narender Singh, with the permission from Code Institute.
   - React is a JavaScript library used for building user interfaces through encapsulated components that manage their own state.

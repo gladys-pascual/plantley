@@ -10,7 +10,7 @@ const HomePage = () => {
         <div className="homepage-background-image">
           <img
             src={HomePageBackground}
-            alt="homepage background image, monstera plant"
+            alt="homepage background, monstera plant"
             className="homepage-background-image"
           />
         </div>
