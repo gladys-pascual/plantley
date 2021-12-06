@@ -1,8 +1,10 @@
 from django.shortcuts import render
 from django.http import JsonResponse
 from rest_framework.decorators import api_view
-from .plants import plants
 from rest_framework.response import Response
+
+from .models import Plant
+from .serializers import PlantSerializer
 
 
 # Create your views here.
@@ -18,7 +20,9 @@ def getRoutes(request):
 
 @api_view(['GET'])
 def getPlants(request):
-    return Response(plants)
+    plants = Plant.objects.all()
+    serializer = PlantSerializer(plants, many=True)
+    return Response(serializer.data)
 
 
 @api_view(['GET'])
