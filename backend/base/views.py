@@ -27,10 +27,6 @@ def getPlants(request):
 
 @api_view(['GET'])
 def getPlant(request, pk):
-    plant = None
-    for i in plants:
-        if i['id'] == pk:
-            plant = i
-            break
-
-    return Response(plant)
+    plant = Plant.objects.get(id=pk)
+    serializer = PlantSerializer(plant, many=False)
+    return Response(serializer.data)
