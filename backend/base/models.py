@@ -5,11 +5,12 @@ from django.contrib.auth.models import User
 
 
 class Plant(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=50, null=True, blank=True)
     image = models.ImageField(null=True, blank=True)
     price = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True)
+    potSize = models.CharField(max_length=20, null=True, blank=True)
     description = models.TextField(null=True, blank=True)
     countInStock = models.IntegerField(null=True, blank=True, default=0)
     filterByPlantSize = models.CharField(max_length=30, null=True, blank=True)
@@ -26,7 +27,7 @@ class Plant(models.Model):
 
 
 class Order(models.Model):
-    user = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
+    userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     paymentMethod = models.CharField(max_length=50, null=True, blank=True)
     taxPrice = models.DecimalField(
         max_digits=7, decimal_places=2, null=True, blank=True)
