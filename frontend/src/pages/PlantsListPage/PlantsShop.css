@@ -1,0 +1,17 @@
+.plants-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.plants {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 90vw;
+}
+
+@media only screen and (max-width: 1200px) {
+  .plants {
+    width: 1000vw;
+  }
+}
