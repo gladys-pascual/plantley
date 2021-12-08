@@ -20,7 +20,7 @@ const Header = () => {
         </Link>
         <div>
           <Link
-            to="/shop"
+            to="/plants"
             className="header-links shop"
             data-testid="shop-header-link"
           >

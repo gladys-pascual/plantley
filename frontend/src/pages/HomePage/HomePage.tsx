@@ -15,7 +15,7 @@ const HomePage = () => {
           />
         </div>
         <div className="banner-text">
-          <Link to="/shop" className="shop-now-link">
+          <Link to="/plants" className="shop-now-link">
             Shop now
           </Link>
         </div>

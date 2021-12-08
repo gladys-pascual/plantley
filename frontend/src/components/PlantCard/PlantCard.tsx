@@ -5,16 +5,18 @@ import CardMedia from "@mui/material/CardMedia";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 import "./PlantCard.css";
+import { Link } from "react-router-dom";
 
 type PlantCardProps = {
   image: string;
   name: string;
   price: string;
+  id: number;
 };
 
-const PlantCard = ({ image, name, price }: PlantCardProps) => {
+const PlantCard = ({ image, name, price, id }: PlantCardProps) => {
   return (
-    <div className="plant-card-wrapper">
+    <Link to={`/plants/${id}`} className="plant-card-wrapper">
       <Card className="plant-card" sx={{ maxWidth: 345 }}>
         <CardActionArea>
           <CardMedia
@@ -33,7 +35,7 @@ const PlantCard = ({ image, name, price }: PlantCardProps) => {
           </CardContent>
         </CardActionArea>
       </Card>
-    </div>
+    </Link>
   );
 };
 

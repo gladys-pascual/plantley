@@ -28,6 +28,7 @@ const PlantsShopPage = () => {
                   image={plant.image}
                   name={plant.name}
                   price={plant.price}
+                  id={plant.id}
                 />
               ))}
             </div>
