@@ -1,10 +1,10 @@
 import * as React from "react";
 import "./App.css";
-import HomePage from "./pages/HomePage/HomePage";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { QueryClient, QueryClientProvider } from "react-query";
 import Header from "./components/Header/Header";
-import PlantsShopPage from "./pages/PlantsListPage/PlantsShopPage";
+import HomePage from "./pages/HomePage/HomePage";
+import PlantsShopPage from "./pages/PlantsShopPage/PlantsShopPage";
 import ContactUs from "./pages/ContactUs/ContactUs";
 
 const queryClient = new QueryClient({
