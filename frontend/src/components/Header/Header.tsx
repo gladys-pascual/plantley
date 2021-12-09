@@ -19,11 +19,10 @@ const Header = () => {
           <h1>PLANTLEY</h1>
         </Link>
         <div>
-          <Link
-            to="/plants"
-            className="header-links shop"
-            data-testid="shop-header-link"
-          >
+          <Link to="/" className="header-links">
+            <span>HOME</span>
+          </Link>
+          <Link to="/plants" className="header-links shop">
             <span>SHOP</span>
           </Link>
           <Link to="/contact-us" className="header-links contact-us">

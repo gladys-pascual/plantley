@@ -7,7 +7,7 @@ export const usePlant = (id?: string) => {
     isLoading: plantDetailsLoading,
     error: plantDetailsError,
   } = useQuery({
-    queryKey: ["getPlant"],
+    queryKey: ["getPlant", id],
     queryFn: () => getPlant(id).then((data) => data),
   });
 

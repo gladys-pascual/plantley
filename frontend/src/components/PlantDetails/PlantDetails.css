@@ -1,0 +1,86 @@
+.plant-details-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.plant-details {
+  width: 90vw;
+}
+
+.pic-and-info {
+  display: flex;
+  justify-content: center;
+}
+
+.plant-img-wrapper {
+  width: 40vw;
+}
+
+.plant-img {
+  width: 100%;
+}
+
+.info .plant-name {
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.info .price {
+  color: green;
+}
+
+.info {
+  margin-left: 60px;
+  width: 40vw;
+}
+
+.plant-details .body-text {
+  line-height: 28px;
+  letter-spacing: 0.5px;
+}
+
+.add-to-cart {
+  display: flex;
+  justify-content: space-around;
+}
+
+.care-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.care {
+  width: 85vw;
+}
+
+@media only screen and (max-width: 1000px) {
+  .pic-and-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .plant-img-wrapper {
+    width: 80vw;
+    margin-bottom: 40px;
+  }
+
+  .plant-img {
+    width: 100%;
+  }
+
+  .info {
+    margin-left: 0;
+    width: 80vw;
+  }
+
+  .care {
+    width: 80vw;
+  }
+}
+
+@media only screen and (max-width: 450px) {
+  .add-to-cart {
+    flex-direction: column;
+  }
+}
