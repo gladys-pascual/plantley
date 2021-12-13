@@ -35,7 +35,7 @@ const Header = () => {
           <PersonOutlineOutlinedIcon className="header-icons user-icon" />
         </Link>
 
-        <Link to="">
+        <Link to="/cart">
           <ShoppingBasketOutlinedIcon className="header-icons basket-icon" />
         </Link>
       </div>

@@ -1,0 +1,16 @@
+.cart-item {
+  display: flex;
+  align-items: center;
+}
+
+.cart-img-wrapper {
+  width: 150px;
+}
+
+.cart-img {
+  width: 100%;
+}
+
+.name-and-size {
+  padding-left: 12px;
+}

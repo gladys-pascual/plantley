@@ -25,6 +25,7 @@ const PlantDetails = ({ plantDetails }: PlantDetailsProp) => {
     toxicity,
     countInStock,
   } = plantDetails;
+
   return (
     <div className="plant-details-wrapper">
       <div className="plant-details">
@@ -79,6 +80,7 @@ const PlantDetails = ({ plantDetails }: PlantDetailsProp) => {
                 <TextField
                   id="outlined-number"
                   label="Quantity"
+                  name="quantity"
                   type="number"
                   InputLabelProps={{
                     shrink: true,
@@ -86,7 +88,11 @@ const PlantDetails = ({ plantDetails }: PlantDetailsProp) => {
                   inputProps={{ inputMode: "numeric", min: 0 }}
                   size="small"
                 />
-                <Button variant="contained" endIcon={<ShoppingBasketIcon />}>
+                <Button
+                  onClick={() => console.log("hello")}
+                  variant="contained"
+                  endIcon={<ShoppingBasketIcon />}
+                >
                   <Typography variant="button"> add to cart</Typography>
                 </Button>
               </div>
