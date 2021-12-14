@@ -123,6 +123,7 @@ FE
 - [React](https://reactjs.org/)
 - axios
 - react-query
+- MSW for testing
 
   - Using React for my project was pre-approved by my mentor, Narender Singh, with the permission from Code Institute.
   - React is a JavaScript library used for building user interfaces through encapsulated components that manage their own state.
