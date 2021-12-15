@@ -11,6 +11,7 @@
 .pic-and-info {
   display: flex;
   justify-content: center;
+  align-items: center;
 }
 
 .plant-img-wrapper {
@@ -42,7 +43,47 @@
 
 .add-to-cart {
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
+}
+
+.counter {
+  display: flex;
+  width: 190 px;
+  padding-right: 32px;
+}
+
+.counter-action {
+  border: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px;
+  cursor: pointer;
+  outline: none;
+  background-color: #dcdcdc;
+}
+
+.increment:hover {
+  background: #83d97c;
+}
+
+.decrement:hover {
+  background: #ef5350;
+}
+
+.disable-decrement {
+  background-color: white;
+  cursor: auto;
+  border: 2px solid #dcdcdc;
+  border-radius: 4px;
+}
+
+.counter-score {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 16px;
+  align-self: center;
+  padding: 0px 8px;
+  width: 30px;
 }
 
 .care-wrapper {
@@ -76,11 +117,5 @@
 
   .care {
     width: 80vw;
-  }
-}
-
-@media only screen and (max-width: 450px) {
-  .add-to-cart {
-    flex-direction: column;
   }
 }

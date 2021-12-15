@@ -8,6 +8,7 @@ import PlantsShopPage from "./pages/PlantsShopPage/PlantsShopPage";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import PlantDetailPage from "./pages/PlantDetailPage/PlantDetailPage";
 import Cart from "./pages/Cart/Cart";
+import { CountProvider } from "./components/CountContext/CountContext";
 
 const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
@@ -18,13 +19,15 @@ function App() {
     <QueryClientProvider client={queryClient}>
       <Router>
         <Header />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/plants" element={<PlantsShopPage />} />
-          <Route path="/plants/:id" element={<PlantDetailPage />} />
-          <Route path="/contact-us" element={<ContactUs />} />
-          <Route path="/cart" element={<Cart />} />
-        </Routes>
+        <CountProvider>
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/plants" element={<PlantsShopPage />} />
+            <Route path="/plants/:id" element={<PlantDetailPage />} />
+            <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/cart" element={<Cart />} />
+          </Routes>
+        </CountProvider>
       </Router>
     </QueryClientProvider>
   );

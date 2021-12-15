@@ -3,16 +3,22 @@ import { Plant } from "../../types";
 import Button from "@mui/material/Button";
 import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
 import Typography from "@mui/material/Typography";
-import TextField from "@mui/material/TextField";
 import Alert from "@mui/material/Alert";
-
 import "./PlantDetails.css";
+import { useCount } from "../CountContext/CountContext";
 
 type PlantDetailsProp = {
   plantDetails: Plant;
 };
 
 const PlantDetails = ({ plantDetails }: PlantDetailsProp) => {
+  const {
+    state: { count },
+    setCount,
+  } = useCount();
+
+  const [disableDecrement, setDisableDecrement] = React.useState(false);
+
   const {
     name,
     image,
@@ -25,6 +31,18 @@ const PlantDetails = ({ plantDetails }: PlantDetailsProp) => {
     toxicity,
     countInStock,
   } = plantDetails;
+
+  const increment = () => setCount((c) => c + 1);
+  const decrement = () => setCount((c) => c - 1);
+
+  React.useEffect(() => {
+    if (count <= 0) {
+      setDisableDecrement(true);
+    }
+    return () => {
+      setDisableDecrement(false);
+    };
+  }, [count]);
 
   return (
     <div className="plant-details-wrapper">
@@ -77,19 +95,28 @@ const PlantDetails = ({ plantDetails }: PlantDetailsProp) => {
             <br />
             {countInStock ? (
               <div className="add-to-cart">
-                <TextField
-                  id="outlined-number"
-                  label="Quantity"
-                  name="quantity"
-                  type="number"
-                  InputLabelProps={{
-                    shrink: true,
-                  }}
-                  inputProps={{ inputMode: "numeric", min: 0 }}
-                  size="small"
-                />
+                <div className="counter">
+                  <button
+                    className={`counter-action ${
+                      disableDecrement ? "disable-decrement" : "decrement"
+                    }`}
+                    onClick={decrement}
+                    disabled={disableDecrement}
+                  >
+                    {" "}
+                    -{" "}
+                  </button>
+                  <span className="counter-score">{count}</span>
+                  <button
+                    className="counter-action increment"
+                    onClick={increment}
+                  >
+                    {" "}
+                    +{" "}
+                  </button>
+                </div>
                 <Button
-                  onClick={() => console.log("hello")}
+                  onClick={() => console.log("button")}
                   variant="contained"
                   endIcon={<ShoppingBasketIcon />}
                 >
