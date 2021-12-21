@@ -1,12 +1,17 @@
 import * as React from "react";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import ShoppingBasketOutlinedIcon from "@mui/icons-material/ShoppingBasketOutlined";
+import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import { Link } from "react-router-dom";
 
 import "./Header.css";
 
-const Header = () => {
+type HeaderProps = {
+  hasCartItems: boolean;
+};
+
+const Header = ({ hasCartItems }: HeaderProps) => {
   return (
     <header className="header">
       <div>
@@ -36,7 +41,14 @@ const Header = () => {
         </Link>
 
         <Link to="/cart">
-          <ShoppingBasketOutlinedIcon className="header-icons basket-icon" />
+          {hasCartItems ? (
+            <AddShoppingCartOutlinedIcon
+              className="header-icons basket-icon-plus"
+              color="warning"
+            />
+          ) : (
+            <ShoppingCartOutlinedIcon className="header-icons basket-icon" />
+          )}
         </Link>
       </div>
     </header>

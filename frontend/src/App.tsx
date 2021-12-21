@@ -14,16 +14,51 @@ const queryClient = new QueryClient({
   defaultOptions: { queries: { refetchOnWindowFocus: false } },
 });
 
+type CartArray = {
+  quantity: number;
+  plantId: number;
+}[];
+
 function App() {
+  const [cartArray, setCartArray] = React.useState<CartArray>([]);
+  const [hasCartItems, setHasCartItems] = React.useState(false);
+
+  const handleAddToCart = (quantity: number, plantId: number) => {
+    const isInCart = cartArray.find((item) => item.plantId === plantId);
+
+    if (isInCart) {
+      const updatedCart = cartArray.map((cartItem) =>
+        cartItem.plantId === plantId
+          ? { plantId, quantity: quantity + cartItem.quantity }
+          : cartItem
+      );
+      setCartArray(updatedCart);
+    } else {
+      setCartArray([...cartArray, { quantity, plantId }]);
+    }
+  };
+
+  React.useEffect(() => {
+    if (cartArray.length > 0) {
+      setHasCartItems(true);
+    }
+    return () => {
+      setHasCartItems(false);
+    };
+  }, [cartArray.length]);
+
   return (
     <QueryClientProvider client={queryClient}>
       <Router>
-        <Header />
+        <Header hasCartItems={hasCartItems} />
         <CountProvider>
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/plants" element={<PlantsShopPage />} />
-            <Route path="/plants/:id" element={<PlantDetailPage />} />
+            <Route
+              path="/plants/:id"
+              element={<PlantDetailPage handleAddToCart={handleAddToCart} />}
+            />
             <Route path="/contact-us" element={<ContactUs />} />
             <Route path="/cart" element={<Cart />} />
           </Routes>

@@ -5,7 +5,11 @@ import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
 import PlantDetails from "../../components/PlantDetails/PlantDetails";
 
-const PlantDetailPage = () => {
+type PlantDetailPageProp = {
+  handleAddToCart: (quantity: number, plantId: number) => void;
+};
+
+const PlantDetailPage = ({ handleAddToCart }: PlantDetailPageProp) => {
   const { id } = useParams();
 
   const { plantDetails, plantDetailsLoading, plantDetailsError } = usePlant(id);
@@ -13,7 +17,12 @@ const PlantDetailPage = () => {
     <section>
       {plantDetailsLoading && <Loading />}
       {plantDetailsError && <Error />}
-      {plantDetails && <PlantDetails plantDetails={plantDetails} />}
+      {plantDetails && (
+        <PlantDetails
+          plantDetails={plantDetails}
+          handleAddToCart={handleAddToCart}
+        />
+      )}
     </section>
   );
 };

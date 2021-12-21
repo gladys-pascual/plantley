@@ -9,7 +9,7 @@ const CountContext = React.createContext<
 >(undefined);
 
 function CountProvider({ children }: CountProviderProps) {
-  const [count, setCount] = React.useState(0);
+  const [count, setCount] = React.useState(1);
   const value = { state: { count }, setCount };
 
   return (

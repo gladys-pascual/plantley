@@ -60,20 +60,20 @@
   cursor: pointer;
   outline: none;
   background-color: #dcdcdc;
+  border: 0.5px solid #dcdcdc;
+  border-radius: 4px;
 }
 
-.increment:hover {
-  background: #83d97c;
-}
-
+.increment:hover,
 .decrement:hover {
-  background: #ef5350;
+  background: #fdd6c6;
+  border: 0.5px solid #fdd6c6;
 }
 
 .disable-decrement {
   background-color: white;
   cursor: auto;
-  border: 2px solid #dcdcdc;
+  border: 0.5px solid #dcdcdc;
   border-radius: 4px;
 }
 
