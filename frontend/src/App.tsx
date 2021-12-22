@@ -22,6 +22,8 @@ type CartArray = {
 function App() {
   const [cartArray, setCartArray] = React.useState<CartArray>([]);
   const [hasCartItems, setHasCartItems] = React.useState(false);
+  const [cartArrayFromStorage, setCartArrayFromStorage] =
+    React.useState<CartArray>([]);
 
   const handleAddToCart = (quantity: number, plantId: number) => {
     const isInCart = cartArray.find((item) => item.plantId === plantId);
@@ -33,19 +35,39 @@ function App() {
           : cartItem
       );
       setCartArray(updatedCart);
+      localStorage.setItem("cartItems", JSON.stringify(updatedCart));
     } else {
       setCartArray([...cartArray, { quantity, plantId }]);
+      localStorage.setItem(
+        "cartItems",
+        JSON.stringify([...cartArray, { quantity, plantId }])
+      );
     }
   };
 
+  const handleRemoveToCart = (plantId: number) => {
+    const updatedCart = cartArray.filter(
+      (cartItem) => cartItem.plantId === plantId
+    );
+    setCartArray(updatedCart);
+    localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+  };
+
   React.useEffect(() => {
-    if (cartArray.length > 0) {
+    const localStorageCartItems = localStorage.getItem("cartItems");
+    if (localStorageCartItems) {
+      setCartArrayFromStorage(JSON.parse(localStorageCartItems));
+    }
+  }, [cartArray]);
+
+  React.useEffect(() => {
+    if (cartArrayFromStorage.length > 0) {
       setHasCartItems(true);
     }
     return () => {
       setHasCartItems(false);
     };
-  }, [cartArray.length]);
+  }, [cartArrayFromStorage.length]);
 
   return (
     <QueryClientProvider client={queryClient}>
@@ -60,7 +82,15 @@ function App() {
               element={<PlantDetailPage handleAddToCart={handleAddToCart} />}
             />
             <Route path="/contact-us" element={<ContactUs />} />
-            <Route path="/cart" element={<Cart />} />
+            <Route
+              path="/cart"
+              element={
+                <Cart
+                  cartArrayFromStorage={cartArrayFromStorage}
+                  handleRemoveToCart={handleRemoveToCart}
+                />
+              }
+            />
           </Routes>
         </CountProvider>
       </Router>

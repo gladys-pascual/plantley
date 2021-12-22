@@ -3,7 +3,13 @@ import Typography from "@mui/material/Typography";
 import "./Cart.css";
 import CartItem from "../../components/CartItem/CartItem";
 
-const Cart = () => {
+type CartProps = {
+  cartArrayFromStorage: { plantId: number; quantity: number }[];
+  handleRemoveToCart: (plantId: number) => void;
+};
+
+const Cart = ({ cartArrayFromStorage, handleRemoveToCart }: CartProps) => {
+  console.log(`cartArrayFromStorage`, cartArrayFromStorage);
   return (
     <div className="cart">
       <Typography
@@ -16,7 +22,9 @@ const Cart = () => {
         Your cart
       </Typography>
       <div className="cart-items">
-        <CartItem />
+        {cartArrayFromStorage.map((item) => (
+          <CartItem item={item} handleRemoveToCart={handleRemoveToCart} />
+        ))}
       </div>
     </div>
   );
