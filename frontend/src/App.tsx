@@ -46,9 +46,10 @@ function App() {
   };
 
   const handleRemoveToCart = (plantId: number) => {
-    const updatedCart = cartArray.filter(
-      (cartItem) => cartItem.plantId === plantId
+    const updatedCart = cartArrayFromStorage.filter(
+      (cartItem) => cartItem.plantId !== plantId
     );
+    console.log(`updatedCart`, updatedCart);
     setCartArray(updatedCart);
     localStorage.setItem("cartItems", JSON.stringify(updatedCart));
   };

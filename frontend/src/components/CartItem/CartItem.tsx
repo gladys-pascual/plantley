@@ -4,6 +4,8 @@ import "./CartItem.css";
 import { usePlant } from "../../hooks/usePlant";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
+import IconButton from "@mui/material/IconButton";
+import ClearIcon from "@mui/icons-material/Clear";
 
 type CartItemProps = {
   item: {
@@ -18,7 +20,6 @@ const CartItem = ({ item, handleRemoveToCart }: CartItemProps) => {
     item.plantId.toString()
   );
 
-  console.log(`plantDetails`, plantDetails);
   return (
     <>
       {plantDetailsLoading && <Loading />}
@@ -43,6 +44,12 @@ const CartItem = ({ item, handleRemoveToCart }: CartItemProps) => {
               Quantity: {item.quantity}
             </Typography>
           </div>
+          <IconButton
+            aria-label="delete"
+            onClick={() => handleRemoveToCart(plantDetails.id)}
+          >
+            <ClearIcon />
+          </IconButton>
         </div>
       )}
     </>

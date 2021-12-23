@@ -1,5 +1,25 @@
-.cart .cart-heading {
+.cart .cart-heading,
+.cart .cart-heading-empty {
   font-weight: 300;
   letter-spacing: 2px;
   margin-top: 40px;
+}
+
+.cart .cart-heading-empty {
+  padding-top: 20vh;
+}
+
+.shop-cart-link {
+  font-size: 20px;
+  text-transform: uppercase;
+  text-decoration: none;
+  background-color: #fdd6c6;
+  padding: 16px;
+  border-radius: 12px;
+  letter-spacing: 2px;
+  color: black;
+}
+
+.shop-cart-link:hover {
+  background-color: rgb(198, 160, 166);
 }
