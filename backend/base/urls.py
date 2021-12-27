@@ -7,7 +7,9 @@ urlpatterns = [
          name='token_obtain_pair'),
     path('', views.getRoutes, name='routes'),
 
-    path('users/profile', views.getUserProfile, name='user-profile'),
+    path('users/profile', views.getUserProfile, name='users-profile'),
+    path('users/', views.getUsers, name='users'),
+
 
     path('plants/', views.getPlants, name='plants'),
     path('plants/<str:pk>', views.getPlant, name='plant'),
