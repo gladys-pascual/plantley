@@ -16,7 +16,7 @@ const PlantDetailPage = ({ handleAddToCart }: PlantDetailPageProp) => {
   return (
     <section>
       {plantDetailsLoading && <Loading />}
-      {plantDetailsError && <Error />}
+      {!plantDetailsLoading && plantDetailsError && <Error />}
       {plantDetails && (
         <PlantDetails
           plantDetails={plantDetails}

@@ -5,7 +5,7 @@ export const usePlants = () => {
   const {
     data: plants,
     isLoading: plantsLoading,
-    error: plantsError,
+    isError: plantsError,
   } = useQuery({
     queryKey: ["getPlants"],
     queryFn: () => getPlants().then((data) => data),

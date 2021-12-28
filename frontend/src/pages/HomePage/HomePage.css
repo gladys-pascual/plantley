@@ -16,11 +16,11 @@
   overflow: hidden;
 }
 
-.homepage-background-image {
+.homepage-background-image-wrapper {
   width: 100vw;
 }
 
-.homepage-background-image img {
+.homepage-background-image {
   width: 100%;
   opacity: 0.9;
   animation-name: banner-zoom;

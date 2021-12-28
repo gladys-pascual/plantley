@@ -36,7 +36,7 @@ const Header = ({ hasCartItems }: HeaderProps) => {
         </div>
       </div>
       <div>
-        <Link to="">
+        <Link to="/login">
           <PersonOutlineOutlinedIcon className="header-icons user-icon" />
         </Link>
 

@@ -8,6 +8,7 @@ import Typography from "@mui/material/Typography";
 import Alert from "@mui/material/Alert";
 import "./PlantDetails.css";
 import { useCount } from "../CountContext/CountContext";
+import { Link } from "react-router-dom";
 
 type PlantDetailsProp = {
   plantDetails: Plant;
@@ -157,7 +158,9 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
                         severity="success"
                         sx={{ width: "100%" }}
                       >
-                        {`You've successfully added ${count} ${name} to your cart.`}
+                        {`You've successfully added ${count} ${name} to your ${(
+                          <Link to="/cart">cart</Link>
+                        )}.`}
                       </CartSuccessSnackbar>
                     </Snackbar>
                   </div>

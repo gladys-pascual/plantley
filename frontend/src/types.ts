@@ -15,3 +15,19 @@ export type Plant = {
   userId: number;
   water: string;
 };
+
+export type LogInData = {
+  username: string;
+  password: string;
+};
+
+export type LogInResponse = {
+  refresh: string;
+  access: string;
+  id: number;
+  username: string;
+  email: string;
+  name: string;
+  isAdmin: boolean;
+  token: string;
+};

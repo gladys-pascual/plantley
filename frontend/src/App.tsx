@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage/HomePage";
 import PlantsShopPage from "./pages/PlantsShopPage/PlantsShopPage";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import PlantDetailPage from "./pages/PlantDetailPage/PlantDetailPage";
+import LogInPage from "./pages/LogInPage/LogInPage";
 import Cart from "./pages/Cart/Cart";
 import { CountProvider } from "./components/CountContext/CountContext";
 
@@ -83,6 +84,7 @@ function App() {
               element={<PlantDetailPage handleAddToCart={handleAddToCart} />}
             />
             <Route path="/contact-us" element={<ContactUs />} />
+            <Route path="/login" element={<LogInPage />} />
             <Route
               path="/cart"
               element={

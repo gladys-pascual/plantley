@@ -7,7 +7,7 @@ const HomePage = () => {
   return (
     <section className="homepage">
       <div className="homepage-background">
-        <div className="homepage-background-image">
+        <div className="homepage-background-image-wrapper">
           <img
             src={HomePageBackground}
             alt="homepage background, monstera plant"
