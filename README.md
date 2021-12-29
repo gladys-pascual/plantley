@@ -246,7 +246,12 @@ added on `<section>` tags, with a class name of `sr-only` so it does not appear 
 
 ### Manual testing were also performed to ensure that the application works as intended. During this, the following errors were found and were rectified:
 
-1. xxxxxxxxx
+1. Loading and error page are shown at the same time
+   - condition was changed so that error is only shown if loading is false already.
+   - there are times that there was error, saved in cache, therefore it's true
+   - refetching item again therefore loading
+   - putting the condition of not loading and error true covers this
+2.
 
 <br>
 
