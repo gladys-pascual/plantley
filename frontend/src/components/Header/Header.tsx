@@ -9,9 +9,10 @@ import "./Header.css";
 
 type HeaderProps = {
   hasCartItems: boolean;
+  hasTokenInLocalStorage: boolean;
 };
 
-const Header = ({ hasCartItems }: HeaderProps) => {
+const Header = ({ hasCartItems, hasTokenInLocalStorage }: HeaderProps) => {
   return (
     <header className="header">
       <div>
@@ -36,9 +37,15 @@ const Header = ({ hasCartItems }: HeaderProps) => {
         </div>
       </div>
       <div>
-        <Link to="/login">
-          <PersonOutlineOutlinedIcon className="header-icons user-icon" />
-        </Link>
+        {hasTokenInLocalStorage ? (
+          <Link to="/users/profile">
+            <PersonOutlineOutlinedIcon className="header-icons user-icon" />
+          </Link>
+        ) : (
+          <Link to="/login">
+            <PersonOutlineOutlinedIcon className="header-icons user-icon" />
+          </Link>
+        )}
 
         <Link to="/cart">
           {hasCartItems ? (

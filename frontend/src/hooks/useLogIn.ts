@@ -2,8 +2,11 @@ import { AxiosError } from "axios";
 import { useMutation } from "react-query";
 import postLogIn from "../api/postLogIn";
 import { LogInData } from "../types";
+import { useNavigate } from "react-router-dom";
 
 export const useLogIn = (postLogInFail: (error: AxiosError) => void) => {
+  const navigate = useNavigate();
+
   const {
     mutate: logIn,
     isLoading: logInLoading,
@@ -13,9 +16,8 @@ export const useLogIn = (postLogInFail: (error: AxiosError) => void) => {
     (formData: LogInData) => postLogIn(formData).then((data) => data),
     {
       onSuccess: (data) => {
-        console.log(`data`, data);
-        // save data in local storage
-        // navigate to profile
+        localStorage.setItem("token", data.token);
+        navigate("/users/profile");
       },
       onError: (error: AxiosError) => {
         postLogInFail(error);

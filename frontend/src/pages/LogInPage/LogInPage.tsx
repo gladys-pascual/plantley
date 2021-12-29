@@ -3,34 +3,29 @@ import LogInForm from "../../components/LogInForm/LogInForm";
 import { LogInData } from "../../types";
 import { useLogIn } from "../../hooks/useLogIn";
 import { AxiosError } from "axios";
+import "../../lib/shared/logInAndRegisterForm.css";
 
 const LogInPage = () => {
-  const [isLogInError, setIsLogInError] = React.useState(false);
   const [logInErrorMessage, setLogInErrorMessage] = React.useState("");
 
   const postLogInFail = (error: AxiosError) => {
-    setIsLogInError(true);
     if (error?.response?.status === 401) {
-      console.log(`errorresponse`, error.response);
       setLogInErrorMessage(error?.response?.data.detail);
     } else {
       setLogInErrorMessage("Something went wrong, please try again.");
     }
   };
 
-  const { logIn, logInLoading, logInError, logInData } =
-    useLogIn(postLogInFail);
+  const { logIn } = useLogIn(postLogInFail);
 
   const handleLogIn = (data: LogInData) => {
     logIn(data);
-    console.log(`data`, data);
   };
 
   return (
-    <section>
+    <section className="log-in-page">
       <LogInForm
         handleLogIn={handleLogIn}
-        isLogInError={isLogInError}
         logInErrorMessage={logInErrorMessage}
       />
     </section>

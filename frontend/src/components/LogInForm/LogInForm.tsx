@@ -2,19 +2,14 @@ import React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
 import { LogInData } from "../../types";
-// import "../../assets/logInAndSignUpForm.scss";
+import "../../lib/shared/logInAndRegisterForm.css";
 
 type LogInFormProps = {
   handleLogIn: (data: LogInData) => void;
-  isLogInError: boolean;
   logInErrorMessage: string;
 };
 
-const LogInForm = ({
-  handleLogIn,
-  isLogInError,
-  logInErrorMessage,
-}: LogInFormProps) => {
+const LogInForm = ({ handleLogIn, logInErrorMessage }: LogInFormProps) => {
   const {
     register,
     handleSubmit,
@@ -27,10 +22,6 @@ const LogInForm = ({
     handleLogIn(data);
   };
 
-  console.log(`isLogInError`, isLogInError);
-
-  console.log(`logInErrorMessage`, logInErrorMessage);
-
   return (
     <div className="form-wrapper">
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -42,7 +33,11 @@ const LogInForm = ({
             {...register("username", {
               required: "This is required.",
               maxLength: 20,
-              pattern: /\S+@\S+\.\S+/,
+              pattern: {
+                value: /\S+@\S+\.\S+/,
+                message: "Value does not match email format.",
+              },
+              // pattern: /\S+@\S+\.\S+/,
             })}
             // ref={register({
             //   required: "This is required.",
@@ -72,7 +67,11 @@ const LogInForm = ({
             aria-invalid={errors.passward ? "true" : "false"}
             {...register("password", {
               required: "This is required.",
-              maxLength: 20,
+              // minLength: 5,
+              minLength: {
+                value: 5,
+                message: "Minimum length is 5 characters.",
+              },
             })}
             // ref={register({
             //   required: "This is required.",
@@ -101,12 +100,12 @@ const LogInForm = ({
           SUBMIT
         </button>
 
-        {isLogInError && (
+        {logInErrorMessage && (
           <p className="incorrect-details">{logInErrorMessage}</p>
         )}
       </form>
       <p className="register">
-        Don't have an account? <Link to="/signup">Register</Link>
+        Don't have an account? <Link to="/register">Register</Link>
       </p>
     </div>
   );
