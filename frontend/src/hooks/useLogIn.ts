@@ -11,7 +11,6 @@ export const useLogIn = (postLogInFail: (error: AxiosError) => void) => {
     mutate: logIn,
     isLoading: logInLoading,
     isError: logInError,
-    data: logInData,
   } = useMutation(
     (formData: LogInData) => postLogIn(formData).then((data) => data),
     {
@@ -29,6 +28,5 @@ export const useLogIn = (postLogInFail: (error: AxiosError) => void) => {
     logIn,
     logInLoading,
     logInError,
-    logInData,
   };
 };

@@ -21,6 +21,12 @@ export type LogInData = {
   password: string;
 };
 
+export type RegisterData = {
+  name: string;
+  username: string;
+  password: string;
+};
+
 export type LogInResponse = {
   refresh: string;
   access: string;

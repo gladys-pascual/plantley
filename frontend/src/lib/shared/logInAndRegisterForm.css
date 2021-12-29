@@ -13,7 +13,7 @@ input[type="number"] {
 }
 
 .log-in-page,
-.sign-up-page {
+.register-page {
   display: flex;
   justify-content: center;
   padding-top: 15vh;
@@ -30,12 +30,8 @@ input[type="number"] {
   width: 250px;
 }
 
-h1 {
-  font-family: "Fuzzy Bubbles", cursive;
-}
-
 .log-in,
-.sign-up {
+.register {
   display: flex;
   flex-direction: column;
 }
@@ -94,12 +90,13 @@ input {
   display: inline;
   content: "⚠ ";
 }
-.register a {
+
+.register-link a {
   font-weight: 800;
   color: rgb(198, 160, 166);
   font-size: 1.05em;
   text-decoration: none;
 }
-.register a:hover {
+.register-link a:hover {
   text-decoration: underline;
 }

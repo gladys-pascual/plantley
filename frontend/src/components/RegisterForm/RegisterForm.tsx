@@ -1,15 +1,18 @@
 import * as React from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
-import { LogInData } from "../../types";
+import { RegisterData } from "../../types";
 import "../../lib/shared/logInAndRegisterForm.css";
 
-type LogInFormProps = {
-  handleLogIn: (data: LogInData) => void;
-  logInErrorMessage: string;
+type RegisterFormProps = {
+  handleRegister: (data: RegisterData) => void;
+  registerErrorMessage: string;
 };
 
-const LogInForm = ({ handleLogIn, logInErrorMessage }: LogInFormProps) => {
+const RegisterForm = ({
+  handleRegister,
+  registerErrorMessage,
+}: RegisterFormProps) => {
   const {
     register,
     handleSubmit,
@@ -18,19 +21,19 @@ const LogInForm = ({ handleLogIn, logInErrorMessage }: LogInFormProps) => {
     mode: "onBlur",
   });
 
-  const onSubmit = (data: LogInData) => {
-    handleLogIn(data);
+  const onSubmit = (data: RegisterData) => {
+    handleRegister(data);
   };
 
   return (
     <div className="form-wrapper">
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
-        <h1>Login</h1>
-        <section className="log-in">
+        <h1>Sign Up</h1>
+        <section className="register">
           <input
-            id="username"
+            id="email"
             aria-invalid={errors.email ? "true" : "false"}
-            {...register("username", {
+            {...register("email", {
               required: "This is required.",
               maxLength: 20,
               pattern: {
@@ -51,6 +54,31 @@ const LogInForm = ({ handleLogIn, logInErrorMessage }: LogInFormProps) => {
               role="alert"
             >
               {errors.username && errors.username.message}
+            </p>
+          </div>
+          <input
+            id="name"
+            aria-invalid={errors.name ? "true" : "false"}
+            {...register("name", {
+              required: "This is required.",
+              minLength: {
+                value: 3,
+                message: "Minimum length is 3 characters.",
+              },
+            })}
+            type="text"
+            placeholder="Full Name"
+          />
+          <div className="error-message-container">
+            <p
+              className={
+                errors.name
+                  ? "error-message"
+                  : "error-message-hidden error-message"
+              }
+              role="alert"
+            >
+              {errors.name && errors.name.message}
             </p>
           </div>
 
@@ -84,15 +112,12 @@ const LogInForm = ({ handleLogIn, logInErrorMessage }: LogInFormProps) => {
           SUBMIT
         </button>
 
-        {logInErrorMessage && (
-          <p className="incorrect-details">{logInErrorMessage}</p>
+        {registerErrorMessage && (
+          <p className="incorrect-details">{registerErrorMessage}</p>
         )}
       </form>
-      <p className="register-link">
-        Don't have an account? <Link to="/register">Register</Link>
-      </p>
     </div>
   );
 };
 
-export default LogInForm;
+export default RegisterForm;

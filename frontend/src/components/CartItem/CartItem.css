@@ -1,3 +1,7 @@
+.cart-heading {
+  align-items: center;
+}
+
 .cart-item {
   display: flex;
   align-items: center;

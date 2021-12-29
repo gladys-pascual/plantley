@@ -1,5 +1,4 @@
 import * as React from "react";
-import Typography from "@mui/material/Typography";
 import "./Cart.css";
 import CartItem from "../../components/CartItem/CartItem";
 import { Link } from "react-router-dom";
@@ -12,32 +11,22 @@ type CartProps = {
 const Cart = ({ cartArrayFromStorage, handleRemoveToCart }: CartProps) => {
   return (
     <div className="cart">
-      {cartArrayFromStorage.length > 0 ? (
-        <Typography
-          gutterBottom
-          variant="h3"
-          component="h3"
-          align="center"
-          className="cart-heading"
-        >
-          Your cart
-        </Typography>
-      ) : (
-        <Typography
-          gutterBottom
-          variant="h3"
-          component="h3"
-          align="center"
-          className="cart-heading-empty"
-        >
-          Your cart is currently empty.
-          <div>
-            <Link to="/plants" className="shop-cart-link">
-              Shop now
-            </Link>
-          </div>
-        </Typography>
-      )}
+      <div className="cart-heading">
+        {cartArrayFromStorage.length > 0 ? (
+          <h1 className="cart-heading">Your cart</h1>
+        ) : (
+          <>
+            <h1 className="cart-heading-empty">
+              Your cart is currently empty.
+            </h1>
+            <div>
+              <Link to="/plants" className="shop-cart-link">
+                Shop now
+              </Link>
+            </div>
+          </>
+        )}
+      </div>
 
       <div className="cart-items">
         {cartArrayFromStorage.map((item) => (
