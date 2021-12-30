@@ -19,11 +19,9 @@ const Cart = ({ cartArrayFromStorage, handleRemoveToCart }: CartProps) => {
             <h1 className="cart-heading-empty">
               Your cart is currently empty.
             </h1>
-            <div>
-              <Link to="/plants" className="shop-cart-link">
-                Shop now
-              </Link>
-            </div>
+            <Link to="/plants" className="shop-cart-link">
+              Shop now
+            </Link>
           </>
         )}
       </div>

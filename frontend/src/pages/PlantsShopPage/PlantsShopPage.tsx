@@ -1,5 +1,4 @@
 import * as React from "react";
-import Search from "../../components/Search/Search";
 import { usePlants } from "../../hooks/usePlants";
 import PlantCard from "../../components/PlantCard/PlantCard";
 import { Plant } from "../../types";
@@ -15,11 +14,8 @@ const PlantsShopPage = () => {
       {plantsLoading && <Loading />}
       {plantsError && <Error />}
       {plants && (
-        <section data-testid="plant-shop-page">
-          <h1>Plants</h1>
-          <div>
-            <Search />
-          </div>
+        <section data-testid="plant-shop-page" className="plant-shop-page">
+          <h1>House Plants</h1>
           <div className="plants-wrapper">
             <div className="plants">
               {plants.map((plant: Plant) => (

@@ -50,3 +50,15 @@
 .shop-now-link:hover {
   background-color: rgb(198, 160, 166);
 }
+
+@media only screen and (max-width: 1000px) {
+  .homepage-background-image-wrapper {
+    width: 130vh;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  .homepage-background-image-wrapper {
+    width: 130vh;
+  }
+}

@@ -37,3 +37,8 @@ export type LogInResponse = {
   isAdmin: boolean;
   token: string;
 };
+
+export type HeaderProps = {
+  hasCartItems: boolean;
+  hasTokenInLocalStorage: boolean;
+};
