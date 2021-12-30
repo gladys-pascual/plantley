@@ -29,6 +29,9 @@ const RegisterForm = ({
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <h1>Sign Up</h1>
         <section className="register">
+          <label htmlFor="email" className="label">
+            Email Address
+          </label>
           <input
             id="email"
             aria-invalid={errors.email ? "true" : "false"}
@@ -46,15 +49,18 @@ const RegisterForm = ({
           <div className="error-message-container">
             <p
               className={
-                errors.username
+                errors.email
                   ? "error-message"
                   : "error-message-hidden error-message"
               }
               role="alert"
             >
-              {errors.username && errors.username.message}
+              {errors.email && errors.email.message}
             </p>
           </div>
+          <label htmlFor="name" className="label">
+            Full Name
+          </label>
           <input
             id="name"
             aria-invalid={errors.name ? "true" : "false"}
@@ -80,7 +86,9 @@ const RegisterForm = ({
               {errors.name && errors.name.message}
             </p>
           </div>
-
+          <label htmlFor="password" className="label">
+            Password
+          </label>
           <input
             id="password"
             aria-invalid={errors.passward ? "true" : "false"}

@@ -27,6 +27,9 @@ const LogInForm = ({ handleLogIn, logInErrorMessage }: LogInFormProps) => {
       <form className="form" onSubmit={handleSubmit(onSubmit)}>
         <h1>Login</h1>
         <section className="log-in">
+          <label htmlFor="email" className="label">
+            Email Address
+          </label>
           <input
             id="username"
             aria-invalid={errors.email ? "true" : "false"}
@@ -53,7 +56,9 @@ const LogInForm = ({ handleLogIn, logInErrorMessage }: LogInFormProps) => {
               {errors.username && errors.username.message}
             </p>
           </div>
-
+          <label htmlFor="password" className="label">
+            Password
+          </label>
           <input
             id="password"
             aria-invalid={errors.passward ? "true" : "false"}

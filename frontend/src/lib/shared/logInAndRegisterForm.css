@@ -46,6 +46,10 @@ input {
   padding: 8px 4px;
 }
 
+.label {
+  margin-bottom: 4px;
+}
+
 .error-message-hidden {
   visibility: hidden;
 }
