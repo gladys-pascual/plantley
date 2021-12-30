@@ -16,6 +16,12 @@
   padding-top: 20vh;
 }
 
+.total-price {
+  font-size: 24px;
+  align-self: flex-end;
+  margin-right: 25vw;
+}
+
 .shop-cart-link {
   font-size: 20px;
   text-transform: uppercase;
@@ -30,4 +36,11 @@
 
 .shop-cart-link:hover {
   background-color: rgb(198, 160, 166);
+}
+
+@media only screen and (max-width: 800px) {
+  .total-price {
+    align-self: center;
+    margin-right: 0;
+  }
 }

@@ -6,7 +6,11 @@ import Error from "../../components/Error/Error";
 import PlantDetails from "../../components/PlantDetails/PlantDetails";
 
 type PlantDetailPageProp = {
-  handleAddToCart: (quantity: number, plantId: number) => void;
+  handleAddToCart: (
+    quantity: number,
+    plantId: number,
+    plantUnitPrice: number
+  ) => void;
 };
 
 const PlantDetailPage = ({ handleAddToCart }: PlantDetailPageProp) => {

@@ -22,6 +22,7 @@ const queryClient = new QueryClient({
 type CartArray = {
   quantity: number;
   plantId: number;
+  plantUnitPrice: number;
 }[];
 
 function App() {
@@ -34,22 +35,26 @@ function App() {
 
   const navigate = useNavigate();
 
-  const handleAddToCart = (quantity: number, plantId: number) => {
+  const handleAddToCart = (
+    quantity: number,
+    plantId: number,
+    plantUnitPrice: number
+  ) => {
     const isInCart = cartArray.find((item) => item.plantId === plantId);
 
     if (isInCart) {
       const updatedCart = cartArray.map((cartItem) =>
         cartItem.plantId === plantId
-          ? { plantId, quantity: quantity + cartItem.quantity }
+          ? { plantId, plantUnitPrice, quantity: quantity + cartItem.quantity }
           : cartItem
       );
       setCartArray(updatedCart);
       localStorage.setItem("cartItems", JSON.stringify(updatedCart));
     } else {
-      setCartArray([...cartArray, { quantity, plantId }]);
+      setCartArray([...cartArray, { quantity, plantId, plantUnitPrice }]);
       localStorage.setItem(
         "cartItems",
-        JSON.stringify([...cartArray, { quantity, plantId }])
+        JSON.stringify([...cartArray, { quantity, plantId, plantUnitPrice }])
       );
     }
   };

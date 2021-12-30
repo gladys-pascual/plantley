@@ -11,7 +11,11 @@ import { useCount } from "../CountContext/CountContext";
 
 type PlantDetailsProp = {
   plantDetails: Plant;
-  handleAddToCart: (quantity: number, plantId: number) => void;
+  handleAddToCart: (
+    quantity: number,
+    plantId: number,
+    plantUnitPrice: number
+  ) => void;
 };
 
 const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
@@ -48,7 +52,7 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
   }, [count]);
 
   const handleSubmitCart = () => {
-    handleAddToCart(count, plantDetails.id);
+    handleAddToCart(count, plantDetails.id, parseInt(plantDetails.price));
     setOpenCarSuccessSnackbar(true);
     setCount(1);
   };
@@ -127,16 +131,14 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
                       onClick={decrement}
                       disabled={disableDecrement}
                     >
-                      {" "}
-                      -{" "}
+                      -
                     </button>
                     <span className="counter-score">{count}</span>
                     <button
                       className="counter-action increment"
                       onClick={increment}
                     >
-                      {" "}
-                      +{" "}
+                      +
                     </button>
                   </div>
                   <Button

@@ -4,8 +4,9 @@ import "./CartItem.css";
 import { usePlant } from "../../hooks/usePlant";
 import Loading from "../../components/Loading/Loading";
 import Error from "../../components/Error/Error";
-import IconButton from "@mui/material/IconButton";
+// import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Clear";
+import Button from "@mui/material/Button";
 
 type CartItemProps = {
   item: {
@@ -40,21 +41,28 @@ const CartItem = ({ item, handleRemoveToCart }: CartItemProps) => {
               <Typography gutterBottom variant="h5" component="h5">
                 {`${plantDetails.name}, ${plantDetails.potSize}`}
               </Typography>
-              <Typography gutterBottom variant="body1">
-                Quantity: {item.quantity}
+              <div className="quantity-and-unit-price">
+                <Typography gutterBottom variant="body1">
+                  Quantity: {item.quantity}
+                </Typography>
+                <Typography gutterBottom variant="body1" className="unit-price">
+                  Unit Price: {`€ ${plantDetails.price}`}
+                </Typography>
+              </div>
+              <Typography gutterBottom variant="h6">
+                Total: {`€ ${price}`}
               </Typography>
-              <Typography gutterBottom variant="body1">
-                Price: {`€ ${price}`}
-              </Typography>
+              <Button
+                onClick={() => handleRemoveToCart(plantDetails.id)}
+                variant="contained"
+                endIcon={<DeleteIcon />}
+                className="remove-cart-button"
+                color="warning"
+              >
+                <Typography variant="button"> Remove from cart </Typography>
+              </Button>
             </div>
           </div>
-          <IconButton
-            aria-label="delete"
-            onClick={() => handleRemoveToCart(plantDetails.id)}
-            className="delete-button"
-          >
-            <DeleteIcon />
-          </IconButton>
         </div>
       )}
     </>
