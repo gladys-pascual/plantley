@@ -21,3 +21,11 @@ def getPlant(request, pk):
     plant = Plant.objects.get(id=pk)
     serializer = PlantSerializer(plant, many=False)
     return Response(serializer.data)
+
+
+@api_view(['DELETE'])
+@permission_classes([IsAdminUser])
+def deletePlant(request, pk):
+    plant = Plant.objects.get(id=pk)
+    plant.delete()
+    return Response("Plant item deleted.")

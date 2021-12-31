@@ -7,7 +7,7 @@ const getUserProfile = (token: string) => {
     },
   };
   return axios
-    .get("http://127.0.0.1:8000/api/users/profile/", config)
+    .get("http://127.0.0.1:8000/api/users/profile", config)
     .then((response) => response.data);
 };
 

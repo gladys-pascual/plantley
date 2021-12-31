@@ -9,7 +9,7 @@ const config = {
 
 const postLogIn = (data: LogInData) => {
   return axios
-    .post("http://127.0.0.1:8000/api/users/login/", data, config)
+    .post("http://127.0.0.1:8000/api/users/login", data, config)
     .then((response) => response.data);
 };
 

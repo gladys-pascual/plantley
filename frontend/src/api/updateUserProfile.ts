@@ -9,7 +9,7 @@ const updateUserProfile = (data: RegisterData, token: string) => {
     },
   };
   return axios
-    .put("http://127.0.0.1:8000/api/users/profile/update/", data, config)
+    .put("http://127.0.0.1:8000/api/users/profile/update", data, config)
     .then((response) => response.data);
 };
 
