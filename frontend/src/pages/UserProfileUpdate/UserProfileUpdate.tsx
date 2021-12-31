@@ -6,24 +6,29 @@ import Button from "@mui/material/Button";
 import Typography from "@mui/material/Typography";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import "./UserProfile.css";
-import { Link } from "react-router-dom";
-import Alert from "@mui/material/Alert";
+import UserProfileUpdateForm from "../../components/UserProfileUpdateForm/UserProfileUpdateForm";
+import { RegisterData } from "../../types";
 
 type UserProfileProps = {
   handleLogOut: () => void;
-  isUpdateUserProfileSuccess: boolean;
+  updateUserProfileErrorMessage: string;
+  handleUserProfileUpdate: (data: RegisterData) => void;
 };
 
 const UserProfile = ({
   handleLogOut,
-  isUpdateUserProfileSuccess,
+  updateUserProfileErrorMessage,
+  handleUserProfileUpdate,
 }: UserProfileProps) => {
   const { userProfile, userProfileLoading, userProfileError } =
     useUserProfile();
 
+  if (userProfileLoading) {
+    return <Loading />;
+  }
+
   return (
     <section className="user-profile-wrapper">
-      {userProfileLoading && <Loading />}
       {!userProfileLoading && userProfileError && <Error />}
       {userProfile && (
         <div className="user-profile">
@@ -37,23 +42,20 @@ const UserProfile = ({
               <Typography variant="button"> Logout </Typography>
             </Button>
           </div>
-          <Typography gutterBottom variant="h6">
-            Welcome, {userProfile.name}
+          <Typography
+            gutterBottom
+            variant="h6"
+            className="user-profile-update-heading"
+          >
+            Update your profile
           </Typography>
-          <div className="update-profile-link-wrapper">
-            <Link to="/users/profile/update" className="update-profile-link">
-              Update Profile
-            </Link>
+          <div className="user-profile-update-form">
+            <UserProfileUpdateForm
+              userProfile={userProfile}
+              updateUserProfileErrorMessage={updateUserProfileErrorMessage}
+              handleUserProfileUpdate={handleUserProfileUpdate}
+            />
           </div>
-          {isUpdateUserProfileSuccess && (
-            <Alert
-              sx={{ width: "50%" }}
-              severity="success"
-              className="update-profile-success-message"
-            >
-              Your profile was updated successfully!
-            </Alert>
-          )}
         </div>
       )}
     </section>

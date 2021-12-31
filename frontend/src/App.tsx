@@ -1,7 +1,6 @@
 import * as React from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { QueryClient, QueryClientProvider } from "react-query";
 import Header from "./components/Header/Header";
 import HomePage from "./pages/HomePage/HomePage";
 import PlantsShopPage from "./pages/PlantsShopPage/PlantsShopPage";
@@ -10,14 +9,13 @@ import PlantDetailPage from "./pages/PlantDetailPage/PlantDetailPage";
 import LogInPage from "./pages/LogInPage/LogInPage";
 import RegisterPage from "./pages/RegisterPage/RegisterPage";
 import UserProfile from "./pages/UserProfile/UserProfile";
+import UserProfileUpdate from "./pages/UserProfileUpdate/UserProfileUpdate";
 import Cart from "./pages/Cart/Cart";
 import { CountProvider } from "./components/CountContext/CountContext";
 import parseJwt from "./lib/parseJwt";
 import { useNavigate } from "react-router-dom";
-
-const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } },
-});
+import { RegisterData } from "./types";
+import { useUpdateUserProfile } from "./hooks/useUpdateUserProfile";
 
 type CartArray = {
   quantity: number;
@@ -31,6 +29,10 @@ function App() {
   const [cartArrayFromStorage, setCartArrayFromStorage] =
     React.useState<CartArray>([]);
   const [hasTokenInLocalStorage, setHasTokenInLocalStorage] =
+    React.useState(false);
+  const [updateUserProfileErrorMessage, setUpdateUserProfileErrorMessage] =
+    React.useState("");
+  const [isUpdateUserProfileSuccess, setIsUpdateUserProfileSuccess] =
     React.useState(false);
 
   const navigate = useNavigate();
@@ -73,6 +75,23 @@ function App() {
     setHasTokenInLocalStorage(false);
   };
 
+  const updateUserProfileSuccess = () => {
+    setIsUpdateUserProfileSuccess(true);
+  };
+
+  const updateUserProfileError = () => {
+    setUpdateUserProfileErrorMessage("Something went wrong, please try again.");
+  };
+
+  const { userProfileUpdate } = useUpdateUserProfile(
+    updateUserProfileSuccess,
+    updateUserProfileError
+  );
+
+  const handleUserProfileUpdate = (data: RegisterData) => {
+    userProfileUpdate(data);
+  };
+
   React.useEffect(() => {
     const localStorageCartItems = localStorage.getItem("cartItems");
     if (localStorageCartItems) {
@@ -106,7 +125,7 @@ function App() {
   }, [navigate]);
 
   return (
-    <QueryClientProvider client={queryClient}>
+    <>
       <Header
         hasCartItems={hasCartItems}
         hasTokenInLocalStorage={hasTokenInLocalStorage}
@@ -124,7 +143,22 @@ function App() {
           <Route path="/register" element={<RegisterPage />} />
           <Route
             path="/users/profile"
-            element={<UserProfile handleLogOut={handleLogOut} />}
+            element={
+              <UserProfile
+                handleLogOut={handleLogOut}
+                isUpdateUserProfileSuccess={isUpdateUserProfileSuccess}
+              />
+            }
+          />
+          <Route
+            path="/users/profile/update"
+            element={
+              <UserProfileUpdate
+                handleLogOut={handleLogOut}
+                updateUserProfileErrorMessage={updateUserProfileErrorMessage}
+                handleUserProfileUpdate={handleUserProfileUpdate}
+              />
+            }
           />
           <Route
             path="/cart"
@@ -137,7 +171,7 @@ function App() {
           />
         </Routes>
       </CountProvider>
-    </QueryClientProvider>
+    </>
   );
 }
 

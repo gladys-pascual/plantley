@@ -38,6 +38,14 @@ export type LogInResponse = {
   token: string;
 };
 
+export type UserProfileResponse = {
+  email: string;
+  id: number;
+  isAdmin: boolean;
+  name: string;
+  username: string;
+};
+
 export type HeaderProps = {
   hasCartItems: boolean;
   hasTokenInLocalStorage: boolean;

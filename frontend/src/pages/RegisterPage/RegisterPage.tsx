@@ -18,7 +18,6 @@ const RegisterPage = () => {
   const { register } = useRegister(postRegisterFail);
 
   const handleRegister = (data: RegisterData) => {
-    console.log(`data`, data);
     register(data);
   };
 

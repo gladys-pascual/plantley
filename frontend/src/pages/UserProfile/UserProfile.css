@@ -31,3 +31,14 @@
 .update-profile-link:hover {
   background-color: rgb(198, 160, 166);
 }
+
+.update-profile-success-message {
+  margin-top: 20px;
+}
+
+@media only screen and (max-width: 500px) {
+  .heading-and-logout {
+    flex-direction: column;
+    margin-bottom: 40px;
+  }
+}
