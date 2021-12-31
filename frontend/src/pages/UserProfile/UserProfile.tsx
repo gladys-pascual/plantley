@@ -37,7 +37,7 @@ const UserProfile = ({
               <Typography variant="button"> Logout </Typography>
             </Button>
           </div>
-          <Typography gutterBottom variant="h6">
+          <Typography gutterBottom variant="h6" className="welcome-name">
             Welcome, {userProfile.name}
           </Typography>
           <div className="update-profile-link-wrapper">
@@ -53,6 +53,22 @@ const UserProfile = ({
             >
               Your profile was updated successfully!
             </Alert>
+          )}
+          {userProfile?.isAdmin && (
+            <div className="admin-functionality">
+              <h1>Admin Functionality </h1>
+              <ul className="admin-links">
+                <li>
+                  <Link to="">Manage Users</Link>
+                </li>
+                <li>
+                  <Link to="/admin/productlist">Manage Products</Link>
+                </li>
+                <li>
+                  <Link to="">Manage Orders</Link>
+                </li>
+              </ul>
+            </div>
           )}
         </div>
       )}
