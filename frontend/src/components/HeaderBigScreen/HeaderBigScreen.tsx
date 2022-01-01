@@ -28,28 +28,32 @@ const HeaderBigScreen = ({
           <span>CONTACT US</span>
         </Link>
       </div>
-      <div>
-        {hasTokenInLocalStorage ? (
-          <Link to="/users/profile">
-            <PersonOutlineOutlinedIcon className="header-icons user-icon" />
-          </Link>
-        ) : (
-          <Link to="/login">
-            <PersonOutlineOutlinedIcon className="header-icons user-icon" />
-          </Link>
-        )}
-
-        <Link to="/cart">
-          {hasCartItems ? (
-            <AddShoppingCartOutlinedIcon
-              className="header-icons basket-icon-plus"
-              color="warning"
-            />
+      <ul className="profile-and-cart">
+        <li>
+          {hasTokenInLocalStorage ? (
+            <Link to="/users/profile">
+              <PersonOutlineOutlinedIcon className="header-icons user-icon" />
+            </Link>
           ) : (
-            <ShoppingCartOutlinedIcon className="header-icons basket-icon" />
+            <Link to="/login">
+              <PersonOutlineOutlinedIcon className="header-icons user-icon" />
+            </Link>
           )}
-        </Link>
-      </div>
+        </li>
+
+        <li className="cart-icon">
+          <Link to="/cart">
+            {hasCartItems ? (
+              <AddShoppingCartOutlinedIcon
+                className="header-icons basket-icon-plus"
+                color="warning"
+              />
+            ) : (
+              <ShoppingCartOutlinedIcon className="header-icons basket-icon" />
+            )}
+          </Link>
+        </li>
+      </ul>
     </header>
   );
 };

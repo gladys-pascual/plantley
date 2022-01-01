@@ -27,9 +27,12 @@ const UserProfile = ({
     return <Loading />;
   }
 
+  if (!userProfileLoading && userProfileError) {
+    return <Error />;
+  }
+
   return (
     <section className="user-profile-wrapper">
-      {!userProfileLoading && userProfileError && <Error />}
       {userProfile && (
         <div className="user-profile">
           <div className="heading-and-logout">

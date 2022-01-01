@@ -62,7 +62,7 @@ const UserProfile = ({
                   <Link to="">Manage Users</Link>
                 </li>
                 <li>
-                  <Link to="/admin/productlist">Manage Products</Link>
+                  <Link to="/admin/plantlist">Manage Products</Link>
                 </li>
                 <li>
                   <Link to="">Manage Orders</Link>

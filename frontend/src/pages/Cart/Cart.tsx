@@ -14,8 +14,6 @@ type CartProps = {
 };
 
 const Cart = ({ cartArrayFromStorage, handleRemoveToCart }: CartProps) => {
-  console.log(`cartArrayFromStorage`, cartArrayFromStorage);
-
   const totalPrice = cartArrayFromStorage.reduce((runningTotal, cartItem) => {
     return runningTotal + cartItem.quantity * cartItem.plantUnitPrice;
   }, 0);
