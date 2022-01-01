@@ -7,7 +7,8 @@ from django.contrib.auth.models import User
 class Plant(models.Model):
     userId = models.ForeignKey(User, on_delete=models.SET_NULL, null=True)
     name = models.CharField(max_length=50, null=True, blank=True)
-    image = models.ImageField(null=True, blank=True)
+    image = models.ImageField(null=True, blank=True,
+                              default='/placeholder.jpg')
     price = models.DecimalField(
         max_digits=5, decimal_places=2, null=True, blank=True)
     potSize = models.CharField(max_length=20, null=True, blank=True)

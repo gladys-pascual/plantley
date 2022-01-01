@@ -23,6 +23,54 @@ def getPlant(request, pk):
     return Response(serializer.data)
 
 
+@api_view(['POST'])
+@permission_classes([IsAdminUser])
+def createPlant(request):
+
+    user = request.user
+    plant = Plant.objects.create(
+        userId=user,
+        name='Plant name',
+        price=0,
+        potSize='Pot size',
+        description='Plant description',
+        countInStock=0,
+        filterByPlantSize='small',
+        filterByLightRequirements='shade',
+        light='Light requirements',
+        water='Water requirements',
+        tips='Tips',
+        toxicity='Toxicity',
+    )
+
+    serializer = PlantSerializer(plant, many=False)
+    return Response(serializer.data)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAdminUser])
+def updatePlant(request, pk):
+    data = request.data
+    plant = Plant.objects.get(id=pk)
+
+    plant.name = data['name']
+    plant.price = data['price']
+    plant.potSize = data['potSize']
+    plant.description = data['description']
+    plant.countInStock = data['countInStock']
+    plant.filterByPlantSize = data['filterByPlantSize']
+    plant.filterByLightRequirements = data['filterByLightRequirements']
+    plant.light = data['light']
+    plant.water = data['water']
+    plant.tips = data['tips']
+    plant.toxicity = data['toxicity']
+
+    plant.save()
+
+    serializer = PlantSerializer(plant, many=False)
+    return Response(serializer.data)
+
+
 @api_view(['DELETE'])
 @permission_classes([IsAdminUser])
 def deletePlant(request, pk):
