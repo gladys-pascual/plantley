@@ -29,3 +29,52 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.delete-alert {
+  margin-bottom: 20px;
+}
+
+.Modal-Delete {
+  position: absolute;
+  top: 30%;
+  left: 30%;
+  right: 30%;
+  bottom: 48%;
+  background-color: white;
+  border-radius: 8px;
+  padding: 12px 20px;
+}
+
+.Overlay-Delete {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+@media only screen and (max-width: 1200px) {
+  .Modal-Delete {
+    top: 30%;
+    left: 25%;
+    right: 25%;
+    bottom: 48%;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .Modal-Delete {
+    top: 30%;
+    left: 15%;
+    right: 15%;
+    bottom: 48%;
+  }
+}
+@media only screen and (max-width: 780px) {
+  .Modal-Delete {
+    top: 30%;
+    left: 10%;
+    right: 10%;
+    bottom: 40%;
+  }
+}

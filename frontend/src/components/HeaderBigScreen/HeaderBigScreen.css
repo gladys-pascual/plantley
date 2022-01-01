@@ -67,6 +67,7 @@
 
 .profile-and-cart {
   display: flex;
+  list-style-type: none;
 }
 
 .cart-icon {

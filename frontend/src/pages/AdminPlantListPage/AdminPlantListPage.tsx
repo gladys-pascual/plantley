@@ -18,9 +18,50 @@ import Paper from "@mui/material/Paper";
 import { IconButton } from "@mui/material";
 import ModeEditOutlineIcon from "@mui/icons-material/ModeEditOutline";
 import DeleteIcon from "@mui/icons-material/Delete";
+import Modal from "react-modal";
+import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfirmation";
+import { useDeletePlant } from "../../hooks/useDeletePlant";
+import { useQueryClient } from "react-query";
+import Alert from "@mui/material/Alert";
 
 const AdminPlantList = () => {
+  const [deleteModalIsOpen, setDeleteModalIsOpen] = React.useState(false);
+  const [deleteId, setDeleteId] = React.useState("");
+  const [isDeleteSuccess, setIsDeleteSuccess] = React.useState(false);
+  const [isDeleteFail, setIsDeleteFail] = React.useState(false);
+
   const { plants, plantsLoading, plantsError } = usePlants();
+
+  const queryClient = useQueryClient();
+  queryClient.invalidateQueries("todos");
+
+  const deletePlantSuccess = () => {
+    setIsDeleteSuccess(true);
+    queryClient.invalidateQueries(["getPlants"], { exact: true });
+  };
+
+  const deletePlantFail = () => {
+    setIsDeleteFail(true);
+  };
+
+  const { deletePlantItem } = useDeletePlant(
+    deletePlantSuccess,
+    deletePlantFail
+  );
+
+  const openDeleteModal = (id: number) => {
+    setDeleteModalIsOpen(true);
+    setDeleteId(id.toString());
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModalIsOpen(false);
+  };
+
+  const handleDeleteTransaction = (id: string) => {
+    deletePlantItem(id);
+    setDeleteModalIsOpen(false);
+  };
 
   if (plantsLoading) {
     return <Loading />;
@@ -44,65 +85,95 @@ const AdminPlantList = () => {
   });
 
   return (
-    <section className="admin-plant-list-page-wrapper">
-      <div className="admin-plant-list-page">
-        <Link to="/users/profile" className="go-back-link">
-          <div>
-            <KeyboardBackspaceOutlinedIcon fontSize="small" />
+    <>
+      <section className="admin-plant-list-page-wrapper">
+        <div className="admin-plant-list-page">
+          <Link to="/users/profile" className="go-back-link">
+            <div>
+              <KeyboardBackspaceOutlinedIcon fontSize="small" />
+            </div>
+            <p>go back</p>
+          </Link>
+          <div className="heading-and-create-button">
+            <h1>Manage plants</h1>
+            <Button variant="contained" endIcon={<AddOutlinedIcon />}>
+              <Typography variant="button"> Create </Typography>
+            </Button>
           </div>
-          <p>go back</p>
-        </Link>
-        <div className="heading-and-create-button">
-          <h1>Manage plants</h1>
-          <Button
-            // onClick={() => handleLogOut()}
-            variant="contained"
-            endIcon={<AddOutlinedIcon />}
-          >
-            <Typography variant="button"> Create </Typography>
-          </Button>
-        </div>
-        <TableContainer component={Paper}>
-          <Table sx={{ minWidth: 650 }} aria-label="simple table">
-            <TableHead>
-              <TableRow>
-                <TableCell>ID</TableCell>
-                <TableCell>Plant Name</TableCell>
-                <TableCell>Pot Size</TableCell>
-                <TableCell>Price</TableCell>
-                <TableCell>Edit</TableCell>
-                <TableCell>Delete</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {rows.map((row) => (
-                <TableRow
-                  key={row.name}
-                  sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-                >
-                  <TableCell>{row.id}</TableCell>
-                  <TableCell component="th" scope="row">
-                    {row.name}
-                  </TableCell>
-                  <TableCell>{row.potSize}</TableCell>
-                  <TableCell>{row.price}</TableCell>
-                  <TableCell>
-                    <IconButton>
-                      <ModeEditOutlineIcon />
-                    </IconButton>
-                  </TableCell>
-                  <TableCell>
-                    <IconButton>
-                      <DeleteIcon />
-                    </IconButton>
-                  </TableCell>
+          {isDeleteSuccess && (
+            <Alert
+              sx={{ width: "50%" }}
+              severity="success"
+              className="delete-alert"
+            >
+              Plant item was successfully deleted.
+            </Alert>
+          )}
+          {isDeleteFail && (
+            <Alert
+              sx={{ width: "50%" }}
+              severity="error"
+              className="delete-alert"
+            >
+              Something went wrong, please try again.
+            </Alert>
+          )}
+          <TableContainer component={Paper}>
+            <Table sx={{ minWidth: 650 }} aria-label="simple table">
+              <TableHead>
+                <TableRow>
+                  <TableCell>ID</TableCell>
+                  <TableCell>Plant Name</TableCell>
+                  <TableCell>Pot Size</TableCell>
+                  <TableCell>Price</TableCell>
+                  <TableCell>Edit</TableCell>
+                  <TableCell>Delete</TableCell>
                 </TableRow>
-              ))}
-            </TableBody>
-          </Table>
-        </TableContainer>
-      </div>
-    </section>
+              </TableHead>
+              <TableBody>
+                {rows.map((row) => (
+                  <TableRow
+                    key={row.name}
+                    sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+                  >
+                    <TableCell>{row.id}</TableCell>
+                    <TableCell component="th" scope="row">
+                      {row.name}
+                    </TableCell>
+                    <TableCell>{row.potSize}</TableCell>
+                    <TableCell>{row.price}</TableCell>
+                    <TableCell>
+                      <IconButton>
+                        <ModeEditOutlineIcon />
+                      </IconButton>
+                    </TableCell>
+                    <TableCell>
+                      <IconButton onClick={() => openDeleteModal(row.id)}>
+                        <DeleteIcon />
+                      </IconButton>
+                    </TableCell>
+                  </TableRow>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </div>
+      </section>
+      <Modal
+        isOpen={deleteModalIsOpen}
+        onRequestClose={closeDeleteModal}
+        contentLabel="Delete Confirmation"
+        ariaHideApp={false}
+        className="Modal-Delete"
+        overlayClassName="Overlay-Delete"
+      >
+        <DeleteConfirmation
+          handleDeleteTransaction={handleDeleteTransaction}
+          deleteId={deleteId}
+          closeDeleteModal={closeDeleteModal}
+        />
+      </Modal>
+    </>
   );
 };
 
