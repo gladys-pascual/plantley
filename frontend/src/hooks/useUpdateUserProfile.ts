@@ -30,8 +30,6 @@ export const useUpdateUserProfile = (
     }
   );
 
-  console.log(`userProfileUpdateData hook`, userProfileUpdateData);
-
   return {
     userProfileUpdate,
     userProfileUpdateLoading,

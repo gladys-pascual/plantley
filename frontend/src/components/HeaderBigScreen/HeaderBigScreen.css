@@ -65,8 +65,12 @@
   margin-left: 32px;
 }
 
-.basket-icon,
-.basket-icon-plus {
+.profile-and-cart {
+  display: flex;
+  list-style-type: none;
+}
+
+.cart-icon {
   margin-left: 32px;
 }
 

@@ -50,3 +50,17 @@ export type HeaderProps = {
   hasCartItems: boolean;
   hasTokenInLocalStorage: boolean;
 };
+
+export type CreateOrEditPlantData = {
+  name: string;
+  price: string;
+  potSize: string;
+  description: string;
+  countInStock: number;
+  filterByPlantSize: string;
+  filterByLightRequirements: string;
+  light: string;
+  water: string;
+  tips: string;
+  toxicity: string;
+};

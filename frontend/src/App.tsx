@@ -16,6 +16,7 @@ import parseJwt from "./lib/parseJwt";
 import { useNavigate } from "react-router-dom";
 import { RegisterData } from "./types";
 import { useUpdateUserProfile } from "./hooks/useUpdateUserProfile";
+import AdminPlantListPage from "./pages/AdminPlantListPage/AdminPlantListPage";
 
 type CartArray = {
   quantity: number;
@@ -77,6 +78,10 @@ function App() {
 
   const updateUserProfileSuccess = () => {
     setIsUpdateUserProfileSuccess(true);
+  };
+
+  const updateUserProfileSuccessMessage = () => {
+    setIsUpdateUserProfileSuccess(false);
   };
 
   const updateUserProfileError = () => {
@@ -147,6 +152,9 @@ function App() {
               <UserProfile
                 handleLogOut={handleLogOut}
                 isUpdateUserProfileSuccess={isUpdateUserProfileSuccess}
+                updateUserProfileSuccessMessage={
+                  updateUserProfileSuccessMessage
+                }
               />
             }
           />
@@ -160,6 +168,7 @@ function App() {
               />
             }
           />
+          <Route path="/admin/plantlist" element={<AdminPlantListPage />} />
           <Route
             path="/cart"
             element={
