@@ -80,6 +80,10 @@ function App() {
     setIsUpdateUserProfileSuccess(true);
   };
 
+  const updateUserProfileSuccessMessage = () => {
+    setIsUpdateUserProfileSuccess(false);
+  };
+
   const updateUserProfileError = () => {
     setUpdateUserProfileErrorMessage("Something went wrong, please try again.");
   };
@@ -148,6 +152,9 @@ function App() {
               <UserProfile
                 handleLogOut={handleLogOut}
                 isUpdateUserProfileSuccess={isUpdateUserProfileSuccess}
+                updateUserProfileSuccessMessage={
+                  updateUserProfileSuccessMessage
+                }
               />
             }
           />

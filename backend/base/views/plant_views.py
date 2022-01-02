@@ -26,21 +26,36 @@ def getPlant(request, pk):
 @api_view(['POST'])
 @permission_classes([IsAdminUser])
 def createPlant(request):
-
+    data = request.data
     user = request.user
+    # plant = Plant.objects.create(
+
+    #     name='Plant name',
+    #     price=0,
+    #     potSize='Pot size',
+    #     description='Plant description',
+    #     countInStock=0,
+    #     filterByPlantSize='small',
+    #     filterByLightRequirements='shade',
+    #     light='Light requirements',
+    #     water='Water requirements',
+    #     tips='Tips',
+    #     toxicity='Toxicity',
+    # )
+
     plant = Plant.objects.create(
-        userId=user,
-        name='Plant name',
-        price=0,
-        potSize='Pot size',
-        description='Plant description',
-        countInStock=0,
-        filterByPlantSize='small',
-        filterByLightRequirements='shade',
-        light='Light requirements',
-        water='Water requirements',
-        tips='Tips',
-        toxicity='Toxicity',
+        name=data['name'],
+        price=data['price'],
+        potSize=data['potSize'],
+        description=data['description'],
+        countInStock=data['countInStock'],
+        filterByPlantSize=data['filterByPlantSize'],
+        filterByLightRequirements=data['filterByLightRequirements'],
+        light=data['light'],
+        water=data['water'],
+        tips=data['tips'],
+        toxicity=data['toxicity'],
+        userId=user
     )
 
     serializer = PlantSerializer(plant, many=False)

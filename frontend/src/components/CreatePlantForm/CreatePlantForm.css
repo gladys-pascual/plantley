@@ -1,3 +1,9 @@
+.heading-and-close {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
 .create-plant-form .label {
   font-weight: 600;
   padding-bottom: 4px;
@@ -9,22 +15,29 @@
   padding: 6px 4px;
 }
 
-.plant-label-and-input {
+.plant-label-and-input,
+.plant-label-and-image-input {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-.plant-label-and-input .label {
+.plant-label-and-input .label,
+.plant-label-and-image-input .label {
   width: 120px;
   margin-bottom: 0;
+}
+
+.plant-label-and-input input,
+.plant-label-and-input textarea {
+  border: 1px solid black;
 }
 
 .plant-form-error {
   margin-inline-start: 100px;
 }
 
-.plant-label-and-input .image {
+.plant-label-and-image-input .image {
   padding-top: 0px;
   padding-left: 0px;
 }
@@ -44,12 +57,14 @@
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
+  font-size: 12px;
 }
 
 .create-plant-buttons {
   display: flex;
   justify-content: flex-end;
   margin-top: 20px;
+  align-items: center;
 }
 
 .create-plant-buttons .create-plant-submit-button {

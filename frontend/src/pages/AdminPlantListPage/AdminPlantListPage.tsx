@@ -24,12 +24,17 @@ import { useDeletePlant } from "../../hooks/useDeletePlant";
 import { useQueryClient } from "react-query";
 import Alert from "@mui/material/Alert";
 import CreatePlantForm from "../../components/CreatePlantForm/CreatePlantForm";
+import { useCreatePlant } from "../../hooks/useCreatePlant";
+import { CreateOrEditPlantData } from "../../types";
+import { AxiosError } from "axios";
 
 const AdminPlantList = () => {
   const [createPlantModalIsOpen, setCreatePlantModalIsOpen] =
     React.useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = React.useState(false);
   const [deleteId, setDeleteId] = React.useState("");
+  const [isCreateSuccess, setIsCreateSuccess] = React.useState(false);
+  const [createFailMessage, setCreateFailMessage] = React.useState("");
   const [isDeleteSuccess, setIsDeleteSuccess] = React.useState(false);
   const [isDeleteFail, setIsDeleteFail] = React.useState(false);
 
@@ -37,6 +42,9 @@ const AdminPlantList = () => {
 
   const openCreatePlantModal = () => {
     setCreatePlantModalIsOpen(true);
+    setIsCreateSuccess(false);
+    setIsDeleteSuccess(false);
+    setIsDeleteFail(false);
   };
 
   const closeCreatePlantModal = () => {
@@ -46,6 +54,9 @@ const AdminPlantList = () => {
   const openDeleteModal = (id: number) => {
     setDeleteModalIsOpen(true);
     setDeleteId(id.toString());
+    setIsCreateSuccess(false);
+    setIsDeleteSuccess(false);
+    setIsDeleteFail(false);
   };
 
   const closeDeleteModal = () => {
@@ -53,7 +64,22 @@ const AdminPlantList = () => {
   };
 
   const queryClient = useQueryClient();
-  queryClient.invalidateQueries("todos");
+
+  const createPlantSuccess = () => {
+    setCreatePlantModalIsOpen(false);
+    setIsCreateSuccess(true);
+    queryClient.invalidateQueries(["getPlants"], { exact: true });
+  };
+
+  const createPlantFail = (error: AxiosError) => {
+    if (error?.response?.status === 401) {
+      setCreateFailMessage(error?.response?.data.detail);
+    } else {
+      setCreateFailMessage("Something went wrong, please try again.");
+    }
+  };
+
+  const { createPlant } = useCreatePlant(createPlantSuccess, createPlantFail);
 
   const deletePlantSuccess = () => {
     setIsDeleteSuccess(true);
@@ -69,7 +95,11 @@ const AdminPlantList = () => {
     deletePlantFail
   );
 
-  const handleDeleteTransaction = (id: string) => {
+  const handleCreatePlant = (data: CreateOrEditPlantData) => {
+    createPlant(data);
+  };
+
+  const handleDeletePlant = (id: string) => {
     deletePlantItem(id);
     setDeleteModalIsOpen(false);
   };
@@ -91,7 +121,7 @@ const AdminPlantList = () => {
       id: plant.id,
       name: plant.name,
       potSize: plant.potSize,
-      price: `€ ${plant.price}`,
+      price: `€${plant.price}`,
     };
   });
 
@@ -107,20 +137,34 @@ const AdminPlantList = () => {
           </Link>
           <div className="heading-and-create-button">
             <h1>Manage plants</h1>
-            <Button variant="contained" endIcon={<AddOutlinedIcon />}>
-              <Typography
-                variant="button"
-                onClick={() => openCreatePlantModal()}
-              >
-                Create
-              </Typography>
+            <Button
+              variant="contained"
+              endIcon={<AddOutlinedIcon />}
+              onClick={() => openCreatePlantModal()}
+            >
+              <Typography variant="button">Create</Typography>
             </Button>
           </div>
+          {isCreateSuccess && (
+            <Alert
+              sx={{ width: "50%" }}
+              severity="success"
+              className="delete-alert"
+              onClose={() => {
+                setIsCreateSuccess(false);
+              }}
+            >
+              Plant item was successfully added.
+            </Alert>
+          )}
           {isDeleteSuccess && (
             <Alert
               sx={{ width: "50%" }}
               severity="success"
               className="delete-alert"
+              onClose={() => {
+                setIsDeleteSuccess(false);
+              }}
             >
               Plant item was successfully deleted.
             </Alert>
@@ -130,6 +174,9 @@ const AdminPlantList = () => {
               sx={{ width: "50%" }}
               severity="error"
               className="delete-alert"
+              onClose={() => {
+                setIsDeleteFail(false);
+              }}
             >
               Something went wrong, please try again.
             </Alert>
@@ -184,9 +231,9 @@ const AdminPlantList = () => {
         overlayClassName="Overlay-Create-Plant"
       >
         <CreatePlantForm
-          // handleCreateTransaction={handleCreateTransaction}
-          // categories={categories}
+          handleCreatePlant={handleCreatePlant}
           closeCreatePlantModal={closeCreatePlantModal}
+          createFailMessage={createFailMessage}
         />
       </Modal>
       <Modal
@@ -198,7 +245,7 @@ const AdminPlantList = () => {
         overlayClassName="Overlay-Delete"
       >
         <DeleteConfirmation
-          handleDeleteTransaction={handleDeleteTransaction}
+          handleDeletePlant={handleDeletePlant}
           deleteId={deleteId}
           closeDeleteModal={closeDeleteModal}
         />

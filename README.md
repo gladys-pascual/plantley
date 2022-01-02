@@ -73,6 +73,10 @@ ecommerce site to buy house plants
 
 ### Accessibility
 
+- modal exits with escape
+- modal has a screen reader label
+- you can tab into the form
+
 Ensure accessibility throughout the website by:
 
 - Adding 'alt' text on all images.

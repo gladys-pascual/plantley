@@ -3,13 +3,13 @@ import Button from "@mui/material/Button";
 import "./DeleteConfirmation.css";
 
 type DeleteConfirmaionProps = {
-  handleDeleteTransaction: (id: string) => void;
+  handleDeletePlant: (id: string) => void;
   deleteId: string;
   closeDeleteModal: () => void;
 };
 
 const DeleteConfirmation = ({
-  handleDeleteTransaction,
+  handleDeletePlant,
   deleteId,
   closeDeleteModal,
 }: DeleteConfirmaionProps) => {
@@ -21,7 +21,7 @@ const DeleteConfirmation = ({
           className="yes"
           variant="contained"
           color="error"
-          onClick={() => handleDeleteTransaction(deleteId)}
+          onClick={() => handleDeletePlant(deleteId)}
         >
           Yes, delete this plant.
         </Button>

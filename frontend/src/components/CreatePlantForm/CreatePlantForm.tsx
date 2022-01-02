@@ -3,12 +3,21 @@ import Button from "@mui/material/Button";
 import { useForm } from "react-hook-form";
 import "./CreatePlantForm.css";
 import Typography from "@mui/material/Typography";
+import { IconButton } from "@mui/material";
+import CloseIcon from "@mui/icons-material/Close";
+import { CreateOrEditPlantData } from "../../types";
 
 type CreatePlantFormProps = {
+  handleCreatePlant: (data: CreateOrEditPlantData) => void;
   closeCreatePlantModal: () => void;
+  createFailMessage: string;
 };
 
-const CreatePlantForm = ({ closeCreatePlantModal }: CreatePlantFormProps) => {
+const CreatePlantForm = ({
+  handleCreatePlant,
+  closeCreatePlantModal,
+  createFailMessage,
+}: CreatePlantFormProps) => {
   const {
     register,
     handleSubmit,
@@ -17,15 +26,20 @@ const CreatePlantForm = ({ closeCreatePlantModal }: CreatePlantFormProps) => {
     mode: "onBlur",
   });
 
-  const onSubmit = (data: any) => {
-    console.log(`data`, data);
+  const onSubmit = (data: CreateOrEditPlantData) => {
+    handleCreatePlant(data);
   };
 
   return (
     <div>
       <div className="create-plant-form-wrapper">
         <form className="create-plant-form" onSubmit={handleSubmit(onSubmit)}>
-          <h1>Create a plant item</h1>
+          <div className="heading-and-close">
+            <h1>Create a plant item</h1>
+            <IconButton onClick={closeCreatePlantModal}>
+              <CloseIcon />
+            </IconButton>
+          </div>
           <section>
             <div className="plant-label-and-input">
               <label htmlFor="name" className="label">
@@ -37,10 +51,6 @@ const CreatePlantForm = ({ closeCreatePlantModal }: CreatePlantFormProps) => {
                 {...register("name", {
                   required: "This is required.",
                   maxLength: 20,
-                  pattern: {
-                    value: /\S+@\S+\.\S+/,
-                    message: "Value does not match email format.",
-                  },
                 })}
                 type="text"
                 placeholder="Plant Name"
@@ -87,6 +97,32 @@ const CreatePlantForm = ({ closeCreatePlantModal }: CreatePlantFormProps) => {
             </div>
 
             <div className="plant-label-and-input">
+              <label htmlFor="countInStock" className="label">
+                Count
+              </label>
+              <input
+                id="countInStock"
+                {...register("countInStock", {
+                  required: "This is required.",
+                })}
+                type="number"
+                placeholder="Count in stock"
+              />
+            </div>
+            <div className="error-message-container">
+              <p
+                className={
+                  errors.price
+                    ? "error-message plant-form-error"
+                    : "error-message-hidden error-message plant-form-error"
+                }
+                role="alert"
+              >
+                {errors.countInStock && errors.countInStock.message}
+              </p>
+            </div>
+
+            <div className="plant-label-and-image-input">
               <label htmlFor="image" className="label">
                 Plant Image
               </label>
@@ -120,18 +156,6 @@ const CreatePlantForm = ({ closeCreatePlantModal }: CreatePlantFormProps) => {
                 {...register("description")}
                 placeholder="Description"
                 className="textarea"
-              />
-            </div>
-
-            <div className="plant-label-and-input input-margin-top">
-              <label htmlFor="countInStock" className="label">
-                Count
-              </label>
-              <input
-                id="countInStock"
-                {...register("countInStock")}
-                type="number"
-                placeholder="Count in stock"
               />
             </div>
 
@@ -206,29 +230,29 @@ const CreatePlantForm = ({ closeCreatePlantModal }: CreatePlantFormProps) => {
               />
             </div>
           </section>
+
           <div className="create-plant-butttons-wrapper">
             <div className="create-plant-buttons">
+              {createFailMessage && (
+                <p className="incorrect-details">{createFailMessage}</p>
+              )}
               <Button
-                // onClick={() => ()}
+                onClick={closeCreatePlantModal}
                 variant="contained"
                 color="inherit"
               >
                 <Typography variant="button"> Cancel</Typography>
               </Button>
               <Button
-                // onClick={() => ()}
                 variant="contained"
                 color="primary"
                 className="create-plant-submit-button"
+                type="submit"
               >
                 <Typography variant="button"> Create</Typography>
               </Button>
             </div>
           </div>
-
-          {/* {logInErrorMessage && (
-            <p className="incorrect-details">{logInErrorMessage}</p>
-          )} */}
         </form>
       </div>
     </div>

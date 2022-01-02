@@ -12,19 +12,27 @@ import Alert from "@mui/material/Alert";
 type UserProfileProps = {
   handleLogOut: () => void;
   isUpdateUserProfileSuccess: boolean;
+  updateUserProfileSuccessMessage: () => void;
 };
 
 const UserProfile = ({
   handleLogOut,
   isUpdateUserProfileSuccess,
+  updateUserProfileSuccessMessage,
 }: UserProfileProps) => {
   const { userProfile, userProfileLoading, userProfileError } =
     useUserProfile();
 
+  if (userProfileLoading) {
+    return <Loading />;
+  }
+
+  if (!userProfileLoading && userProfileError) {
+    return <Error />;
+  }
+
   return (
     <section className="user-profile-wrapper">
-      {userProfileLoading && <Loading />}
-      {!userProfileLoading && userProfileError && <Error />}
       {userProfile && (
         <div className="user-profile">
           <div className="heading-and-logout">
@@ -50,6 +58,7 @@ const UserProfile = ({
               sx={{ width: "50%" }}
               severity="success"
               className="update-profile-success-message"
+              onClose={updateUserProfileSuccessMessage}
             >
               Your profile was updated successfully!
             </Alert>
