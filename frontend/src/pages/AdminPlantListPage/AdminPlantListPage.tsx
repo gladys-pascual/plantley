@@ -27,14 +27,20 @@ import CreatePlantForm from "../../components/CreatePlantForm/CreatePlantForm";
 import { useCreatePlant } from "../../hooks/useCreatePlant";
 import { CreateOrEditPlantData } from "../../types";
 import { AxiosError } from "axios";
+import EditPlantForm from "../../components/EditPlantForm/EditPlantForm";
+import { useUpdatePlant } from "../../hooks/useUpdatePlant";
 
 const AdminPlantList = () => {
   const [createPlantModalIsOpen, setCreatePlantModalIsOpen] =
     React.useState(false);
+  const [editPlantModalIsOpen, setEditPlantModalIsOpen] = React.useState(false);
+  const [plantIdToEdit, setPlantIdToEdit] = React.useState("");
   const [deleteModalIsOpen, setDeleteModalIsOpen] = React.useState(false);
   const [deleteId, setDeleteId] = React.useState("");
   const [isCreateSuccess, setIsCreateSuccess] = React.useState(false);
+  const [isEditSuccess, setIsEditSuccess] = React.useState(false);
   const [createFailMessage, setCreateFailMessage] = React.useState("");
+  const [editFailMessage, setEditFailMessage] = React.useState("");
   const [isDeleteSuccess, setIsDeleteSuccess] = React.useState(false);
   const [isDeleteFail, setIsDeleteFail] = React.useState(false);
 
@@ -49,6 +55,18 @@ const AdminPlantList = () => {
 
   const closeCreatePlantModal = () => {
     setCreatePlantModalIsOpen(false);
+  };
+
+  const openEditPlantModal = (id: number) => {
+    setEditPlantModalIsOpen(true);
+    setPlantIdToEdit(id.toString());
+    setIsCreateSuccess(false);
+    setIsDeleteSuccess(false);
+    setIsDeleteFail(false);
+  };
+
+  const closeEditPlantModal = () => {
+    setEditPlantModalIsOpen(false);
   };
 
   const openDeleteModal = (id: number) => {
@@ -81,6 +99,23 @@ const AdminPlantList = () => {
 
   const { createPlant } = useCreatePlant(createPlantSuccess, createPlantFail);
 
+  const editPlantSuccess = () => {
+    setEditPlantModalIsOpen(false);
+    setIsEditSuccess(true);
+    queryClient.invalidateQueries(["getPlants"], { exact: true });
+    queryClient.invalidateQueries(["getPlant", plantIdToEdit], { exact: true });
+  };
+
+  const editPlantFail = (error: AxiosError) => {
+    if (error?.response?.status === 401) {
+      setEditFailMessage(error?.response?.data.detail);
+    } else {
+      setEditFailMessage("Something went wrong, please try again.");
+    }
+  };
+
+  const { updatePlantItem } = useUpdatePlant(editPlantSuccess, editPlantFail);
+
   const deletePlantSuccess = () => {
     setIsDeleteSuccess(true);
     queryClient.invalidateQueries(["getPlants"], { exact: true });
@@ -97,6 +132,10 @@ const AdminPlantList = () => {
 
   const handleCreatePlant = (data: CreateOrEditPlantData) => {
     createPlant(data);
+  };
+
+  const handleEditPlant = (formData: CreateOrEditPlantData) => {
+    updatePlantItem({ formData, id: plantIdToEdit });
   };
 
   const handleDeletePlant = (id: string) => {
@@ -149,7 +188,7 @@ const AdminPlantList = () => {
             <Alert
               sx={{ width: "50%" }}
               severity="success"
-              className="delete-alert"
+              className="status-alert"
               onClose={() => {
                 setIsCreateSuccess(false);
               }}
@@ -157,11 +196,24 @@ const AdminPlantList = () => {
               Plant item was successfully added.
             </Alert>
           )}
+          {isEditSuccess && (
+            <Alert
+              sx={{ width: "50%" }}
+              severity="success"
+              className="status-alert"
+              onClose={() => {
+                setIsEditSuccess(false);
+              }}
+            >
+              Plant item was successfully updated.
+            </Alert>
+          )}
+
           {isDeleteSuccess && (
             <Alert
               sx={{ width: "50%" }}
               severity="success"
-              className="delete-alert"
+              className="status-alert"
               onClose={() => {
                 setIsDeleteSuccess(false);
               }}
@@ -173,7 +225,7 @@ const AdminPlantList = () => {
             <Alert
               sx={{ width: "50%" }}
               severity="error"
-              className="delete-alert"
+              className="status-alert"
               onClose={() => {
                 setIsDeleteFail(false);
               }}
@@ -196,7 +248,7 @@ const AdminPlantList = () => {
               <TableBody>
                 {rows.map((row) => (
                   <TableRow
-                    key={row.name}
+                    key={row.id}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
                     <TableCell>{row.id}</TableCell>
@@ -206,7 +258,7 @@ const AdminPlantList = () => {
                     <TableCell>{row.potSize}</TableCell>
                     <TableCell>{row.price}</TableCell>
                     <TableCell>
-                      <IconButton>
+                      <IconButton onClick={() => openEditPlantModal(row.id)}>
                         <ModeEditOutlineIcon />
                       </IconButton>
                     </TableCell>
@@ -234,6 +286,21 @@ const AdminPlantList = () => {
           handleCreatePlant={handleCreatePlant}
           closeCreatePlantModal={closeCreatePlantModal}
           createFailMessage={createFailMessage}
+        />
+      </Modal>
+      <Modal
+        isOpen={editPlantModalIsOpen}
+        onRequestClose={closeEditPlantModal}
+        contentLabel="Edit a plant item"
+        ariaHideApp={false}
+        className="Modal-Edit-Plant"
+        overlayClassName="Overlay-Edit-Plant"
+      >
+        <EditPlantForm
+          handleEditPlant={handleEditPlant}
+          closeEditPlantModal={closeEditPlantModal}
+          plantIdToEdit={plantIdToEdit}
+          editFailMessage={editFailMessage}
         />
       </Modal>
       <Modal

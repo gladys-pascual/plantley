@@ -92,3 +92,15 @@ def deletePlant(request, pk):
     plant = Plant.objects.get(id=pk)
     plant.delete()
     return Response("Plant item deleted.")
+
+
+@api_view(['POST'])
+def uploadImage(request):
+    data = request.data
+
+    plant_id = data['plant_id']
+    plant = Plant.objects.get(id=plant_id)
+
+    plant.image = request.FILES.get('image')
+    plant.save()
+    return Response('Image was uploaded')

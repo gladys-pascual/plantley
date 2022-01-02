@@ -50,7 +50,6 @@ const CreatePlantForm = ({
                 aria-invalid={errors.name ? "true" : "false"}
                 {...register("name", {
                   required: "This is required.",
-                  maxLength: 20,
                 })}
                 type="text"
                 placeholder="Plant Name"

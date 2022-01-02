@@ -30,7 +30,7 @@
   justify-content: space-between;
 }
 
-.delete-alert {
+.status-alert {
   margin-bottom: 20px;
 }
 
@@ -46,7 +46,7 @@
 }
 
 .Modal-Create-Plant,
-.Modal-Update-Plant {
+.Modal-Edit-Plant {
   position: absolute;
   top: 10%;
   left: 25%;
@@ -60,7 +60,7 @@
 }
 
 .Overlay-Create-Plant,
-.Overlay-Update-Plant,
+.Overlay-Edit-Plant,
 .Overlay-Delete {
   position: fixed;
   top: 0;
