@@ -23,14 +23,34 @@ import DeleteConfirmation from "../../components/DeleteConfirmation/DeleteConfir
 import { useDeletePlant } from "../../hooks/useDeletePlant";
 import { useQueryClient } from "react-query";
 import Alert from "@mui/material/Alert";
+import CreatePlantForm from "../../components/CreatePlantForm/CreatePlantForm";
 
 const AdminPlantList = () => {
+  const [createPlantModalIsOpen, setCreatePlantModalIsOpen] =
+    React.useState(false);
   const [deleteModalIsOpen, setDeleteModalIsOpen] = React.useState(false);
   const [deleteId, setDeleteId] = React.useState("");
   const [isDeleteSuccess, setIsDeleteSuccess] = React.useState(false);
   const [isDeleteFail, setIsDeleteFail] = React.useState(false);
 
   const { plants, plantsLoading, plantsError } = usePlants();
+
+  const openCreatePlantModal = () => {
+    setCreatePlantModalIsOpen(true);
+  };
+
+  const closeCreatePlantModal = () => {
+    setCreatePlantModalIsOpen(false);
+  };
+
+  const openDeleteModal = (id: number) => {
+    setDeleteModalIsOpen(true);
+    setDeleteId(id.toString());
+  };
+
+  const closeDeleteModal = () => {
+    setDeleteModalIsOpen(false);
+  };
 
   const queryClient = useQueryClient();
   queryClient.invalidateQueries("todos");
@@ -48,15 +68,6 @@ const AdminPlantList = () => {
     deletePlantSuccess,
     deletePlantFail
   );
-
-  const openDeleteModal = (id: number) => {
-    setDeleteModalIsOpen(true);
-    setDeleteId(id.toString());
-  };
-
-  const closeDeleteModal = () => {
-    setDeleteModalIsOpen(false);
-  };
 
   const handleDeleteTransaction = (id: string) => {
     deletePlantItem(id);
@@ -97,7 +108,12 @@ const AdminPlantList = () => {
           <div className="heading-and-create-button">
             <h1>Manage plants</h1>
             <Button variant="contained" endIcon={<AddOutlinedIcon />}>
-              <Typography variant="button"> Create </Typography>
+              <Typography
+                variant="button"
+                onClick={() => openCreatePlantModal()}
+              >
+                Create
+              </Typography>
             </Button>
           </div>
           {isDeleteSuccess && (
@@ -159,6 +175,20 @@ const AdminPlantList = () => {
           </TableContainer>
         </div>
       </section>
+      <Modal
+        isOpen={createPlantModalIsOpen}
+        onRequestClose={closeCreatePlantModal}
+        contentLabel="Create a plant item"
+        ariaHideApp={false}
+        className="Modal-Create-Plant"
+        overlayClassName="Overlay-Create-Plant"
+      >
+        <CreatePlantForm
+          // handleCreateTransaction={handleCreateTransaction}
+          // categories={categories}
+          closeCreatePlantModal={closeCreatePlantModal}
+        />
+      </Modal>
       <Modal
         isOpen={deleteModalIsOpen}
         onRequestClose={closeDeleteModal}

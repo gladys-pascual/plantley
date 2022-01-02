@@ -45,6 +45,22 @@
   padding: 12px 20px;
 }
 
+.Modal-Create-Plant,
+.Modal-Update-Plant {
+  position: absolute;
+  top: 10%;
+  left: 25%;
+  right: 25%;
+  bottom: 10%;
+  background-color: white;
+  border-radius: 16px;
+  padding: 12px 20px;
+  max-height: 100vh;
+  overflow-y: auto;
+}
+
+.Overlay-Create-Plant,
+.Overlay-Update-Plant,
 .Overlay-Delete {
   position: fixed;
   top: 0;
@@ -63,6 +79,13 @@
   }
 }
 @media only screen and (max-width: 1000px) {
+  .Modal-Create-Plant,
+  .Modal-Update-Plant {
+    top: 10%;
+    left: 10%;
+    right: 10%;
+    bottom: 10%;
+  }
   .Modal-Delete {
     top: 30%;
     left: 15%;
@@ -76,5 +99,13 @@
     left: 10%;
     right: 10%;
     bottom: 40%;
+  }
+
+  .Modal-Create-Plant,
+  .Modal-Update-Plant {
+    top: 20%;
+    left: 10%;
+    right: 10%;
+    bottom: 20%;
   }
 }

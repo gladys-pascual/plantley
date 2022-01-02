@@ -1,0 +1,57 @@
+.create-plant-form .label {
+  font-weight: 600;
+  padding-bottom: 4px;
+}
+
+.create-plant-form input {
+  width: 100%;
+  font-size: 12px;
+  padding: 6px 4px;
+}
+
+.plant-label-and-input {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.plant-label-and-input .label {
+  width: 120px;
+  margin-bottom: 0;
+}
+
+.plant-form-error {
+  margin-inline-start: 100px;
+}
+
+.plant-label-and-input .image {
+  padding-top: 0px;
+  padding-left: 0px;
+}
+
+.pot-size-wrapper {
+  margin-top: 6px;
+}
+
+.input-margin-top {
+  margin-top: 12px;
+}
+
+.textarea {
+  border: 2px solid black;
+  border-radius: 4px;
+  width: 100%;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+}
+
+.create-plant-buttons {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 20px;
+}
+
+.create-plant-buttons .create-plant-submit-button {
+  margin-left: 12px;
+}
