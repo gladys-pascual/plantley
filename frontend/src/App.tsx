@@ -23,6 +23,7 @@ import CheckoutPlaceOrder from './pages/CheckoutPage/CheckoutPlaceOrder';
 import OrderPage from './pages/OrderPage/OrderPage';
 import OrderPaymentPage from './pages/OrderPaymentPage/OrderPaymentPage';
 import OrderPaymentSuccessPage from './pages/OrderPaymentSuccessPage/OrderPaymentSuccessPage';
+import MyOrdersPage from './pages/MyOrdersPage/MyOrdersPage';
 
 type CartArray = {
   quantity: number;
@@ -202,6 +203,7 @@ function App() {
             path="/order/:id/success"
             element={<OrderPaymentSuccessPage />}
           />
+          <Route path="/myorders" element={<MyOrdersPage />} />
         </Routes>
       </CountProvider>
     </>

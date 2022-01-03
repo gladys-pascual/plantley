@@ -63,6 +63,14 @@ const UserProfile = ({
               Your profile was updated successfully!
             </Alert>
           )}
+          <div className="admin-functionality">
+            <h1>My Orders</h1>
+            <div className="manage-profile-link-wrapper">
+              <Link to="/myorders" className="manage-profile-link">
+                See Orders
+              </Link>
+            </div>
+          </div>
           {userProfile?.isAdmin && (
             <div className="admin-functionality">
               <h1>Admin Functionality </h1>

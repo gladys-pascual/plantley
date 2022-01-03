@@ -29,6 +29,7 @@ import { CreateOrEditPlantData } from '../../types';
 import { AxiosError } from 'axios';
 import EditPlantForm from '../../components/EditPlantForm/EditPlantForm';
 import { useUpdatePlant } from '../../hooks/useUpdatePlant';
+import { Grid } from '@mui/material';
 
 const AdminPlantList = () => {
   const [createPlantModalIsOpen, setCreatePlantModalIsOpen] =
@@ -165,7 +166,7 @@ const AdminPlantList = () => {
   });
 
   return (
-    <>
+    <Grid container direction="column" sx={{ px: 8, py: 4 }}>
       <section className="admin-plant-list-page-wrapper">
         <div className="admin-plant-list-page">
           <Link to="/users/profile" className="go-back-link">
@@ -323,7 +324,7 @@ const AdminPlantList = () => {
           closeDeleteModal={closeDeleteModal}
         />
       </Modal>
-    </>
+    </Grid>
   );
 };
 
