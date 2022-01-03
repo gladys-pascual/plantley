@@ -1,13 +1,14 @@
-import * as React from "react";
-import { Plant } from "../../types";
-import Button from "@mui/material/Button";
-import ShoppingBasketIcon from "@mui/icons-material/ShoppingBasket";
-import CartSuccessSnackbar from "../CartSuccessSnackbar/CartSuccessSnackbar";
-import Snackbar from "@mui/material/Snackbar";
-import Typography from "@mui/material/Typography";
-import Alert from "@mui/material/Alert";
-import "./PlantDetails.css";
-import { useCount } from "../CountContext/CountContext";
+import * as React from 'react';
+import { Plant } from '../../types';
+import Button from '@mui/material/Button';
+import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
+import CartSuccessSnackbar from '../CartSuccessSnackbar/CartSuccessSnackbar';
+import Snackbar from '@mui/material/Snackbar';
+import Typography from '@mui/material/Typography';
+import Alert from '@mui/material/Alert';
+import './PlantDetails.css';
+import { useCount } from '../CountContext/CountContext';
+import { Link } from 'react-router-dom';
 
 type PlantDetailsProp = {
   plantDetails: Plant;
@@ -64,7 +65,7 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
     event?: React.SyntheticEvent | Event,
     reason?: string
   ) => {
-    if (reason === "clickaway") {
+    if (reason === 'clickaway') {
       return;
     }
 
@@ -126,7 +127,7 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
                   <div className="counter">
                     <button
                       className={`counter-action ${
-                        disableDecrement ? "disable-decrement" : "decrement"
+                        disableDecrement ? 'disable-decrement' : 'decrement'
                       }`}
                       onClick={decrement}
                       disabled={disableDecrement}
@@ -157,9 +158,12 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
                       <CartSuccessSnackbar
                         onClose={handleCloseSnackbar}
                         severity="success"
-                        sx={{ width: "100%" }}
+                        sx={{ width: '100%' }}
                       >
-                        {`You've successfully added ${count} ${name} to your cart.`}
+                        {`You've successfully added ${count} ${name} to your `}
+                        <Link to="/cart" className="cart-link">
+                          cart
+                        </Link>
                       </CartSuccessSnackbar>
                     </Snackbar>
                   </div>

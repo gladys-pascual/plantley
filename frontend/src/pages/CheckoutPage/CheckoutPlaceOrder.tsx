@@ -22,7 +22,11 @@ import Error from '../../components/Error/Error';
 const SHIPPING_PRICE = 5;
 const TAX_PRICE = 0.135;
 
-const CheckoutPlaceOrder = () => {
+type CheckoutPlaceOrderProps = {
+  emptyCart: () => void;
+};
+
+const CheckoutPlaceOrder = ({ emptyCart }: CheckoutPlaceOrderProps) => {
   const theme = useTheme();
   const navigate = useNavigate();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
@@ -30,6 +34,7 @@ const CheckoutPlaceOrder = () => {
   const { plants, plantsLoading, plantsError } = useGetPlantsInCart();
 
   const createOrderSuccess = (id: number) => {
+    emptyCart();
     navigate(`/order/${id}`);
   };
 

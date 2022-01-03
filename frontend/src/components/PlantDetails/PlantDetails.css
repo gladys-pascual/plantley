@@ -95,6 +95,12 @@
   width: 85vw;
 }
 
+.cart-link {
+  color: black;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
 @media only screen and (max-width: 1000px) {
   .pic-and-info {
     flex-direction: column;

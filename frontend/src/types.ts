@@ -123,3 +123,8 @@ export type PostPaymentIntentData = {
   id: number;
   totalPrice: number;
 };
+
+export type UpdateOrderToPaidPayload = {
+  orderId: number;
+  paymentIntentId: string;
+};

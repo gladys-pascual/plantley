@@ -22,6 +22,7 @@ import CheckoutShipping from './pages/CheckoutPage/CheckoutShipping';
 import CheckoutPlaceOrder from './pages/CheckoutPage/CheckoutPlaceOrder';
 import OrderPage from './pages/OrderPage/OrderPage';
 import OrderPaymentPage from './pages/OrderPaymentPage/OrderPaymentPage';
+import OrderPaymentSuccessPage from './pages/OrderPaymentSuccessPage/OrderPaymentSuccessPage';
 
 type CartArray = {
   quantity: number;
@@ -73,6 +74,11 @@ function App() {
     );
     setCartArray(updatedCart);
     localStorage.setItem('cartItems', JSON.stringify(updatedCart));
+  };
+
+  const emptyCart = () => {
+    setCartArray([]);
+    localStorage.setItem('cartItems', JSON.stringify([]));
   };
 
   const handleLogOut = () => {
@@ -185,10 +191,17 @@ function App() {
           />
           <Route path="/checkout" element={<CheckoutPage />}>
             <Route path="shipping" element={<CheckoutShipping />} />
-            <Route path="place-order" element={<CheckoutPlaceOrder />} />
+            <Route
+              path="place-order"
+              element={<CheckoutPlaceOrder emptyCart={emptyCart} />}
+            />
           </Route>
           <Route path="/order/:id" element={<OrderPage />} />
           <Route path="/order/:id/pay" element={<OrderPaymentPage />} />
+          <Route
+            path="/order/:id/success"
+            element={<OrderPaymentSuccessPage />}
+          />
         </Routes>
       </CountProvider>
     </>

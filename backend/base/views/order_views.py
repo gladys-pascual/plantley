@@ -7,9 +7,10 @@ from base.models import Plant, Order, OrderItem, ShippingAddress
 from base.serializers import OrderSerializer
 
 from rest_framework import status
-import stripe
+from datetime import datetime
 from django.conf import settings
 
+import stripe
 stripe.api_key = str(settings.STRIPE_SECRET_KEY)
 
 
@@ -98,3 +99,24 @@ def createPayment(request, pk):
         })
     except Exception as e:
         return Response({'detail': str(e)}, status=status.HTTP_403_FORBIDDEN)
+
+
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def updateOrderToPaid(request, pk):
+    order = Order.objects.get(id=pk)
+
+    if order.isPaid == False:
+        paymentIntent = stripe.PaymentIntent.retrieve(
+            request.data['paymentIntentId'],
+        )
+        if pk != paymentIntent['metadata']['orderId']:
+            # need to verify that the order we are marking as paid matches the stripe paid order
+            return Response({'detail': 'Incorrect order details to update'}, status=status.HTTP_400_BAD_REQUEST)
+        if paymentIntent['status'] == 'succeeded':
+            order.isPaid = True
+            order.paidAt = datetime.now()
+            order.save()
+        serializer = OrderSerializer(order, many=False)
+        return Response(serializer.data)
+    return Response({'detail': 'Order is already paid'}, status=status.HTTP_400_BAD_REQUEST)
