@@ -1,12 +1,11 @@
-import * as React from "react";
-import Typography from "@mui/material/Typography";
-import "./CartItem.css";
-import { usePlant } from "../../hooks/usePlant";
-import Loading from "../../components/Loading/Loading";
-import Error from "../../components/Error/Error";
-// import IconButton from "@mui/material/IconButton";
-import DeleteIcon from "@mui/icons-material/Clear";
-import Button from "@mui/material/Button";
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import './CartItem.css';
+import { usePlant } from '../../hooks/usePlant';
+import Loading from '../../components/Loading/Loading';
+import Error from '../../components/Error/Error';
+import DeleteIcon from '@mui/icons-material/Clear';
+import Button from '@mui/material/Button';
 
 type CartItemProps = {
   item: {

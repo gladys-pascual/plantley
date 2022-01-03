@@ -1,22 +1,25 @@
-import * as React from "react";
-import "./App.css";
-import { Routes, Route } from "react-router-dom";
-import Header from "./components/Header/Header";
-import HomePage from "./pages/HomePage/HomePage";
-import PlantsShopPage from "./pages/PlantsShopPage/PlantsShopPage";
-import ContactUs from "./pages/ContactUs/ContactUs";
-import PlantDetailPage from "./pages/PlantDetailPage/PlantDetailPage";
-import LogInPage from "./pages/LogInPage/LogInPage";
-import RegisterPage from "./pages/RegisterPage/RegisterPage";
-import UserProfile from "./pages/UserProfile/UserProfile";
-import UserProfileUpdate from "./pages/UserProfileUpdate/UserProfileUpdate";
-import Cart from "./pages/Cart/Cart";
-import { CountProvider } from "./components/CountContext/CountContext";
-import parseJwt from "./lib/parseJwt";
-import { useNavigate } from "react-router-dom";
-import { RegisterData } from "./types";
-import { useUpdateUserProfile } from "./hooks/useUpdateUserProfile";
-import AdminPlantListPage from "./pages/AdminPlantListPage/AdminPlantListPage";
+import * as React from 'react';
+import './App.css';
+import { Routes, Route } from 'react-router-dom';
+import Header from './components/Header/Header';
+import HomePage from './pages/HomePage/HomePage';
+import PlantsShopPage from './pages/PlantsShopPage/PlantsShopPage';
+import ContactUs from './pages/ContactUs/ContactUs';
+import PlantDetailPage from './pages/PlantDetailPage/PlantDetailPage';
+import LogInPage from './pages/LogInPage/LogInPage';
+import RegisterPage from './pages/RegisterPage/RegisterPage';
+import UserProfile from './pages/UserProfile/UserProfile';
+import UserProfileUpdate from './pages/UserProfileUpdate/UserProfileUpdate';
+import Cart from './pages/Cart/Cart';
+import { CountProvider } from './components/CountContext/CountContext';
+import parseJwt from './lib/parseJwt';
+import { useNavigate } from 'react-router-dom';
+import { RegisterData } from './types';
+import { useUpdateUserProfile } from './hooks/useUpdateUserProfile';
+import AdminPlantListPage from './pages/AdminPlantListPage/AdminPlantListPage';
+import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
+import CheckoutShipping from './pages/CheckoutPage/CheckoutShipping';
+import CheckoutPlaceOrder from './pages/CheckoutPage/CheckoutPlaceOrder';
 
 type CartArray = {
   quantity: number;
@@ -32,7 +35,7 @@ function App() {
   const [hasTokenInLocalStorage, setHasTokenInLocalStorage] =
     React.useState(false);
   const [updateUserProfileErrorMessage, setUpdateUserProfileErrorMessage] =
-    React.useState("");
+    React.useState('');
   const [isUpdateUserProfileSuccess, setIsUpdateUserProfileSuccess] =
     React.useState(false);
 
@@ -52,11 +55,11 @@ function App() {
           : cartItem
       );
       setCartArray(updatedCart);
-      localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+      localStorage.setItem('cartItems', JSON.stringify(updatedCart));
     } else {
       setCartArray([...cartArray, { quantity, plantId, plantUnitPrice }]);
       localStorage.setItem(
-        "cartItems",
+        'cartItems',
         JSON.stringify([...cartArray, { quantity, plantId, plantUnitPrice }])
       );
     }
@@ -67,12 +70,12 @@ function App() {
       (cartItem) => cartItem.plantId !== plantId
     );
     setCartArray(updatedCart);
-    localStorage.setItem("cartItems", JSON.stringify(updatedCart));
+    localStorage.setItem('cartItems', JSON.stringify(updatedCart));
   };
 
   const handleLogOut = () => {
-    navigate("/login");
-    localStorage.removeItem("token");
+    navigate('/login');
+    localStorage.removeItem('token');
     setHasTokenInLocalStorage(false);
   };
 
@@ -85,7 +88,7 @@ function App() {
   };
 
   const updateUserProfileError = () => {
-    setUpdateUserProfileErrorMessage("Something went wrong, please try again.");
+    setUpdateUserProfileErrorMessage('Something went wrong, please try again.');
   };
 
   const { userProfileUpdate } = useUpdateUserProfile(
@@ -98,7 +101,7 @@ function App() {
   };
 
   React.useEffect(() => {
-    const localStorageCartItems = localStorage.getItem("cartItems");
+    const localStorageCartItems = localStorage.getItem('cartItems');
     if (localStorageCartItems) {
       setCartArrayFromStorage(JSON.parse(localStorageCartItems));
     }
@@ -114,15 +117,15 @@ function App() {
   }, [cartArrayFromStorage.length]);
 
   React.useEffect(() => {
-    const jwt = localStorage.getItem("token");
+    const jwt = localStorage.getItem('token');
 
     if (jwt) {
       setHasTokenInLocalStorage(true);
       const parsedJwt = parseJwt(jwt);
       const expDate = new Date(parsedJwt.exp * 1000);
       if (expDate < new Date()) {
-        navigate("/login");
-        localStorage.removeItem("token");
+        navigate('/login');
+        localStorage.removeItem('token');
         setHasTokenInLocalStorage(false);
         return; //stops if this condition is true, it won't execute the line further down
       }
@@ -178,6 +181,10 @@ function App() {
               />
             }
           />
+          <Route path="/checkout" element={<CheckoutPage />}>
+            <Route path="shipping" element={<CheckoutShipping />} />
+            <Route path="place-order" element={<CheckoutPlaceOrder />} />
+          </Route>
         </Routes>
       </CountProvider>
     </>

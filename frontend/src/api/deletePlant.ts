@@ -1,10 +1,11 @@
-import axios from "axios";
+import axios from 'axios';
+import { getToken } from './../utils';
 
-const deletePlant = (id: string, token: string) => {
+const deletePlant = (id: string) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
+      Authorization: getToken(),
+      'Content-type': 'application/json',
     },
   };
 

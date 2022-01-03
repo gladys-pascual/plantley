@@ -1,13 +1,14 @@
-import axios from "axios";
+import axios from 'axios';
+import { getToken } from './../utils';
 
-const getUserProfile = (token: string) => {
+const getUserProfile = () => {
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
+      Authorization: getToken(),
     },
   };
   return axios
-    .get("http://127.0.0.1:8000/api/users/profile", config)
+    .get('http://127.0.0.1:8000/api/users/profile', config)
     .then((response) => response.data);
 };
 

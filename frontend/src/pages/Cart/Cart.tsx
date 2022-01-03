@@ -1,8 +1,10 @@
-import * as React from "react";
-import "./Cart.css";
-import CartItem from "../../components/CartItem/CartItem";
-import { Link } from "react-router-dom";
-import Divider from "@mui/material/Divider";
+import * as React from 'react';
+import './Cart.css';
+import CartItem from '../../components/CartItem/CartItem';
+import { Link } from 'react-router-dom';
+import Divider from '@mui/material/Divider';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
 
 type CartProps = {
   cartArrayFromStorage: {
@@ -48,7 +50,18 @@ const Cart = ({ cartArrayFromStorage, handleRemoveToCart }: CartProps) => {
         ))}
       </div>
       {!!cartArrayFromStorage.length && (
-        <h1 className="total-price">Total Price: € {`${totalPrice}`} </h1>
+        <>
+          <h1 className="total-price">Total Price: € {`${totalPrice}`} </h1>
+          <Button
+            variant="contained"
+            size="large"
+            component={Link}
+            to="/checkout/shipping"
+            className="checkout-button"
+          >
+            <Typography variant="button"> Checkout </Typography>
+          </Button>
+        </>
       )}
     </div>
   );

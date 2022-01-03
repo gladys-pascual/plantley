@@ -1,15 +1,16 @@
-import axios from "axios";
-import { CreateOrEditPlantData } from "../types";
+import axios from 'axios';
+import { CreateOrEditPlantData } from '../types';
+import { getToken } from './../utils';
 
-const postCreatePlant = (data: CreateOrEditPlantData, token: string) => {
+const postCreatePlant = (data: CreateOrEditPlantData) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
+      Authorization: getToken(),
+      'Content-type': 'application/json',
     },
   };
   return axios
-    .post("http://127.0.0.1:8000/api/plants/create", data, config)
+    .post('http://127.0.0.1:8000/api/plants/create', data, config)
     .then((response) => response.data);
 };
 

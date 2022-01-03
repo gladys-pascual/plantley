@@ -38,6 +38,10 @@
   background-color: rgb(198, 160, 166);
 }
 
+.cart .checkout-button {
+  margin-bottom: 20px;
+}
+
 @media only screen and (max-width: 800px) {
   .total-price {
     align-self: center;

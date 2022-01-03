@@ -1,15 +1,12 @@
-import axios from "axios";
-import { CreateOrEditPlantData } from "../types";
+import axios from 'axios';
+import { CreateOrEditPlantData } from '../types';
+import { getToken } from './../utils';
 
-const updatePlant = (
-  data: CreateOrEditPlantData,
-  id: string,
-  token: string
-) => {
+const updatePlant = (data: CreateOrEditPlantData, id: string) => {
   const config = {
     headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-type": "application/json",
+      Authorization: getToken(),
+      'Content-type': 'application/json',
     },
   };
 

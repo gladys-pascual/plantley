@@ -1,15 +1,18 @@
-import { useQuery } from "react-query";
-import getPlants from "../api/getPlants";
-import { Plant } from "../types";
+import { useQuery, UseQueryOptions } from 'react-query';
+import getPlants from '../api/getPlants';
+import { Plant } from '../types';
 
-export const usePlants = () => {
+export const usePlants = (
+  queryProps: Partial<UseQueryOptions<Plant[]>> = {}
+) => {
   const {
     data: plants,
     isLoading: plantsLoading,
     isError: plantsError,
   } = useQuery<Plant[]>({
-    queryKey: ["getPlants"],
+    queryKey: ['getPlants'],
     queryFn: () => getPlants().then((data) => data),
+    ...queryProps,
   });
 
   return {

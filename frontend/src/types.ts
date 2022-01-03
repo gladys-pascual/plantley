@@ -64,3 +64,57 @@ export type CreateOrEditPlantData = {
   tips: string;
   toxicity: string;
 };
+
+export type ShippingAddress = {
+  id: number;
+  address: string;
+  city: string;
+  postalCode: string;
+  country: string;
+  shippingPrice: string;
+  order: number;
+};
+
+export type User = {
+  id: number;
+  username: string;
+  email: string;
+  name: string;
+  isAdmin: boolean;
+};
+
+export type OrderItem = {
+  id: number;
+  name: string;
+  qty: number;
+  price: string;
+  image: string;
+  plant: number;
+  order: number;
+};
+
+export type Order = {
+  id: number;
+  orderItems: OrderItem[];
+  shippingAddress: ShippingAddress;
+  user: User;
+  paymentMethod: 'stripe';
+  taxPrice: string;
+  shippingPrice: string;
+  totalPrice: string;
+  isPaid: boolean;
+  paidAt: string | null;
+  isDelivered: boolean;
+  deliveredAt: string | null;
+  createdAt: string;
+  userId: number;
+};
+
+export type PostOrderData = {
+  orderItems: {
+    plantId: number;
+    qty: number;
+    price: number;
+  }[];
+  shippingAddress: Partial<ShippingAddress>;
+} & Pick<Order, 'paymentMethod' | 'taxPrice' | 'totalPrice' | 'shippingPrice'>;
