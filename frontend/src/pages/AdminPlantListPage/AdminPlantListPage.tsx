@@ -22,14 +22,16 @@ import Modal from 'react-modal';
 import DeleteConfirmation from '../../components/DeleteConfirmation/DeleteConfirmation';
 import { useDeletePlant } from '../../hooks/useDeletePlant';
 import { useQueryClient } from 'react-query';
-import Alert from '@mui/material/Alert';
 import CreatePlantForm from '../../components/CreatePlantForm/CreatePlantForm';
 import { useCreatePlant } from '../../hooks/useCreatePlant';
-import { CreateOrEditPlantData } from '../../types';
+import { CreateOrEditPlantData, Plant } from '../../types';
 import { AxiosError } from 'axios';
 import EditPlantForm from '../../components/EditPlantForm/EditPlantForm';
 import { useUpdatePlant } from '../../hooks/useUpdatePlant';
 import { Grid } from '@mui/material';
+import usePlantImageUpload from '../../hooks/usePlantImageUpload';
+import Snackbar from '@mui/material/Snackbar';
+import CustomSnackbar from '../../components/CustomSnackbar/CustomSnackbar';
 
 const AdminPlantList = () => {
   const [createPlantModalIsOpen, setCreatePlantModalIsOpen] =
@@ -38,20 +40,67 @@ const AdminPlantList = () => {
   const [plantIdToEdit, setPlantIdToEdit] = React.useState('');
   const [deleteModalIsOpen, setDeleteModalIsOpen] = React.useState(false);
   const [deleteId, setDeleteId] = React.useState('');
-  const [isCreateSuccess, setIsCreateSuccess] = React.useState(false);
-  const [isEditSuccess, setIsEditSuccess] = React.useState(false);
   const [createFailMessage, setCreateFailMessage] = React.useState('');
   const [editFailMessage, setEditFailMessage] = React.useState('');
-  const [isDeleteSuccess, setIsDeleteSuccess] = React.useState(false);
-  const [isDeleteFail, setIsDeleteFail] = React.useState(false);
+  const [fileToUpload, setFileToUpload] = React.useState<FormData | null>(null);
+
+  const [openCreatePlantSuccessSnackbar, setOpenCreatePlantSuccessSnackbar] =
+    React.useState(false);
+  const [openEditPlantSuccessSnackbar, setOpenEditPlantSuccessSnackbar] =
+    React.useState(false);
+  const [openDeletePlantSuccessSnackbar, setOpenDeletePlantSuccessSnackbar] =
+    React.useState(false);
+  const [openDeletePlantFailSnackbar, setOpenDeletePlantFailSnackbar] =
+    React.useState(false);
+
+  const handleCreatePlantCloseSnackbar = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenCreatePlantSuccessSnackbar(false);
+  };
+
+  const handleEditPlantCloseSnackbar = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenEditPlantSuccessSnackbar(false);
+  };
+
+  const handleDeletePlantCloseSnackbar = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenDeletePlantSuccessSnackbar(false);
+  };
+
+  const handleDeletePlantFailCloseSnackbar = (
+    event?: React.SyntheticEvent | Event,
+    reason?: string
+  ) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpenDeletePlantFailSnackbar(false);
+  };
 
   const { plants, plantsLoading, plantsError } = usePlants();
 
   const openCreatePlantModal = () => {
     setCreatePlantModalIsOpen(true);
-    setIsCreateSuccess(false);
-    setIsDeleteSuccess(false);
-    setIsDeleteFail(false);
   };
 
   const closeCreatePlantModal = () => {
@@ -61,9 +110,6 @@ const AdminPlantList = () => {
   const openEditPlantModal = (id: number) => {
     setEditPlantModalIsOpen(true);
     setPlantIdToEdit(id.toString());
-    setIsCreateSuccess(false);
-    setIsDeleteSuccess(false);
-    setIsDeleteFail(false);
   };
 
   const closeEditPlantModal = () => {
@@ -73,9 +119,6 @@ const AdminPlantList = () => {
   const openDeleteModal = (id: number) => {
     setDeleteModalIsOpen(true);
     setDeleteId(id.toString());
-    setIsCreateSuccess(false);
-    setIsDeleteSuccess(false);
-    setIsDeleteFail(false);
   };
 
   const closeDeleteModal = () => {
@@ -84,10 +127,26 @@ const AdminPlantList = () => {
 
   const queryClient = useQueryClient();
 
-  const createPlantSuccess = () => {
+  const onPlantImageUploadSuccess = (data: Plant) => {
+    queryClient.invalidateQueries(['getPlant', data.id], { exact: true });
+  };
+
+  const { uploadPlantImage } = usePlantImageUpload({
+    onSuccess: onPlantImageUploadSuccess,
+  });
+
+  const uploadFile = (plantId: string) => {
+    if (fileToUpload) {
+      fileToUpload.append('plant_id', plantId);
+      uploadPlantImage(fileToUpload);
+    }
+  };
+
+  const createPlantSuccess = (data: Plant) => {
     setCreatePlantModalIsOpen(false);
-    setIsCreateSuccess(true);
+    setOpenCreatePlantSuccessSnackbar(true);
     queryClient.invalidateQueries(['getPlants'], { exact: true });
+    uploadFile(data.id.toString());
   };
 
   const createPlantFail = (error: AxiosError) => {
@@ -102,9 +161,10 @@ const AdminPlantList = () => {
 
   const editPlantSuccess = () => {
     setEditPlantModalIsOpen(false);
-    setIsEditSuccess(true);
+    setOpenEditPlantSuccessSnackbar(true);
     queryClient.invalidateQueries(['getPlants'], { exact: true });
     queryClient.invalidateQueries(['getPlant', plantIdToEdit], { exact: true });
+    uploadFile(plantIdToEdit);
   };
 
   const editPlantFail = (error: AxiosError) => {
@@ -118,12 +178,12 @@ const AdminPlantList = () => {
   const { updatePlantItem } = useUpdatePlant(editPlantSuccess, editPlantFail);
 
   const deletePlantSuccess = () => {
-    setIsDeleteSuccess(true);
+    setOpenDeletePlantSuccessSnackbar(true);
     queryClient.invalidateQueries(['getPlants'], { exact: true });
   };
 
   const deletePlantFail = () => {
-    setIsDeleteFail(true);
+    setOpenDeletePlantFailSnackbar(true);
   };
 
   const { deletePlantItem } = useDeletePlant(
@@ -185,55 +245,66 @@ const AdminPlantList = () => {
               <Typography variant="button">Create</Typography>
             </Button>
           </div>
-          {isCreateSuccess && (
-            <Alert
-              sx={{ width: '50%' }}
-              severity="success"
-              className="status-alert"
-              onClose={() => {
-                setIsCreateSuccess(false);
-              }}
+          <div>
+            <Snackbar
+              open={openCreatePlantSuccessSnackbar}
+              autoHideDuration={6000}
+              onClose={handleCreatePlantCloseSnackbar}
             >
-              Plant item was successfully added.
-            </Alert>
-          )}
-          {isEditSuccess && (
-            <Alert
-              sx={{ width: '50%' }}
-              severity="success"
-              className="status-alert"
-              onClose={() => {
-                setIsEditSuccess(false);
-              }}
-            >
-              Plant item was successfully updated.
-            </Alert>
-          )}
+              <CustomSnackbar
+                onClose={handleCreatePlantCloseSnackbar}
+                severity="success"
+              >
+                Plant item was successfully added.
+              </CustomSnackbar>
+            </Snackbar>
+          </div>
 
-          {isDeleteSuccess && (
-            <Alert
-              sx={{ width: '50%' }}
-              severity="success"
-              className="status-alert"
-              onClose={() => {
-                setIsDeleteSuccess(false);
-              }}
+          <div>
+            <Snackbar
+              open={openEditPlantSuccessSnackbar}
+              autoHideDuration={6000}
+              onClose={handleEditPlantCloseSnackbar}
             >
-              Plant item was successfully deleted.
-            </Alert>
-          )}
-          {isDeleteFail && (
-            <Alert
-              sx={{ width: '50%' }}
-              severity="error"
-              className="status-alert"
-              onClose={() => {
-                setIsDeleteFail(false);
-              }}
+              <CustomSnackbar
+                onClose={handleEditPlantCloseSnackbar}
+                severity="success"
+              >
+                Plant item was successfully updated.
+              </CustomSnackbar>
+            </Snackbar>
+          </div>
+
+          <div>
+            <Snackbar
+              open={openDeletePlantSuccessSnackbar}
+              autoHideDuration={6000}
+              onClose={handleDeletePlantCloseSnackbar}
             >
-              Something went wrong, please try again.
-            </Alert>
-          )}
+              <CustomSnackbar
+                onClose={handleDeletePlantCloseSnackbar}
+                severity="success"
+              >
+                Plant item was successfully deleted.
+              </CustomSnackbar>
+            </Snackbar>
+          </div>
+
+          <div>
+            <Snackbar
+              open={openDeletePlantFailSnackbar}
+              autoHideDuration={6000}
+              onClose={handleDeletePlantFailCloseSnackbar}
+            >
+              <CustomSnackbar
+                onClose={handleDeletePlantFailCloseSnackbar}
+                severity="error"
+              >
+                Something went wrong, please try again.
+              </CustomSnackbar>
+            </Snackbar>
+          </div>
+
           <TableContainer component={Paper}>
             <Table sx={{ minWidth: 650 }} aria-label="simple table">
               <TableHead>
@@ -293,6 +364,7 @@ const AdminPlantList = () => {
           handleCreatePlant={handleCreatePlant}
           closeCreatePlantModal={closeCreatePlantModal}
           createFailMessage={createFailMessage}
+          onFileChange={setFileToUpload}
         />
       </Modal>
       <Modal
@@ -308,6 +380,7 @@ const AdminPlantList = () => {
           closeEditPlantModal={closeEditPlantModal}
           plantIdToEdit={plantIdToEdit}
           editFailMessage={editFailMessage}
+          onFileChange={setFileToUpload}
         />
       </Modal>
       <Modal

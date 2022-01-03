@@ -255,11 +255,12 @@ added on `<section>` tags, with a class name of `sr-only` so it does not appear 
    - there are times that there was error, saved in cache, therefore it's true
    - refetching item again therefore loading
    - putting the condition of not loading and error true covers this
-2.
+2. Plant details page showing headings even when content is empty
+   - conditionally render the text if the object is present (plant order details)
 
 <br>
 
-2. xxxxxxxx
+1. xxxxxxxx
 
 <br>
 

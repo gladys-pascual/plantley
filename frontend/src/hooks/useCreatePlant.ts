@@ -1,10 +1,10 @@
 import { AxiosError } from 'axios';
 import { useMutation } from 'react-query';
 import postCreatePlant from '../api/postCreatePlant';
-import { CreateOrEditPlantData } from '../types';
+import { CreateOrEditPlantData, Plant } from '../types';
 
 export const useCreatePlant = (
-  createPlantSuccess: () => void,
+  createPlantSuccess: (data: Plant) => void,
   createPlantFail: (error: AxiosError) => void
 ) => {
   const {
@@ -15,8 +15,8 @@ export const useCreatePlant = (
     (formData: CreateOrEditPlantData) =>
       postCreatePlant(formData).then((data) => data),
     {
-      onSuccess: () => {
-        createPlantSuccess();
+      onSuccess: (data) => {
+        createPlantSuccess(data);
       },
       onError: (error: AxiosError) => {
         createPlantFail(error);

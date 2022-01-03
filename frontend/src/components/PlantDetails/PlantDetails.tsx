@@ -2,7 +2,7 @@ import * as React from 'react';
 import { Plant } from '../../types';
 import Button from '@mui/material/Button';
 import ShoppingBasketIcon from '@mui/icons-material/ShoppingBasket';
-import CartSuccessSnackbar from '../CartSuccessSnackbar/CartSuccessSnackbar';
+import CustomSnackbar from '../CustomSnackbar/CustomSnackbar';
 import Snackbar from '@mui/material/Snackbar';
 import Typography from '@mui/material/Typography';
 import Alert from '@mui/material/Alert';
@@ -52,13 +52,18 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
     };
   }, [count]);
 
+  React.useEffect(() => {
+    return () => {
+      setCount(1);
+    };
+  }, [setCount]);
+
   const handleSubmitCart = () => {
     handleAddToCart(count, plantDetails.id, parseInt(plantDetails.price));
-    setOpenCarSuccessSnackbar(true);
-    setCount(1);
+    setOpenCartSuccessSnackbar(true);
   };
 
-  const [openCarSuccessSnackbar, setOpenCarSuccessSnackbar] =
+  const [openCartSuccessSnackbar, setOpenCartSuccessSnackbar] =
     React.useState(false);
 
   const handleCloseSnackbar = (
@@ -69,7 +74,7 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
       return;
     }
 
-    setOpenCarSuccessSnackbar(false);
+    setOpenCartSuccessSnackbar(false);
   };
 
   return (
@@ -103,23 +108,29 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
                 € {price}
               </Typography>
 
-              <Typography gutterBottom variant="body1">
-                Pot size: {potSize}
-              </Typography>
+              {potSize && (
+                <Typography gutterBottom variant="body1">
+                  Pot size: {potSize}
+                </Typography>
+              )}
               <br />
+              {description && (
+                <>
+                  <Typography gutterBottom variant="h6">
+                    Description
+                  </Typography>
 
-              <Typography gutterBottom variant="h6">
-                Description
-              </Typography>
+                  <Typography
+                    gutterBottom
+                    variant="body1"
+                    component="p"
+                    className="body-text"
+                  >
+                    {description}
+                  </Typography>
+                </>
+              )}
 
-              <Typography
-                gutterBottom
-                variant="body1"
-                component="p"
-                className="body-text"
-              >
-                {description}
-              </Typography>
               <br />
               <br />
               {countInStock ? (
@@ -151,11 +162,11 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
                   </Button>
                   <div>
                     <Snackbar
-                      open={openCarSuccessSnackbar}
+                      open={openCartSuccessSnackbar}
                       autoHideDuration={6000}
                       onClose={handleCloseSnackbar}
                     >
-                      <CartSuccessSnackbar
+                      <CustomSnackbar
                         onClose={handleCloseSnackbar}
                         severity="success"
                         sx={{ width: '100%' }}
@@ -164,7 +175,7 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
                         <Link to="/cart" className="cart-link">
                           cart
                         </Link>
-                      </CartSuccessSnackbar>
+                      </CustomSnackbar>
                     </Snackbar>
                   </div>
                 </div>
@@ -182,40 +193,71 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
 
           <div className="care-wrapper">
             <div className="care">
-              <Typography gutterBottom variant="h6">
-                Care
-              </Typography>
+              {(light || water || toxicity) && (
+                <Typography gutterBottom variant="h6">
+                  Care
+                </Typography>
+              )}
 
-              <Typography gutterBottom variant="subtitle1">
-                Light
-              </Typography>
-              <Typography gutterBottom variant="body1" className="body-text">
-                {light}
-              </Typography>
-              <br />
+              {light && (
+                <>
+                  <Typography gutterBottom variant="subtitle1">
+                    Light
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    variant="body1"
+                    className="body-text"
+                  >
+                    {light}
+                  </Typography>
+                  <br />
+                </>
+              )}
 
-              <Typography gutterBottom variant="subtitle1">
-                Water
-              </Typography>
-              <Typography gutterBottom variant="body1" className="body-text">
-                {water}
-              </Typography>
-              <br />
+              {water && (
+                <>
+                  <Typography gutterBottom variant="subtitle1">
+                    Water
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    variant="body1"
+                    className="body-text"
+                  >
+                    {water}
+                  </Typography>
+                  <br />
 
-              <Typography gutterBottom variant="subtitle1">
-                Tips
-              </Typography>
-              <Typography gutterBottom variant="body1" className="body-text">
-                {tips}
-              </Typography>
-              <br />
+                  <Typography gutterBottom variant="subtitle1">
+                    Tips
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    variant="body1"
+                    className="body-text"
+                  >
+                    {tips}
+                  </Typography>
+                  <br />
+                </>
+              )}
 
-              <Typography gutterBottom variant="subtitle1">
-                Toxicity
-              </Typography>
-              <Typography gutterBottom variant="body1" className="body-text">
-                {toxicity}
-              </Typography>
+              {toxicity && (
+                <>
+                  <Typography gutterBottom variant="subtitle1">
+                    Toxicity
+                  </Typography>
+                  <Typography
+                    gutterBottom
+                    variant="body1"
+                    className="body-text"
+                  >
+                    {toxicity}
+                  </Typography>
+                </>
+              )}
+
               <br />
               <br />
             </div>

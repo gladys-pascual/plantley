@@ -39,14 +39,10 @@ const Cart = ({ cartArrayFromStorage, handleRemoveToCart }: CartProps) => {
 
       <div className="cart-items">
         {cartArrayFromStorage.map((item) => (
-          <>
-            <CartItem
-              key={item.plantId}
-              item={item}
-              handleRemoveToCart={handleRemoveToCart}
-            />
+          <React.Fragment key={item.plantId}>
+            <CartItem item={item} handleRemoveToCart={handleRemoveToCart} />
             <Divider variant="middle" />
-          </>
+          </React.Fragment>
         ))}
       </div>
       {!!cartArrayFromStorage.length && (

@@ -1,30 +1,42 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import { useForm } from "react-hook-form";
-import "./CreatePlantForm.css";
-import Typography from "@mui/material/Typography";
-import { IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { CreateOrEditPlantData } from "../../types";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import { useForm } from 'react-hook-form';
+import './CreatePlantForm.css';
+import Typography from '@mui/material/Typography';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { CreateOrEditPlantData } from '../../types';
 
 type CreatePlantFormProps = {
   handleCreatePlant: (data: CreateOrEditPlantData) => void;
   closeCreatePlantModal: () => void;
   createFailMessage: string;
+  onFileChange: (formData: FormData) => void;
 };
 
 const CreatePlantForm = ({
   handleCreatePlant,
   closeCreatePlantModal,
   createFailMessage,
+  onFileChange,
 }: CreatePlantFormProps) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({
-    mode: "onBlur",
+    mode: 'onBlur',
   });
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const file = files[0];
+      const formData = new FormData();
+      formData.append('image', file);
+      onFileChange(formData);
+    }
+  };
 
   const onSubmit = (data: CreateOrEditPlantData) => {
     handleCreatePlant(data);
@@ -47,9 +59,9 @@ const CreatePlantForm = ({
               </label>
               <input
                 id="name"
-                aria-invalid={errors.name ? "true" : "false"}
-                {...register("name", {
-                  required: "This is required.",
+                aria-invalid={errors.name ? 'true' : 'false'}
+                {...register('name', {
+                  required: 'This is required.',
                 })}
                 type="text"
                 placeholder="Plant Name"
@@ -59,8 +71,8 @@ const CreatePlantForm = ({
               <p
                 className={
                   errors.name
-                    ? "error-message plant-form-error"
-                    : "error-message-hidden error-message plant-form-error"
+                    ? 'error-message plant-form-error'
+                    : 'error-message-hidden error-message plant-form-error'
                 }
                 role="alert"
               >
@@ -74,9 +86,9 @@ const CreatePlantForm = ({
               </label>
               <input
                 id="price"
-                aria-invalid={errors.passward ? "true" : "false"}
-                {...register("price", {
-                  required: "This is required.",
+                aria-invalid={errors.passward ? 'true' : 'false'}
+                {...register('price', {
+                  required: 'This is required.',
                 })}
                 type="text"
                 placeholder="Price"
@@ -86,8 +98,8 @@ const CreatePlantForm = ({
               <p
                 className={
                   errors.price
-                    ? "error-message plant-form-error"
-                    : "error-message-hidden error-message plant-form-error"
+                    ? 'error-message plant-form-error'
+                    : 'error-message-hidden error-message plant-form-error'
                 }
                 role="alert"
               >
@@ -101,8 +113,8 @@ const CreatePlantForm = ({
               </label>
               <input
                 id="countInStock"
-                {...register("countInStock", {
-                  required: "This is required.",
+                {...register('countInStock', {
+                  required: 'This is required.',
                 })}
                 type="number"
                 placeholder="Count in stock"
@@ -112,8 +124,8 @@ const CreatePlantForm = ({
               <p
                 className={
                   errors.price
-                    ? "error-message plant-form-error"
-                    : "error-message-hidden error-message plant-form-error"
+                    ? 'error-message plant-form-error'
+                    : 'error-message-hidden error-message plant-form-error'
                 }
                 role="alert"
               >
@@ -127,10 +139,11 @@ const CreatePlantForm = ({
               </label>
               <input
                 id="image"
-                {...register("image")}
+                {...register('image')}
                 type="file"
                 placeholder="image"
                 className="image"
+                onChange={handleFileChange}
               />
             </div>
 
@@ -140,7 +153,7 @@ const CreatePlantForm = ({
               </label>
               <input
                 id="potSize"
-                {...register("potSize")}
+                {...register('potSize')}
                 type="text"
                 placeholder="Pot Size"
               />
@@ -152,7 +165,7 @@ const CreatePlantForm = ({
               </label>
               <textarea
                 id="description"
-                {...register("description")}
+                {...register('description')}
                 placeholder="Description"
                 className="textarea"
               />
@@ -164,7 +177,7 @@ const CreatePlantForm = ({
               </label>
               <input
                 id="filterByPlantSize"
-                {...register("filterByPlantSize")}
+                {...register('filterByPlantSize')}
                 type="text"
                 placeholder="Plant size"
               />
@@ -176,7 +189,7 @@ const CreatePlantForm = ({
               </label>
               <input
                 id="filterByLightRequirements"
-                {...register("filterByLightRequirements")}
+                {...register('filterByLightRequirements')}
                 type="text"
                 placeholder="Light requirements"
               />
@@ -188,7 +201,7 @@ const CreatePlantForm = ({
               </label>
               <textarea
                 id="light"
-                {...register("light")}
+                {...register('light')}
                 placeholder="Light description"
                 className="textarea"
               />
@@ -200,7 +213,7 @@ const CreatePlantForm = ({
               </label>
               <textarea
                 id="water"
-                {...register("water")}
+                {...register('water')}
                 placeholder="Water description"
                 className="textarea"
               />
@@ -212,7 +225,7 @@ const CreatePlantForm = ({
               </label>
               <textarea
                 id="tips"
-                {...register("tips")}
+                {...register('tips')}
                 placeholder="Tips description"
                 className="textarea"
               />
@@ -223,7 +236,7 @@ const CreatePlantForm = ({
               </label>
               <textarea
                 id="toxicity"
-                {...register("toxicity")}
+                {...register('toxicity')}
                 placeholder="Toxicity description"
                 className="textarea"
               />

@@ -1,18 +1,20 @@
-import * as React from "react";
-import Button from "@mui/material/Button";
-import { useForm } from "react-hook-form";
-import "./EditPlantForm.css";
-import Typography from "@mui/material/Typography";
-import { IconButton } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
-import { CreateOrEditPlantData } from "../../types";
-import { usePlant } from "../../hooks/usePlant";
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import { useForm } from 'react-hook-form';
+import './EditPlantForm.css';
+import Typography from '@mui/material/Typography';
+import { IconButton } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
+import { CreateOrEditPlantData } from '../../types';
+import { usePlant } from '../../hooks/usePlant';
+import './EditPlantForm.css';
 
 type EditPlantFormProps = {
   handleEditPlant: (data: CreateOrEditPlantData) => void;
   closeEditPlantModal: () => void;
   plantIdToEdit: string;
   editFailMessage: string;
+  onFileChange: (formData: FormData) => void;
 };
 
 const EditPlantForm = ({
@@ -20,6 +22,7 @@ const EditPlantForm = ({
   closeEditPlantModal,
   plantIdToEdit,
   editFailMessage,
+  onFileChange,
 }: EditPlantFormProps) => {
   const { plantDetails } = usePlant(plantIdToEdit);
 
@@ -28,8 +31,18 @@ const EditPlantForm = ({
     handleSubmit,
     formState: { errors },
   } = useForm({
-    mode: "onBlur",
+    mode: 'onBlur',
   });
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (files) {
+      const file = files[0];
+      const formData = new FormData();
+      formData.append('image', file);
+      onFileChange(formData);
+    }
+  };
 
   const onSubmit = (data: CreateOrEditPlantData) => {
     handleEditPlant(data);
@@ -53,9 +66,9 @@ const EditPlantForm = ({
                 </label>
                 <input
                   id="name"
-                  aria-invalid={errors.name ? "true" : "false"}
-                  {...register("name", {
-                    required: "This is required.",
+                  aria-invalid={errors.name ? 'true' : 'false'}
+                  {...register('name', {
+                    required: 'This is required.',
                     value: plantDetails?.name,
                   })}
                   type="text"
@@ -65,8 +78,8 @@ const EditPlantForm = ({
                 <p
                   className={
                     errors.name
-                      ? "error-message plant-form-error"
-                      : "error-message-hidden error-message plant-form-error"
+                      ? 'error-message plant-form-error'
+                      : 'error-message-hidden error-message plant-form-error'
                   }
                   role="alert"
                 >
@@ -80,9 +93,9 @@ const EditPlantForm = ({
                 </label>
                 <input
                   id="price"
-                  aria-invalid={errors.passward ? "true" : "false"}
-                  {...register("price", {
-                    required: "This is required.",
+                  aria-invalid={errors.passward ? 'true' : 'false'}
+                  {...register('price', {
+                    required: 'This is required.',
                     value: plantDetails?.price,
                   })}
                   type="text"
@@ -93,8 +106,8 @@ const EditPlantForm = ({
                 <p
                   className={
                     errors.price
-                      ? "error-message plant-form-error"
-                      : "error-message-hidden error-message plant-form-error"
+                      ? 'error-message plant-form-error'
+                      : 'error-message-hidden error-message plant-form-error'
                   }
                   role="alert"
                 >
@@ -108,8 +121,8 @@ const EditPlantForm = ({
                 </label>
                 <input
                   id="countInStock"
-                  {...register("countInStock", {
-                    required: "This is required.",
+                  {...register('countInStock', {
+                    required: 'This is required.',
                     value: plantDetails?.countInStock,
                   })}
                   type="number"
@@ -119,8 +132,8 @@ const EditPlantForm = ({
                 <p
                   className={
                     errors.price
-                      ? "error-message plant-form-error"
-                      : "error-message-hidden error-message plant-form-error"
+                      ? 'error-message plant-form-error'
+                      : 'error-message-hidden error-message plant-form-error'
                   }
                   role="alert"
                 >
@@ -132,15 +145,23 @@ const EditPlantForm = ({
                 <label htmlFor="image" className="label">
                   Plant Image
                 </label>
-                <input
-                  id="image"
-                  {...register("image", {
-                    value: plantDetails?.image,
-                  })}
-                  type="file"
-                  placeholder="image"
-                  className="image"
-                />
+                <div className="image-edit-input-wrapper">
+                  {Boolean(plantDetails.image) && (
+                    <input
+                      type="text"
+                      value={plantDetails.image}
+                      className="image-input-edit"
+                    />
+                  )}
+                  <input
+                    id="image"
+                    {...register('image', {
+                      value: plantDetails?.image,
+                    })}
+                    type="file"
+                    onChange={handleFileChange}
+                  />
+                </div>
               </div>
 
               <div className="plant-label-and-input pot-size-wrapper">
@@ -149,7 +170,7 @@ const EditPlantForm = ({
                 </label>
                 <input
                   id="potSize"
-                  {...register("potSize", {
+                  {...register('potSize', {
                     value: plantDetails?.potSize,
                   })}
                   type="text"
@@ -163,7 +184,7 @@ const EditPlantForm = ({
                 </label>
                 <textarea
                   id="description"
-                  {...register("description", {
+                  {...register('description', {
                     value: plantDetails?.description,
                   })}
                   placeholder="Description"
@@ -177,7 +198,7 @@ const EditPlantForm = ({
                 </label>
                 <input
                   id="filterByPlantSize"
-                  {...register("filterByPlantSize", {
+                  {...register('filterByPlantSize', {
                     value: plantDetails?.filterByPlantSize,
                   })}
                   type="text"
@@ -191,7 +212,7 @@ const EditPlantForm = ({
                 </label>
                 <input
                   id="filterByLightRequirements"
-                  {...register("filterByLightRequirements", {
+                  {...register('filterByLightRequirements', {
                     value: plantDetails?.filterByLightRequirements,
                   })}
                   type="text"
@@ -205,7 +226,7 @@ const EditPlantForm = ({
                 </label>
                 <textarea
                   id="light"
-                  {...register("light", {
+                  {...register('light', {
                     value: plantDetails?.light,
                   })}
                   placeholder="Light description"
@@ -219,7 +240,7 @@ const EditPlantForm = ({
                 </label>
                 <textarea
                   id="water"
-                  {...register("water", {
+                  {...register('water', {
                     value: plantDetails?.water,
                   })}
                   placeholder="Water description"
@@ -233,7 +254,7 @@ const EditPlantForm = ({
                 </label>
                 <textarea
                   id="tips"
-                  {...register("tips", {
+                  {...register('tips', {
                     value: plantDetails?.tips,
                   })}
                   placeholder="Tips description"
@@ -246,7 +267,7 @@ const EditPlantForm = ({
                 </label>
                 <textarea
                   id="toxicity"
-                  {...register("toxicity", {
+                  {...register('toxicity', {
                     value: plantDetails?.toxicity,
                   })}
                   placeholder="Toxicity description"

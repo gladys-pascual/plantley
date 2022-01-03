@@ -28,20 +28,6 @@ def getPlant(request, pk):
 def createPlant(request):
     data = request.data
     user = request.user
-    # plant = Plant.objects.create(
-
-    #     name='Plant name',
-    #     price=0,
-    #     potSize='Pot size',
-    #     description='Plant description',
-    #     countInStock=0,
-    #     filterByPlantSize='small',
-    #     filterByLightRequirements='shade',
-    #     light='Light requirements',
-    #     water='Water requirements',
-    #     tips='Tips',
-    #     toxicity='Toxicity',
-    # )
 
     plant = Plant.objects.create(
         name=data['name'],
@@ -104,3 +90,17 @@ def uploadImage(request):
     plant.image = request.FILES.get('image')
     plant.save()
     return Response('Image was uploaded')
+
+
+@api_view(['POST'])
+def uploadImage(request):
+    data = request.data
+
+    plant_id = data['plant_id']
+    plant = Plant.objects.get(id=plant_id)
+
+    plant.image = request.FILES.get('image')
+    plant.save()
+
+    serializer = PlantSerializer(plant, many=False)
+    return Response(serializer.data)
