@@ -1,10 +1,10 @@
-import * as React from "react";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Link } from "react-router-dom";
-import "./HeaderSmallScreen.css";
-import { HeaderProps } from "../../types";
-import MenuIcon from "@mui/icons-material/Menu";
+import * as React from 'react';
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { Link } from 'react-router-dom';
+import './HeaderSmallScreen.css';
+import { HeaderProps } from '../../types';
+import MenuIcon from '@mui/icons-material/Menu';
 
 const HeaderSmallScreen = ({
   hasCartItems,
@@ -27,11 +27,6 @@ const HeaderSmallScreen = ({
               <li>
                 <Link to="/plants" className="header-links-small">
                   <span>SHOP</span>
-                </Link>
-              </li>
-              <li>
-                <Link to="/contact-us" className="header-links-small">
-                  <span>CONTACT US</span>
                 </Link>
               </li>
               <li>

@@ -55,6 +55,6 @@
   "devDependencies": {
     "@types/react-burger-menu": "^2.8.3",
     "@types/react-modal": "^3.13.1",
-    "msw": "^0.36.2"
+    "msw": "^0.36.3"
   }
 }

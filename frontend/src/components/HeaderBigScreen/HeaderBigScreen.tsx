@@ -1,10 +1,10 @@
-import * as React from "react";
-import PersonOutlineOutlinedIcon from "@mui/icons-material/PersonOutlineOutlined";
-import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import { Link } from "react-router-dom";
-import "./HeaderBigScreen.css";
-import { HeaderProps } from "../../types";
+import * as React from 'react';
+import PersonOutlineOutlinedIcon from '@mui/icons-material/PersonOutlineOutlined';
+import AddShoppingCartOutlinedIcon from '@mui/icons-material/AddShoppingCartOutlined';
+import ShoppingCartOutlinedIcon from '@mui/icons-material/ShoppingCartOutlined';
+import { Link } from 'react-router-dom';
+import './HeaderBigScreen.css';
+import { HeaderProps } from '../../types';
 
 const HeaderBigScreen = ({
   hasCartItems,
@@ -23,9 +23,6 @@ const HeaderBigScreen = ({
         </Link>
         <Link to="/plants" className="header-links shop">
           <span>SHOP</span>
-        </Link>
-        <Link to="/contact-us" className="header-links contact-us">
-          <span>CONTACT US</span>
         </Link>
       </div>
       <ul className="profile-and-cart">

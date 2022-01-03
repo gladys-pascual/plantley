@@ -1,10 +1,10 @@
 import * as React from 'react';
 import './App.css';
-import { Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { QueryClient, QueryClientProvider } from 'react-query';
 import Header from './components/Header/Header';
 import HomePage from './pages/HomePage/HomePage';
 import PlantsShopPage from './pages/PlantsShopPage/PlantsShopPage';
-import ContactUs from './pages/ContactUs/ContactUs';
 import PlantDetailPage from './pages/PlantDetailPage/PlantDetailPage';
 import LogInPage from './pages/LogInPage/LogInPage';
 import RegisterPage from './pages/RegisterPage/RegisterPage';
@@ -31,7 +31,21 @@ type CartArray = {
   plantUnitPrice: number;
 }[];
 
-function App() {
+const queryClient = new QueryClient({
+  defaultOptions: { queries: { refetchOnWindowFocus: false } },
+});
+
+const App = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Router>
+        <Main />
+      </Router>
+    </QueryClientProvider>
+  );
+};
+
+function Main() {
   const [cartArray, setCartArray] = React.useState<CartArray>([]);
   const [hasCartItems, setHasCartItems] = React.useState(false);
   const [cartArrayFromStorage, setCartArrayFromStorage] =
@@ -155,7 +169,6 @@ function App() {
             path="/plants/:id"
             element={<PlantDetailPage handleAddToCart={handleAddToCart} />}
           />
-          <Route path="/contact-us" element={<ContactUs />} />
           <Route path="/login" element={<LogInPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route
