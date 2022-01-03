@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Link, useParams, useSearchParams } from 'react-router-dom';
 import { useOrder } from '../../hooks/useOrder';
-import { Grid, Typography } from '@mui/material';
+import { Grid } from '@mui/material';
 import { useUpdateOrderToPaid } from '../../hooks/useUpdateOrderToPaid';
 import Loading from '../../components/Loading/Loading';
 import Alert from '@mui/material/Alert';

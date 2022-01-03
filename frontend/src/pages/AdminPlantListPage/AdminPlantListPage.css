@@ -34,6 +34,18 @@
   margin-bottom: 20px;
 }
 
+.plant-name-link {
+  color: black;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+}
+
+.plant-name-link:hover {
+  background-color: rgba(0, 0, 0, 0.04);
+  padding: 8px 0;
+  border-radius: 4px;
+}
+
 .Modal-Delete {
   position: absolute;
   top: 30%;

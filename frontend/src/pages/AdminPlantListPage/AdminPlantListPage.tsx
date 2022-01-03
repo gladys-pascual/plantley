@@ -253,7 +253,13 @@ const AdminPlantList = () => {
                   >
                     <TableCell>{row.id}</TableCell>
                     <TableCell component="th" scope="row">
-                      {row.name}
+                      <Link
+                        to={`/plants/${row.id}`}
+                        className="plant-name-link"
+                      >
+                        {' '}
+                        {row.name}
+                      </Link>
                     </TableCell>
                     <TableCell>{row.potSize}</TableCell>
                     <TableCell>{row.price}</TableCell>
