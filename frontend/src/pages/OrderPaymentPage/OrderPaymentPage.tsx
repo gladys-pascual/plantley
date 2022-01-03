@@ -3,13 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { Appearance, loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import PaymentForm from '../../components/PaymentForm/PaymentForm';
-import { useMutation } from 'react-query';
-import postPaymentIntent from '../../api/postPaymentIntent';
-import { AxiosError } from 'axios';
 import { useOrder } from '../../hooks/useOrder';
-import { Order, PostPaymentIntentData } from '../../types';
+import { Order } from '../../types';
 import { Typography } from '@mui/material';
 import { Box } from '@mui/system';
+import { useCreatePaymentIntent } from '../../hooks/useCreatePaymentIntent';
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_KEY!);
 
@@ -24,7 +22,8 @@ const OrderPaymentPage = () => {
   const { id } = useParams();
   const { orderDetails } = useOrder(id!);
   useOrderAlreadyPaid(orderDetails);
-  const { mutate: createPaymentIntent, data } = useCreatePaymentIntent();
+  const { createPaymentIntent, createPaymentIntentData } =
+    useCreatePaymentIntent();
 
   React.useEffect(() => {
     if (orderDetails) {
@@ -35,12 +34,12 @@ const OrderPaymentPage = () => {
     }
   }, [createPaymentIntent, id, orderDetails]);
 
-  if (!data || !id || !orderDetails) {
+  if (!createPaymentIntentData || !id || !orderDetails) {
     return null;
   }
 
   const options = {
-    clientSecret: data.clientSecret,
+    clientSecret: createPaymentIntentData.clientSecret,
     appearance,
   };
 
@@ -62,16 +61,6 @@ const OrderPaymentPage = () => {
 };
 
 export default OrderPaymentPage;
-
-type PaymentIntentResponse = {
-  clientSecret: string;
-};
-
-function useCreatePaymentIntent() {
-  return useMutation<PaymentIntentResponse, AxiosError, PostPaymentIntentData>(
-    postPaymentIntent
-  );
-}
 
 function useOrderAlreadyPaid(orderDetails?: Order) {
   const navigate = useNavigate();

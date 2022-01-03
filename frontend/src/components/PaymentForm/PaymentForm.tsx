@@ -8,6 +8,7 @@ import { useSearchParams } from 'react-router-dom';
 import { Box } from '@mui/system';
 import { Button } from '@mui/material';
 import { LoadingButton } from '@mui/lab';
+import { Typography } from '@mui/material';
 
 type PaymentFormProps = {
   orderId: string;
@@ -58,7 +59,6 @@ export default function PaymentForm({ orderId }: PaymentFormProps) {
 
     if (!stripe || !elements) {
       // Stripe.js has not yet loaded.
-      // Make sure to disable form submission until Stripe.js has loaded.
       return;
     }
 
@@ -92,17 +92,21 @@ export default function PaymentForm({ orderId }: PaymentFormProps) {
       <form id="payment-form" onSubmit={handleSubmit}>
         <PaymentElement id="payment-element" />
         {isLoading ? (
-          <LoadingButton
-            loading
-            variant="contained"
-            disabled
-            loadingPosition="start"
-          >
-            Loading...
-          </LoadingButton>
+          <Box sx={{ pt: 2 }}>
+            <LoadingButton
+              loading
+              variant="contained"
+              disabled
+              loadingPosition="end"
+              fullWidth
+            >
+              Loading
+            </LoadingButton>
+          </Box>
         ) : (
           <Box sx={{ pt: 2 }}>
             <Button
+              // Disable form submission until Stripe.js has loaded.
               disabled={!stripe || !elements}
               fullWidth
               variant="contained"
@@ -112,8 +116,11 @@ export default function PaymentForm({ orderId }: PaymentFormProps) {
             </Button>
           </Box>
         )}
-        {/* Show any error or success messages */}
-        {message && <div>{message}</div>}
+        {message && (
+          <Typography variant="body1" sx={{ pt: 2 }}>
+            {message}
+          </Typography>
+        )}
       </form>
     </Box>
   );
