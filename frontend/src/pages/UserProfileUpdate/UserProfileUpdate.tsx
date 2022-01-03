@@ -1,13 +1,13 @@
-import * as React from "react";
-import { useUserProfile } from "../../hooks/useUserProfile";
-import Loading from "../../components/Loading/Loading";
-import Error from "../../components/Error/Error";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import "./UserProfile.css";
-import UserProfileUpdateForm from "../../components/UserProfileUpdateForm/UserProfileUpdateForm";
-import { RegisterData } from "../../types";
+import * as React from 'react';
+import { useUserProfile } from '../../hooks/useUserProfile';
+import Loading from '../../components/Loading/Loading';
+import Error from '../../components/Error/Error';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import './UserProfile.css';
+import UserProfileUpdateForm from '../../components/UserProfileUpdateForm/UserProfileUpdateForm';
+import { RegisterData } from '../../types';
 
 type UserProfileProps = {
   handleLogOut: () => void;

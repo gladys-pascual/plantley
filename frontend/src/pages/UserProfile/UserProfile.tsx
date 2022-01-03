@@ -1,13 +1,13 @@
-import * as React from "react";
-import { useUserProfile } from "../../hooks/useUserProfile";
-import Loading from "../../components/Loading/Loading";
-import Error from "../../components/Error/Error";
-import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
-import "./UserProfile.css";
-import { Link } from "react-router-dom";
-import Alert from "@mui/material/Alert";
+import * as React from 'react';
+import { useUserProfile } from '../../hooks/useUserProfile';
+import Loading from '../../components/Loading/Loading';
+import Error from '../../components/Error/Error';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import LogoutOutlinedIcon from '@mui/icons-material/LogoutOutlined';
+import './UserProfile.css';
+import { Link } from 'react-router-dom';
+import Alert from '@mui/material/Alert';
 
 type UserProfileProps = {
   handleLogOut: () => void;
@@ -55,7 +55,7 @@ const UserProfile = ({
           </div>
           {isUpdateUserProfileSuccess && (
             <Alert
-              sx={{ width: "50%" }}
+              sx={{ width: '50%' }}
               severity="success"
               className="update-profile-success-message"
               onClose={updateUserProfileSuccessMessage}
@@ -66,17 +66,11 @@ const UserProfile = ({
           {userProfile?.isAdmin && (
             <div className="admin-functionality">
               <h1>Admin Functionality </h1>
-              <ul className="admin-links">
-                <li>
-                  <Link to="">Manage Users</Link>
-                </li>
-                <li>
-                  <Link to="/admin/plantlist">Manage Products</Link>
-                </li>
-                <li>
-                  <Link to="">Manage Orders</Link>
-                </li>
-              </ul>
+              <div className="manage-profile-link-wrapper">
+                <Link to="/admin/plantlist" className="manage-profile-link">
+                  Manage Products
+                </Link>
+              </div>
             </div>
           )}
         </div>

@@ -14,7 +14,8 @@
   align-items: center;
 }
 
-.update-profile-link {
+.update-profile-link,
+.manage-profile-link {
   text-transform: uppercase;
   text-decoration: none;
   background-color: #fdd6c6;
@@ -47,10 +48,6 @@
   font-size: 16px;
   letter-spacing: 2px;
   text-transform: uppercase;
-}
-
-.admin-links li {
-  padding: 8px 0;
 }
 
 .admin-links a:hover {

@@ -118,3 +118,8 @@ export type PostOrderData = {
   }[];
   shippingAddress: Partial<ShippingAddress>;
 } & Pick<Order, 'paymentMethod' | 'taxPrice' | 'totalPrice' | 'shippingPrice'>;
+
+export type PostPaymentIntentData = {
+  id: number;
+  totalPrice: number;
+};

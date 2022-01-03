@@ -7,6 +7,10 @@ from base.models import Plant, Order, OrderItem, ShippingAddress
 from base.serializers import OrderSerializer
 
 from rest_framework import status
+import stripe
+from django.conf import settings
+
+stripe.api_key = str(settings.STRIPE_SECRET_KEY)
 
 
 @api_view(['POST'])

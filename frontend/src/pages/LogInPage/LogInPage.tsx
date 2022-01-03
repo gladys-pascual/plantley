@@ -1,18 +1,18 @@
-import * as React from "react";
-import LogInForm from "../../components/LogInForm/LogInForm";
-import { LogInData } from "../../types";
-import { useLogIn } from "../../hooks/useLogIn";
-import { AxiosError } from "axios";
-import "../../lib/shared/logInAndRegisterForm.css";
+import * as React from 'react';
+import LogInForm from '../../components/LogInForm/LogInForm';
+import { LogInData } from '../../types';
+import { useLogIn } from '../../hooks/useLogIn';
+import { AxiosError } from 'axios';
+import '../../lib/shared/logInAndRegisterForm.css';
 
 const LogInPage = () => {
-  const [logInErrorMessage, setLogInErrorMessage] = React.useState("");
+  const [logInErrorMessage, setLogInErrorMessage] = React.useState('');
 
   const postLogInFail = (error: AxiosError) => {
     if (error?.response?.status === 401) {
       setLogInErrorMessage(error?.response?.data.detail);
     } else {
-      setLogInErrorMessage("Something went wrong, please try again.");
+      setLogInErrorMessage('Something went wrong, please try again.');
     }
   };
 
