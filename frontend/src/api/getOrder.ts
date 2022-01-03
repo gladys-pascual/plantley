@@ -7,10 +7,10 @@ const config = {
   },
 };
 
-const getUserProfile = () => {
+const getOrder = (id?: string) => {
   return axios
-    .get('http://127.0.0.1:8000/api/users/profile', config)
+    .get(`http://127.0.0.1:8000/api/orders/${id}`, config)
     .then((response) => response.data);
 };
 
-export default getUserProfile;
+export default getOrder;

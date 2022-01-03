@@ -20,7 +20,7 @@ import Loading from '../../components/Loading/Loading';
 import Error from '../../components/Error/Error';
 
 const SHIPPING_PRICE = 5;
-const TAX_PRICE = 0.21;
+const TAX_PRICE = 0.135;
 
 const CheckoutPlaceOrder = () => {
   const theme = useTheme();
@@ -35,12 +35,6 @@ const CheckoutPlaceOrder = () => {
 
   const { createOrder, createOrderLoading, createOrderError } =
     useCreateOrder(createOrderSuccess);
-
-  // const { createOrder, createOrderLoading, createOrderError } = useCreateOrder({
-  //   onSuccess({ id }) {
-  //     navigate(`/order/${id}`);
-  //   },
-  // });
 
   const containerDirection: ResponsiveStyleValue<GridDirection> = isMobile
     ? {

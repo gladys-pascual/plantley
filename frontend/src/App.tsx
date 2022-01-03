@@ -20,6 +20,7 @@ import AdminPlantListPage from './pages/AdminPlantListPage/AdminPlantListPage';
 import CheckoutPage from './pages/CheckoutPage/CheckoutPage';
 import CheckoutShipping from './pages/CheckoutPage/CheckoutShipping';
 import CheckoutPlaceOrder from './pages/CheckoutPage/CheckoutPlaceOrder';
+import OrderPage from './pages/OrderPage/OrderPage';
 
 type CartArray = {
   quantity: number;
@@ -185,6 +186,7 @@ function App() {
             <Route path="shipping" element={<CheckoutShipping />} />
             <Route path="place-order" element={<CheckoutPlaceOrder />} />
           </Route>
+          <Route path="/order/:id" element={<OrderPage />} />
         </Routes>
       </CountProvider>
     </>
