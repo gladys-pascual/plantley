@@ -71,3 +71,26 @@ def getOrderById(request, pk):
             return Response({'detail': 'Not authorized to view this order'}, status=status.HTTP_400_BAD_REQUEST)
     except:
         return Response({'detail': 'Order does not exist'}, status=status.HTTP_400_BAD_REQUEST)
+
+
+@api_view(['POST'])
+@permission_classes([IsAuthenticated])
+def createPayment(request, pk):
+    try:
+        data = request.data
+        # stripe expects payment in cents so we multiply by 100
+        amount = int(data['totalPrice'] * 100)
+        # Create a PaymentIntent with the order amount and currency
+        intent = stripe.PaymentIntent.create(
+            amount=amount,
+            currency='eur',
+            automatic_payment_methods={
+                'enabled': True,
+            },
+            metadata={'orderId': pk}
+        )
+        return Response({
+            'clientSecret': intent['client_secret']
+        })
+    except Exception as e:
+        return Response({'detail': str(e)}, status=status.HTTP_403_FORBIDDEN)
