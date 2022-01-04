@@ -2,9 +2,7 @@
 
 [View the live project here.]()
 
-ecommerce site to buy house plants
-
-<img src="" alt=""/>
+Plantley is an ecommerce site that allow customers to buy houseplants. Customers can create an account, but they can also buy plants without signing in.
 
 <br/>
 <br/>
@@ -16,24 +14,26 @@ ecommerce site to buy house plants
 
 ### User stories
 
-### Design
+- As a potential user, I want to be able to register for an account.
+- As a current user, I want to be able to log in and out of my account.
+- As a current user, I want to be able to update my details such as my name, email address, and password.
 
-- #### Typography and Colour Scheme
+- As a user, I want to see a homepage, with a navigation that will lead me to different parts of the e-commerce site.
+- As a user and potential customer, I want to see a list of plants being sold, with their name, picture and price.
+- As a user, I want to see all the details about a specific plant.
+- As a user, I want to be able to add a plant item to the basket and also be able to specify the number of plants that I want to buy.
+- As a user, I want to see a cart page that shows a list of all the items I want to buy.
+- As a user, I want to be able to pay for my items.
+- As a user, I want to see information about my order (or orders if I ordered multiple times.)
 
-  - In this project, [Materialize V1.0.0](https://materializecss.com/) was used to create a responsive front-end. The default typography was used, while [colour palette](https://materializecss.com/color.html) teal, with different shades, were used for the colour scheme.
-
-- #### Logo
-  -
-- #### Favicon
-
-  -
-
-- #### Animations
-  -
+- As an admin user, I want to be able to manage my plant items in the inventory, with the ability to:
+  - Create a plant item
+  - Edit a plant item
+  - Delete a plant item
 
 ### Wireframes
 
-- xx
+- Basic wireframe is available [here](README_IMAGES/plantley_wireframe.pdf)
 
 <br>
 <br>
@@ -41,46 +41,126 @@ ecommerce site to buy house plants
 ## Database architecture
 
 <hr>
+<img src='./README_IMAGES/Plantley_database.svg' alt='database structure of plantley'>
+<br>
+<br>
 
-<br>
-<br>
+**Summary**
+
+- User model is from Django
+- Plant is connected to user by one to many relationsip because a user can build up multiple products.
+- A user can build an order, and inside of Order there is OrderItem.
+- OrderItem is connected to Product
+- Order is connected to ShippingAddress
+  <br>
+  <br>
 
 ## Features
 
 <hr>
 
-### xxxxxx
+### Register, Log In, Update User Details, Log out
+
+- As a potential user, I want to be able to register for an account.
+- As a current user, I want to be able to log in and out of my account.
+- As a current user, I want to be able to update my details such as my name, email address, and password.
+
+**Register**
+<img src='./README_IMAGES/register.gif' alt='Register a user'>
+
+**Log In**
+<img src='./README_IMAGES/login.gif' alt='Login a user'>
+
+**Update Details**
+<img src='./README_IMAGES/update_user_details.gif' alt='Update user details'>
+
+- Forms uses [react-hook-form](https://react-hook-form.com/) (more details about the library in later section) which includes a validation on:
+
+  - Email Address: need to be in an email format
+  - Full Name: minimum of 3 characters
+  - Password: minimum of 5 characters
+
+  <br>
+
+### As a user, I want to see a homepage, with a navigation that will lead me to different parts of the e-commerce site.
+
+- Navigation bar is responsive.
+  <img src='./README_IMAGES/responsive.gif' alt='navigation bar is responsive'>
+
+- Navigation bar has a cart icon, where it changes when an item is added on the basket.
+  <img src='./README_IMAGES/cart_icon_change.gif' alt='navigation bar cart icon change'>
 
 <br>
 
-### xxxxxxx
+### As a user and potential customer, I want to see a list of plants being sold, with their name, picture and price.
+
+  <img src='./README_IMAGES/plant_shop_page.gif' alt='plant shop page'>
+<br>
+
+### As a user, I want to see all the details about a specific plant.
+
+  <img src='./README_IMAGES/plant_detail_page.gif' alt='plant detail page'>
+
+<br>
+
+### Adding to cart and seeing a total in cart page
+
+- As a user, I want to be able to add a plant item to the basket and also be able to specify the number of plants that I want to buy.
+- As a user, I want to see a cart page that shows a list of all the items I want to buy.
+
+_Feature_
+
+- When an item is successfully added, a 'snackbar' message is shown saying that the item and its quantity is added to the cart, with a link to the cart page.
+
+  <img src='./README_IMAGES/adding_to_cart.gif' alt='add item to cart page'>
+
+<br>
+
+### As a user, I want to be able to pay for my items.
+
+  <img src='./README_IMAGES/payment.gif' alt='payment'>
+
+_Payment flow_
+
+- In `/cart`, as the Checkout button is clicked, the user is lead to `/checkout/shipping`.
+- The `/checkout/shipping` has a stepper component on the top where it has two steps:
+
+  1. Shipping: user fills their shipping address. This form has a validation where all fields are required.
+  2. Place Order: an outline of the shipping address, payment method, items to be ordered, and a table of total cost of items with tax, shipping and total cost.
+
+- Once the Place Order button is clicked, the user is lead to `/order/{orderId}` where the user can pay for their item
+- As the user clicks the 'Pay Now' button, the stripe component form where the credit card details can be entered.
+- If payment is successful, the user is lead to a page with the 'payment_intent' id is in the URL. The payment intent id gets sent to the backend, and the backend check if it's already paid. If so, it updates the `isPaid` key in the Order model in the databse to true.
 
 - <br>
 
-### xxxxxx
+### As a user, I want to see information about my order (or orders if I ordered multiple times.)
 
-<br>
+- In the `users/profile`, the 'See Orders' button will lead you to a table with a table of orders made by the user.
+  <br>
 
-### xxxxxxxx
+## Admin features
 
-<br>
+### As an admin user, I want to be able to manage my plant items in the inventory, with the ability to:
 
-### xxxxxxx
+- Create a plant item
+  <img src='./README_IMAGES/create_tineke.gif' alt='Create a plant item'>
 
-### xxxxxxxxx
+- Edit a plant item
+  <img src='./README_IMAGES/edit_tineke.gif' alt='Edit a plant item'>
+
+- Delete a plant item
+  <img src='./README_IMAGES/delete_item.gif' alt='Delete a plant item'>
 
 <br>
 
 ### Accessibility
 
-- modal exits with escape
-- modal has a screen reader label
-- you can tab into the form
+- Best effort to keep the website accesssible was done. First, a component library such as Material UI was used to ensure that the components used are accesible. For example, the modal component of Material UI can exit the modal using the escape button, and has a screen reader label.
+- `alt` were passed on all the images
+- react-hook-form, the library used for the forms, accomodates keyboard actions such as tabbing into different inputs and enter key to submit the form.
 
-Ensure accessibility throughout the website by:
-
-- Adding 'alt' text on all images.
-- Font awesome icons are in an `<i>` tag. A span with a class "sr-only" is added which describes the icons. The "sr-only" class has a display:none in the stylesheet, which hides the text on screen, but allows for screenreader to be read.
+- check if material ui is accessible?
 
 <br/>
 
@@ -88,122 +168,82 @@ Ensure accessibility throughout the website by:
 
 <hr>
 
-The following technologies have been used in this project:
+Django on the backend where we'll build out the database and API
+React on the frontend
+Connect these two, put them up on a live server using heroku, postgress for the database.
 
-- React
+<br/>
 
-- SASS
+### Languages, Frameworks, Libraries & Programs Used
 
-- [Heroku](https://heroku.com/)
-  - Used to deploy the project.
-- [HTML](https://www.w3.org/TR/html52/)
-  - Used to structure and presenting the web content.
-- [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
-  - Used to make the website interactive.
-- [FontAwesome](https://fontawesome.com/)
-  - Font Awesome was used throughout the website to add icons for better aesthetic and UX purposes. <br/><br/>
+**Backend**
 
-## Technologies Used
-
-### Languages Used
-
-- [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
 - [Python 3.8.2](https://www.python.org/download/releases/3.0/)
-  - Python was used to implement a back-end, by creating the CRUD functionality.
+- [Django](https://www.djangoproject.com/)
+
+  To install, run:
+
+  ```
+  pip install django
+  django-admin startproject backend
+  cd backend
+  python manage.py runserver
+  ```
+
+  To create a base app where the views and models are written:
+
+  ```
+  python manage.py startapp base
+  ```
+
+  - `models.py` contains all the models for this project.
+  - the views and urls are divided into three main sections for clarity
+    - order
+    - plant
+    - user
+
+- [Django REST framework](https://www.django-rest-framework.org/)
+
+  - Django REST framework allows for more flexible and powerful building of web APIs
+
+  To install, run:
+
+  ```
+  pip install djangorestframework
+  ```
+
+- [Pillow](https://pillow.readthedocs.io/en/stable/)
+
+  - Pillow is an image processing library that allows for interpretation of images.
+
+  To install, run:
+
+  ```
+  pip install pillow
+  ```
+
+- [Django cors headers](https://pypi.org/project/django-cors-headers/)
+
+**Frontend**
+
+- [JavaScript](https://en.wikipedia.org/wiki/JavaScript)
 - [HTML5](https://en.wikipedia.org/wiki/HTML5)
 - [CSS3](https://en.wikipedia.org/wiki/Cascading_Style_Sheets)
-
-### Frameworks, Libraries & Programs Used
-
-BE
-
-- Django
-- [Django REST framework](https://www.django-rest-framework.org/)
-- Pillow - image processing library
-- Django cors headers https://pypi.org/project/django-cors-headers/
-
-FE
-
 - [React](https://reactjs.org/)
-- axios
-- react-query
-- MSW for testing
 
-  - Using React for my project was pre-approved by my mentor, Narender Singh, with the permission from Code Institute.
   - React is a JavaScript library used for building user interfaces through encapsulated components that manage their own state.
 
-  To create a React project, run:
+- [Typescript](https://www.typescriptlang.org/)
+
+  - TypeScript is a strongly typed programming language that builds on JavaScript, with a tight integration to VS Code editor.
+  - It's main advantage is **it allows to catch errors early in the editor**.
+
+  To [create](https://create-react-app.dev/docs/adding-typescript/) a React project with Typescript
 
   ```
-  npx create-react-app frontend
+  npx create-react-app my-app --template typescript
   cd frontend
   yarn start
-  ```
-
-- [SASS](https://sass-lang.com/)
-
-  - Sass is a stylesheet language that’s compiled to CSS. It allows you to use variables, nested rules, mixins, functions, and more, all with a fully CSS-compatible syntax. Sass helps keep large stylesheets well-organized and makes it easy to share design within and across projects.
-
-  To add a SASS stylesheet, run:
-
-  ```
-  yarn add node-sass
-  ```
-
-- [ES Lint](https://eslint.org/) and [Prettier](https://github.com/prettier/prettier)
-
-  - ESLint was used to statically analyze the code to quickly find problems. It enforces good code-quality.
-  - Prettier was used to automatically format the code as it is saved to mitigate code errors/conflicts.
-
-  To install these dependencies, run:
-
-  ```
-  npm i --save-dev eslint@6.8.0 prettier eslint-config-prettier eslint-plugin-prettier eslint-plugin-react eslint-plugin-react-hook
-  ```
-
-  Modify `package.json`
-
-  ```
-  {
-    "scripts": {
-  ... add the following two line
-        "lint": "eslint --fix .",
-        "lint-check": "eslint ."
-    }
-  }
-  ```
-
-  To configure the linter, create a file named `.eslintrc.js` at the root of the project with the following:
-
-  ```
-  module.exports = {
-  extends: [
-    'plugin:react/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:prettier/recommended',
-  ],
-  env: {
-    es6: true,
-    node: true,
-    browser: true,
-  },
-  parserOptions: {
-    ecmaVersion: 8,
-    sourceType: 'module',
-    ecmaFeatures: {
-      jsx: true,
-    },
-  },
-  ignorePatterns: ['/node_modules/**', '/build/**'],
-  rules: {
-    'no-unused-vars': ['warn', { args: 'none', argsIgnorePattern: 'req|res|next|val' }],
-    'prettier/prettier': ['error'],
-  },  settings: {
-    react: {
-      version: 'detect',
-    },
-  },
-  };
   ```
 
 - [Axios](https://github.com/axios/axios)
@@ -214,7 +254,18 @@ FE
   To install, run:
 
   ```
-  npm install axios
+  yarn add axios
+  ```
+
+- [react-query](https://react-query.tanstack.com/)
+
+  - React Query is a library that manages server state for your react app.
+  - React Query makes fetching, caching, synchronizing and updating server state in your React applications simpler. For more information, see this [part](https://react-query.tanstack.com/overview) of the documentation.
+
+  To install, run:
+
+  ```
+  yarn add react-query
   ```
 
 - [react-router-dom](https://reactrouter.com/web/guides/quick-start)
@@ -224,18 +275,33 @@ FE
   To install:
 
   ```
-  npm install react-router-dom
+  yarn add react-router-dom
   ```
+
+- [react-hook-form](https://react-hook-form.com/)
+
+  To install:
+
+  ```
+  yarn add react-hook-form
+  ```
+
+- [material ui](https://mui.com/)
+
+  - Material UI component library was used for this project to reduce the risk of variation throughout the application.
+  - Using a component library allows for faster builds in the frontend.
+
+- [Heroku](https://heroku.com/)
+  - Used to deploy the project.
 
 ## Testing
 
+- MSW for testing
 <hr>
 
 The W3C Markup Validator and W3C CSS Validator Services were used to validate every page of the project to ensure there were no syntax errors in the project.
 
 - [W3C Markup Validator](https://validator.w3.org/#validate_by_uri) <br>
-
-added on `<section>` tags, with a class name of `sr-only` so it does not appear on the page and not change the current UI, but avoid the warning.
 
 - [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_uri) <br>
 
@@ -279,24 +345,6 @@ added on `<section>` tags, with a class name of `sr-only` so it does not appear 
 ### Heroku
 
 1. Create a heroku account. Create a new app and select your region.
-2. Prepare the local workspace for Heroku. Create a `requirements.txt` file by:
-   ```
-   pip3 freeze --local > requirements.txt
-   ```
-3. Create a Procfile
-   ```
-   echo web: python app.py > Procfile
-   ```
-4. Setup the configuration variables in heroku, by: <br>
-   IP = 0.0.0.0 <br>
-   PORT = 5000 <br>
-   MONGO_URI = mongo_db_uri <br>
-   SECRET_KEY = your_secret_key <br>
-   MONGO_DBNAME = your_database_name <br>
-
-5. Connect the GitHub repository to the project and allow for automatic deployment.
-   <br>
-   <br>
 
 ### Forking the GitHub Repository
 
@@ -333,5 +381,3 @@ git clone https://github.com/USERNAME/REPOSITORY
 
 - Background image from unsplash https://unsplash.com/photos/yb3hsmz4utg
 - All content was written by the developer.
-
-### Acknowledgements
