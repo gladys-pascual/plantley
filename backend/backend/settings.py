@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 from datetime import timedelta
 from pathlib import Path
+import django_heroku
+
 
 import environ
 # Initialise environment variables
@@ -205,3 +207,7 @@ STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
 
 if os.getcwd() == '/app':
     DEBUG = False
+
+
+# Activate Django-Heroku.
+django_heroku.settings(locals())
