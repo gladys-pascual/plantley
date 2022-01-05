@@ -1,4 +1,4 @@
-<h1 align="center">Platley</h1>
+<h1 align="center">Plantley</h1>
 
 [View the live project here.]()
 
