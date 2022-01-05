@@ -294,23 +294,13 @@ Connect these two, put them up on a live server using heroku, postgress for the 
 
 ## Testing
 
-- MSW for testing
+- [msw](https://mswjs.io/)
+  - used in the frontend / React application to mock the endpoint in order to test the component.
+  - HomePage and PlantDetailPage were tested to make sure that the pages render as expected, using [react-testing-library](https://testing-library.com/docs/react-testing-library/intro/). This library's principle of testing is to avoid including implementation details of your components and rather focus on making your tests give you the confidence for which they are intended, such as what the user sees.
+    `backend/frontend/src/pages/HomePage/HomePage.test.tsx`
+    `backend/frontend/src/pages/PlantDetailPage/PlantDetailPage.test.tsx`
+
 <hr>
-
-The W3C Markup Validator and W3C CSS Validator Services were used to validate every page of the project to ensure there were no syntax errors in the project.
-
-- [W3C Markup Validator](https://validator.w3.org/#validate_by_uri) <br>
-
-- [W3C CSS Validator](https://jigsaw.w3.org/css-validator/#validate_by_uri) <br>
-
-1. The following errror appeared:
-
-<br>
-<br>
-
-<br>
-
-### During the development, the following issues were encountered:
 
 ### Manual testing were also performed to ensure that the application works as intended. During this, the following errors were found and were rectified:
 
@@ -335,13 +325,24 @@ Initial Solution: https://dev.to/lawrence_eagles/causes-of-heroku-h10-app-crashe
 Did not work. Figured out that the file structure was incorrect. Procfile needs to be on the same level as manage.py
 <br>
 
-4. In the deployed app, when paying for an item, after successfully paying, we get this error page. Order database table and stripe payment in the account was checked. The problem was since we're using `hashrouter`, a '#' is needed in the URL, which is not included when `window.location` is used.
+4. In the deployed app, when paying for an item, after successfully paying, we get this error page. Order database table and stripe payment in the account was checked. The problem was since we're using `hashrouter`, the order of `payment_intent` and `hash` is different. To solve, a `useEffect` is written to run the following logic when the component is rendered
 
-  <img src='./README_IMAGES/hashrouter.png' alt='hashrouter'>
+```
+ React.useEffect(() => {
+    if (window.location.href.endsWith('/success')) {
+      const cleanUrl = window.location.href.split(window.location.hash)[0];
+      const stripeQueryParams = cleanUrl.split(window.location.origin + '/')[1];
+      navigate(`/order/${id}/success${stripeQueryParams}`);
+    }
+  }, [id, navigate]);
+```
 
+In this logic, we're splitting the URL to get the query params that stripe gives back, so we can use it on the PUT request that will update if the order is paid.
+
+To solve,
 <br>
 
-4. xxxxxxxxxxx
+1. xxxxxxxxxxx
 
 <br>
 
