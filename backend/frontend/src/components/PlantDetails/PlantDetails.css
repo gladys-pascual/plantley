@@ -1,0 +1,127 @@
+.plant-details-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.plant-details {
+  width: 90vw;
+}
+
+.pic-and-info {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.plant-img-wrapper {
+  width: 40vw;
+}
+
+.plant-img {
+  width: 100%;
+}
+
+.info .plant-name {
+  font-weight: 300;
+  letter-spacing: 2px;
+}
+
+.info .price {
+  color: green;
+}
+
+.info {
+  margin-left: 60px;
+  width: 40vw;
+}
+
+.plant-details .body-text {
+  line-height: 28px;
+  letter-spacing: 0.5px;
+}
+
+.add-to-cart {
+  display: flex;
+  justify-content: center;
+}
+
+.counter {
+  display: flex;
+  width: 190 px;
+  padding-right: 32px;
+}
+
+.counter-action {
+  border: none;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 12px;
+  cursor: pointer;
+  outline: none;
+  background-color: #dcdcdc;
+  border: 0.5px solid #dcdcdc;
+  border-radius: 4px;
+}
+
+.increment:hover,
+.decrement:hover {
+  background: #fdd6c6;
+  border: 0.5px solid #fdd6c6;
+}
+
+.disable-decrement {
+  background-color: white;
+  cursor: auto;
+  border: 0.5px solid #dcdcdc;
+  border-radius: 4px;
+}
+
+.counter-score {
+  flex-grow: 1;
+  text-align: center;
+  font-size: 16px;
+  align-self: center;
+  padding: 0px 8px;
+  width: 30px;
+}
+
+.care-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.care {
+  width: 85vw;
+}
+
+.cart-link {
+  color: black;
+  font-weight: 600;
+  letter-spacing: 1px;
+}
+
+@media only screen and (max-width: 1000px) {
+  .pic-and-info {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .plant-img-wrapper {
+    width: 80vw;
+    margin-bottom: 40px;
+  }
+
+  .plant-img {
+    width: 100%;
+  }
+
+  .info {
+    margin-left: 0;
+    width: 80vw;
+  }
+
+  .care {
+    width: 80vw;
+  }
+}

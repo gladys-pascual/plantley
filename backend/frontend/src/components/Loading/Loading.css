@@ -1,0 +1,24 @@
+.skeleton-group-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 80px;
+}
+
+.skeleton-group {
+  display: flex;
+}
+
+.skeleton {
+  width: 30vw;
+  margin-left: 20px;
+}
+
+@media only screen and (max-width: 900px) {
+  .skeleton-group {
+    flex-direction: column;
+  }
+  .skeleton {
+    width: 90vw;
+    margin: 20px 0px;
+  }
+}
