@@ -345,6 +345,8 @@ In this logic, we're splitting the URL to get the query params that stripe gives
    <img src='./README_IMAGES/image_upload_error' alt='error on image'>
    <br>
 
+6. When logging in for the first time (no token in local storage yet), an error on the page occurs. This is because 'null' is sent as a bearer token, which is not valid. When refreshed, the component is rendered again and the actual bearer token is submitted, and the account details page is shown. Unfortunately due to lack of time, this wasn't solved properly.
+
 ## Deployment
 
 <hr>
