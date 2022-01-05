@@ -10,13 +10,13 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+import environ
 import os
 from datetime import timedelta
 from pathlib import Path
 import django_heroku
 
 
-import environ
 # Initialise environment variables
 env = environ.Env()
 environ.Env.read_env()
@@ -145,6 +145,8 @@ DATABASES = {
     }
 }
 
+# Activate Django-Heroku.
+django_heroku.settings(locals())
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -203,11 +205,3 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Stripe
 STRIPE_SECRET_KEY = env('STRIPE_SECRET_KEY')
-
-
-if os.getcwd() == '/app':
-    DEBUG = False
-
-
-# Activate Django-Heroku.
-django_heroku.settings(locals())
