@@ -1,3 +1,4 @@
-/.vscode
-/get-pip.py
-myenv/
+*.sqlite3
+*.pyc
+__pycache__
+*.env
