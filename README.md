@@ -374,7 +374,7 @@ git clone https://github.com/USERNAME/REPOSITORY
 
 ### Code
 
-- xxx
+- Setting up environment to hide stripe secret key in django: [link](https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f)
 - xxx
 
 ### Content
