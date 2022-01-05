@@ -1,6 +1,6 @@
 <h1 align="center">Plantley</h1>
 
-[View the live project here.]()
+[View the live project here.](https://plantley.herokuapp.com)
 
 Plantley is an ecommerce site that allow customers to buy houseplants. Customers can create an account, but they can also buy plants without signing in.
 
@@ -339,12 +339,11 @@ Did not work. Figured out that the file structure was incorrect. Procfile needs 
 
 In this logic, we're splitting the URL to get the query params that stripe gives back, so we can use it on the PUT request that will update if the order is paid.
 
-To solve,
 <br>
 
-1. xxxxxxxxxxx
-
-<br>
+5. There was an issue on uploading an image when creating a plant item during deployment. If the user doesn't put an image, a default placeholder picture is uploaded, as intended. If an image was attempted to be uploaded, the image doesn't render corerctly. To try and figure out the issue, I tried uploading an image when deployed locally (through http://127.0.0.1:8000/) but using heroku database. This way, the images are seen in `backend/static/images` when uploaed and rendered in the frontend. Unfortunately, due to lack of time, this issue in production was not solved. The furthest debug that I was able to do was that in production, the image Response Header Content-Type is 'text/html', instead of a 'Content-Type: image/jpeg'. The solution I would do next would be something to do with ensuring that the content type on the response is corrected.
+   <img src='./README_IMAGES/image_upload_error' alt='error on image'>
+   <br>
 
 ## Deployment
 
@@ -396,7 +395,6 @@ git clone https://github.com/USERNAME/REPOSITORY
 ### Code
 
 - Setting up environment to hide stripe secret key in django: [link](https://alicecampkin.medium.com/how-to-set-up-environment-variables-in-django-f3c4db78c55f)
-- xxx
 
 ### Content
 
