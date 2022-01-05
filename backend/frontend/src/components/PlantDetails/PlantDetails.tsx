@@ -83,7 +83,7 @@ const PlantDetails = ({ plantDetails, handleAddToCart }: PlantDetailsProp) => {
         <div className="plant-details">
           <div className="pic-and-info">
             <div className="plant-img-wrapper">
-              <img src={`/static${image}`} alt={name} className="plant-img" />
+              <img src={`static${image}`} alt={name} className="plant-img" />
             </div>
             <div className="info">
               <Typography
