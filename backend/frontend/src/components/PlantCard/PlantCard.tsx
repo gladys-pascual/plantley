@@ -22,7 +22,7 @@ const PlantCard = ({ image, name, price, id }: PlantCardProps) => {
           <CardMedia
             component="img"
             height="300"
-            image={`${image}`}
+            image={`/static${image}`}
             alt={name}
           />
           <CardContent>

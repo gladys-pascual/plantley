@@ -31,7 +31,7 @@ const CartItem = ({ item, handleRemoveToCart }: CartItemProps) => {
           <div className="cart-item-details">
             <div className="cart-img-wrapper">
               <img
-                src={`${plantDetails.image}`}
+                src={`/static${plantDetails.image}`}
                 alt={plantDetails.name}
                 className="cart-img"
               />
