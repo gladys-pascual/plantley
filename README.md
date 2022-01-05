@@ -326,8 +326,9 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
 
 <br>
 
-1. xxxxxxxx
+2022-01-05T03:56:27.861498+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=plantley.herokuapp.com request_id=08c84731-9dce-4bbc-b1b6-dad33197e97b fwd="64.43.25.141" dyno= connect= service= status=503 bytes= protocol=https
 
+2022-01-05T03:56:28.167364+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=plantley.herokuapp.com request_id=c618b704-0717-4523-a392-2cd30c6f3e3f fwd="64.43.25.141" dyno= connect= service= status=503 bytes= protocol=https
 <br>
 
 3. xxxxxxxx
