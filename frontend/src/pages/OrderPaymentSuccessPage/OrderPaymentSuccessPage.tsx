@@ -1,5 +1,10 @@
 import * as React from 'react';
-import { Link, useParams, useSearchParams } from 'react-router-dom';
+import {
+  Link,
+  useNavigate,
+  useParams,
+  useSearchParams,
+} from 'react-router-dom';
 import { useOrder } from '../../hooks/useOrder';
 import { Grid } from '@mui/material';
 import { useUpdateOrderToPaid } from '../../hooks/useUpdateOrderToPaid';
@@ -9,6 +14,7 @@ import AlertTitle from '@mui/material/AlertTitle';
 
 const OrderPaymentSuccessPage = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const { orderDetails, orderDetailsError, orderDetailsLoading } = useOrder(
     id!
@@ -30,12 +36,19 @@ const OrderPaymentSuccessPage = () => {
     }
   }, [orderDetails, updateOrderToPaid, searchParams]);
 
+  React.useEffect(() => {
+    if (window.location.href.endsWith('/success')) {
+      const cleanUrl = window.location.href.split(window.location.hash)[0];
+      const stripeQueryParams = cleanUrl.split(window.location.origin + '/')[1];
+      navigate(`/order/${id}/success${stripeQueryParams}`);
+    }
+  }, [id, navigate]);
+
   if (orderDetailsLoading || updateOrderToPaidLoading) {
     return <Loading />;
   }
 
   if (updateOrderToPaidError || orderDetailsError) {
-    // if (true) {
     return (
       <Grid container sx={{ p: 4 }}>
         <Alert severity="error" sx={{ width: '100%' }}>
