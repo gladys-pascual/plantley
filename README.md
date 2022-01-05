@@ -160,8 +160,6 @@ _Payment flow_
 - `alt` were passed on all the images
 - react-hook-form, the library used for the forms, accomodates keyboard actions such as tabbing into different inputs and enter key to submit the form.
 
-- check if material ui is accessible?
-
 <br/>
 
 ## Technologies Used
@@ -326,12 +324,20 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
 
 <br>
 
+3.  Error during deployment on heroku
+
 2022-01-05T03:56:27.861498+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=plantley.herokuapp.com request_id=08c84731-9dce-4bbc-b1b6-dad33197e97b fwd="64.43.25.141" dyno= connect= service= status=503 bytes= protocol=https
 
 2022-01-05T03:56:28.167364+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=plantley.herokuapp.com request_id=c618b704-0717-4523-a392-2cd30c6f3e3f fwd="64.43.25.141" dyno= connect= service= status=503 bytes= protocol=https
+
+Initial Solution: https://dev.to/lawrence_eagles/causes-of-heroku-h10-app-crashed-error-and-how-to-solve-them-3jnl
+
+Did not work. Figured out that the file structure was incorrect. Procfile needs to be on the same level as manage.py
 <br>
 
-3. xxxxxxxx
+4. In the deployed app, when paying for an item, after successfully paying, we get this error page. Order database table and stripe payment in the account was checked. The problem was since we're using `hashrouter`, a '#' is needed in the URL, which is not included when `window.location` is used.
+
+  <img src='./README_IMAGES/hashrouter.png' alt='hashrouter'>
 
 <br>
 
@@ -346,6 +352,19 @@ The W3C Markup Validator and W3C CSS Validator Services were used to validate ev
 ### Heroku
 
 1. Create a heroku account. Create a new app and select your region.
+2. Prepare the local workspace for Heroku. Create a requirements.txt file by:
+
+```
+pip3 freeze --local > requirements.txt
+```
+
+3. Create a Procfile and put:
+
+```
+ web: gunicorn backend.wsgi --log-file -
+```
+
+4. Connect the GitHub repository to the project and allow for automatic deployment.
 
 ### Forking the GitHub Repository
 
@@ -380,5 +399,5 @@ git clone https://github.com/USERNAME/REPOSITORY
 
 ### Content
 
-- Background image from unsplash https://unsplash.com/photos/yb3hsmz4utg
+- Background image from [unsplash](https://unsplash.com/photos/yb3hsmz4utg)
 - All content was written by the developer.
