@@ -67,7 +67,8 @@ export default function PaymentForm({ orderId }: PaymentFormProps) {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: `${window.location.origin}/#/order/${orderId}/success`,
+        return_url: `${process.env
+          .REACT_APP_HOSTNAME!}/#/order/${orderId}/success`,
       },
     });
 
